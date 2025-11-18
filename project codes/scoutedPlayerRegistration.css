@@ -1,0 +1,328 @@
+:root {
+    --bg-1: #061726;
+    --bg-2: #08233a;
+    --card: rgba(255, 255, 255, 0.98);
+    --accent: #06b6d4;
+    --accent-2: #7c3aed;
+    --muted: #94a3b8;
+    --danger: #ef4444;
+    --success: #10b981;
+}
+
+/* Page background */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    color: #e6eef8;
+}
+
+/* Header - matching login */
+.site-header {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(12, 24, 40, 0.95), rgba(6, 18, 30, 0.9));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 18px 28px;
+    box-shadow: 0 6px 24px rgba(2, 6, 23, 0.45);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.site-logo {
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+                url("images/bufc-logo.jpg") center/cover;
+    box-shadow: inset 0 -6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.header-center {
+    text-align: center;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.site-subtitle {
+    margin: 4px 0 0;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Main Container */
+.main-container {
+    max-width: 800px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+/* Registration Card - glassmorphism like login */
+.registration-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 12px 40px rgba(2, 6, 23, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(6px);
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.75rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.card-subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+}
+
+.alert-error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Form Sections */
+.form-section {
+    margin-bottom: 32px;
+}
+
+.section-divider {
+    font-size: 1.1rem;
+    color: #e6f0ff;
+    font-weight: 600;
+    margin: 28px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Form Rows - Two columns */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+}
+
+.form-group input::placeholder {
+    color: rgba(235, 245, 255, 0.4);
+}
+
+/* Select dropdown styling */
+select option {
+    background: #1e293b;
+    color: white;
+    padding: 12px;
+}
+
+select option[value=""] {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Read-only field */
+.readonly-field {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Field Hints */
+.field-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(148, 163, 184, 0.8);
+    margin-top: 6px;
+}
+
+/* Form Errors */
+.form-errors {
+    color: #fca5a5;
+    font-size: 0.9rem;
+    margin: 16px 0;
+    padding: 12px 16px;
+    background: rgba(239, 68, 68, 0.15);
+    border-radius: 8px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    display: none;
+}
+
+.form-errors:not(:empty) {
+    display: block;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(6, 182, 212, 0.25);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Form Footer */
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.link-back {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.link-back:hover {
+    text-decoration: underline;
+    color: #67e8f9;
+}
+
+/* Validation states */
+.form-group input:invalid:not(:placeholder-shown),
+.form-group select:invalid {
+    border-color: var(--danger);
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+    border-color: var(--success);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .site-logo {
+        width: 72px;
+        height: 72px;
+    }
+
+    .site-title {
+        font-size: 1.8rem;
+    }
+
+    .main-container {
+        margin: 24px auto 40px;
+    }
+
+    .registration-card {
+        padding: 24px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.5rem;
+    }
+
+    .registration-card {
+        padding: 20px;
+    }
+}
