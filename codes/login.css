@@ -108,7 +108,7 @@ body {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1000&auto=format&fit=crop');
+  background-image: url('images/login-background.avif');
   background-size: cover;
   /* ADJUSTED: Shift background position to try and hide the light circle */
   background-position: center 30%; /* Shifted down slightly */
