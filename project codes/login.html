@@ -2,135 +2,104 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>BUFC — Login / Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BUFC Portal</title>
     <link rel="stylesheet" href="login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- Top-most header (separate from the portal card) -->
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="header-left">
-          <div class="site-logo" id="siteLogo" title="BUFC logo (empty)"></div>
-        </div>
-        <div class="header-center">
-          <!-- text is present in DOM so CSS can animate it -->
-          <div id="bigWelcome" class="big-welcome">Welcome to BUFC</div>
-          <div class="subtitle">BRAC University Football Club</div>
-        </div>
-        <div class="header-right">
-          <!-- reserved for future actions (empty) -->
-        </div>
-      </div>
-    </header>
 
-    <main class="container">
-      <section class="card">
-        <header class="card-head">
-          <div class="brand-copy">
-            <div class="site-title">Team Portal</div>
-            <!-- small welcome inside card (animated via CSS, delayed) -->
-            <div id="welcomeTextSmall" class="welcome-text-small">
-              Sign in to your Team Portal
-            </div>
+    <div class="split-screen">
+      
+      <div class="brand-panel">
+        <div class="brand-content">
+          <div class="logo-circle">
+            <img src="bufc-logo.jpg" alt="BUFC Logo">
+          </div>
+          <h1>BRAC University <br>Football Club</h1>
+          <p class="tagline">Manage your team. Track your stats. Dominate the field.</p>
+        </div>
+        <div class="brand-overlay"></div>
+      </div>
+
+      <div class="form-panel">
+        <div class="form-wrapper">
+          
+          <div class="auth-tabs">
+            <a href="#login" id="link-login" class="tab active">Log in</a>
+            <a href="#signup" id="link-signup" class="tab">Sign up</a>
           </div>
 
-          <nav class="nav-links">
-            <a href="#login" id="link-login" class="nav-link">Login</a>
-            <a href="#signup" id="link-signup" class="nav-link">Sign up</a>
-          </nav>
-        </header>
+          <div id="panel-login" class="panel fade-in">
+            <div class="header-text">
+              <h2>Welcome back</h2>
+              <p>Enter your credentials to access the locker room.</p>
+            </div>
 
-        <!-- <div id="serverNote" class="server-note" aria-live="polite" role="status"></div> -->
+            <form id="loginForm" action="login.php" method="post">
+              <div class="input-group">
+                <label for="login-role">I am a</label>
+                <div class="select-wrapper">
+                  <select id="login-role" name="role" required>
+                    <option value="player">Player</option>
+                    <option value="coach">Coach</option>
+                  </select>
+                </div>
+              </div>
 
-        <!-- LOGIN PANEL -->
-        <div id="panel-login" class="panel panel-login">
-          <h2>Login</h2>
-          <form id="loginForm" action="login.php" method="post">
-            <label for="login-role">Login as</label>
-            <select id="login-role" name="role" required>
-              <option value="player">Player</option>
-              <option value="coach">Coach</option>
-            </select>
+              <div class="input-group">
+                <label for="login-identifier">Email or Username</label>
+                <input id="login-identifier" name="identifier" type="text" placeholder="e.g. striker@bufc.com" required />
+              </div>
 
-            <label for="login-identifier">Email or Username</label>
-            <input
-              id="login-identifier"
-              name="identifier"
-              type="text"
-              placeholder="you@example.com or username"
-              required
-            />
+              <div class="input-group">
+                <label for="login-password">Password</label>
+                <input id="login-password" name="password" type="password" placeholder="••••••••" required />
+              </div>
 
-            <label for="login-password">Password</label>
-            <input
-              id="login-password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              required
-            />
+              <button type="submit" class="btn-primary">Sign in</button>
+            </form>
+          </div>
 
-            <button type="submit" class="btn">Log in</button>
-          </form>
+          <div id="panel-signup" class="panel hidden fade-in">
+            <div class="header-text">
+              <h2>Join the squad</h2>
+              <p>Create your player profile to get started.</p>
+            </div>
 
-          <p class="meta">
-            New here? <a href="#signup" id="goto-signup">Create an account</a>
-          </p>
+            <form id="signupForm" action="signup.php" method="post">
+              <div class="input-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" placeholder="Choose a username" required />
+              </div>
+
+              <div class="input-group">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="row">
+                <div class="input-group">
+                  <label for="password">Password</label>
+                  <input id="password" name="password" type="password" placeholder="6+ chars" required />
+                </div>
+                <div class="input-group">
+                  <label for="confirm">Confirm</label>
+                  <input id="confirm" name="confirm_password" type="password" placeholder="Repeat" required />
+                </div>
+              </div>
+
+              <div id="signupErr" class="inline-error"></div>
+
+              <button type="submit" class="btn-primary">Create account</button>
+            </form>
+          </div>
+
+          <p class="copyright">© 2025 BUFC Portal</p>
+
         </div>
-
-        <!-- SIGNUP PANEL -->
-        <div id="panel-signup" class="panel panel-signup hidden">
-          <h2>Sign up (New Player)</h2>
-          <form id="signupForm" action="signup.php" method="post">
-            <label for="username">Username</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="username"
-              required
-            />
-
-            <label for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              required
-            />
-
-            <label for="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="At least 6 characters"
-              required
-            />
-
-            <label for="confirm">Confirm password</label>
-            <input
-              id="confirm"
-              name="confirm_password"
-              type="password"
-              placeholder="Repeat password"
-              required
-            />
-
-            <div id="signupErr" class="inline-error" aria-live="polite"></div>
-
-            <button type="submit" class="btn">Create account</button>
-          </form>
-
-          <p class="meta">
-            Already have an account?
-            <a href="#login" id="goto-login">Sign in</a>
-          </p>
-        </div>
-      </section>
-    </main>
+      </div>
+    </div>
 
     <script src="login.js"></script>
   </body>
