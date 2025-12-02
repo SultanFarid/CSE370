@@ -2,95 +2,219 @@
 session_start();
 require_once('dbconnect.php');
 
-// Check if user is logged in, if not redirect to login
+// 1. GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
 
-// Get user data from database
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE user_id = '$user_id'";
-$result = mysqli_query($conn, $query);
-$user = mysqli_fetch_assoc($result);
+$role = $_SESSION['user_role'];
+
+// 2. FETCH BASE DATA
+$query_base = "SELECT * FROM users u 
+               JOIN Player p ON u.User_ID = p.Player_ID 
+               WHERE u.User_ID = '$user_id'";
+$result_base = mysqli_query($conn, $query_base);
+$base = mysqli_fetch_assoc($result_base);
+
+// 3. FETCH ROLE SPECIFIC DATA
+$spec = [];
+if ($role == 'regular_player') {
+    $q = "SELECT * FROM Regular_Player WHERE Regular_Player_ID = '$user_id'";
+    $spec = mysqli_fetch_assoc(mysqli_query($conn, $q));
+} else {
+    $q = "SELECT * FROM Scouted_Player WHERE Scouted_Player_ID = '$user_id'";
+    $spec = mysqli_fetch_assoc(mysqli_query($conn, $q));
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUFC - Player Dashboard</title>
+    <title>Profile - BUFC</title>
     <link rel="stylesheet" href="playerProfile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header matching login page -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="header-left">
-                <div class="site-logo" title="BUFC logo"></div>
+
+<div class="dashboard-container">
+    
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="playerProfile.php" class="nav-item active">Profile</a>
+
+            <?php if ($role == 'regular_player'): ?>
+                <a href="mySquad.php" class="nav-item">My Squad</a>
+                <a href="medicalReport.php" class="nav-item">Medical Report</a>
+            <?php endif; ?>
+
+            <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
+
+            <?php if ($role == 'regular_player'): ?>
+                <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
+                <a href="coaches.php" class="nav-item">Coaches</a>
+                <a href="pointsTable.php" class="nav-item">Points Table</a>
+                <a href="fixtures.php" class="nav-item">Fixtures</a>
+            <?php endif; ?>
+
+            <a href="logout.php" class="nav-item logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        
+        <header class="top-header">
+            <div class="brand-group">
+                <img src="images/bufc-logo.jpg" alt="Logo" class="header-logo">
+                <div class="header-text-group">
+                    <h1>WELCOME TO BUFC</h1>
+                    <p class="slogan">Together We Triumph</p>
+                </div>
             </div>
-            <div class="header-center">
-                <div class="big-welcome">Player Dashboard</div>
-                <div class="subtitle">BRAC University Football Club</div>
+        </header>
+
+        <div class="profile-container fade-in">
+            
+            <div class="top-section">
+                <div class="photo-box">
+                    <div class="photo-placeholder">
+                        <img src="images/players/<?php echo $user_id; ?>.jpg" alt="No Photo" onerror="this.style.display='none'; this.parentNode.innerText='Photo'">
+                    </div>
+                </div>
+
+                <div class="details-box">
+                    <div class="details-header">
+                        <div class="header-left-group">
+                            <h2 class="player-name"><?php echo htmlspecialchars($base['Name']); ?></h2>
+                            <?php if ($role == 'regular_player'): ?>
+                                <span class="role-pill">First Team</span>
+                            <?php else: ?>
+                                <span class="role-pill status-<?php echo strtolower($spec['Application_Status']); ?>">
+                                    <?php echo htmlspecialchars($spec['Application_Status']); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                        <a href="editPlayerProfile.php" class="edit-btn">Edit Profile</a>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Age</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Age']); ?> Years</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Date of Birth</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Date_of_Birth']); ?></div>
+                        </div>
+                        <div class="info-item">
+                            <label>Phone</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Phone_No']); ?></div>
+                        </div>
+                        <div class="info-item">
+                            <label>Position</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Position']); ?></div>
+                        </div>
+                        <div class="info-item">
+                            <label>Foot</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Preferred_foot']); ?></div>
+                        </div>
+                        <div class="info-item">
+                            <label>Injury Status</label>
+                            <div class="val status-<?php echo strtolower(str_replace(' ', '-', $base['Current_Injury_Status'])); ?>">
+                                <?php echo htmlspecialchars($base['Current_Injury_Status']); ?>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <label>Height</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Height']); ?> cm</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Weight</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Weight']); ?> kg</div>
+                        </div>
+                        <div class="info-item">
+                            <label>NID</label>
+                            <div class="val"><?php echo $base['NID'] ? htmlspecialchars($base['NID']) : 'N/A'; ?></div>
+                        </div>
+                        <div class="info-item full">
+                            <label>Email</label>
+                            <div class="val"><?php echo htmlspecialchars($base['Email']); ?></div>
+                        </div>
+                        <div class="info-item full">
+                            <label>Address</label>
+                            <div class="val"><?php echo $base['Address'] ? htmlspecialchars($base['Address']) : 'N/A'; ?></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="header-right">
-                <a href="logout.php" class="logout-btn">Logout</a>
+
+            <hr class="divider-line">
+
+            <div class="bottom-section">
+                <h3>Additional Information</h3>
+                
+                <?php if ($role == 'scouted_player'): ?>
+                    <div class="info-content">
+                        <div class="data-row">
+                            <span class="data-label">Experience:</span> <?php echo $spec['Scouted_Player_Experience']; ?>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Previous Club:</span> <?php echo $spec['Scouted_Player_Previous_Club']; ?>
+                        </div>
+                        <div class="bio-box">
+                            <label>Bio</label>
+                            <p>"<?php echo htmlspecialchars($spec['Bio']); ?>"</p>
+                        </div>
+                    </div>
+
+                <?php else: ?>
+                    <div class="split-grid">
+                        
+                        <div class="info-content">
+                            <h4 class="box-title">Season Stats</h4>
+                            <div class="stats-row">
+                                <div class="stat-pill">
+                                    <span class="lbl">Jersey</span>
+                                    <span class="num">#<?php echo $spec['Jersey_No']; ?></span>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="lbl">Goals</span>
+                                    <span class="num"><?php echo $spec['Goals_Scored']; ?></span>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="lbl">Matches</span>
+                                    <span class="num"><?php echo $spec['Matches_Played']; ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-content">
+                            <h4 class="box-title">Contract Info</h4>
+                            <div class="stats-row">
+                                <div class="stat-pill">
+                                    <span class="lbl">Salary</span>
+                                    <span class="num" style="color: #16a34a; font-size: 1.2rem;">$<?php echo number_format($base['salary']); ?></span>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="lbl">Start</span>
+                                    <span class="num" style="font-size: 1rem;"><?php echo $base['contract_start_date']; ?></span>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="lbl">End</span>
+                                    <span class="num" style="font-size: 1rem;"><?php echo $base['contract_end_date']; ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <?php endif; ?>
             </div>
+
         </div>
-    </header>
-
-    <main class="dashboard-container">
-        <!-- Welcome Section -->
-        <section class="welcome-section">
-            <div class="welcome-card">
-                <h2>Welcome, <?php echo $user['user_name']; ?>!</h2>
-                <p>Player ID: <?php echo $user['user_id']; ?></p>
-            </div>
-        </section>
-
-        <!-- Navigation Grid -->
-        <section class="nav-grid">
-            <div class="nav-card" onclick="location.href='home.php'">
-                <h3>Home Page</h3>
-                <p>Main dashboard</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='profile.php'">
-                <h3>Profile</h3>
-                <p>Your personal info</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='squad.php'">
-                <h3>My Squad</h3>
-                <p>Team members</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='medical.php'">
-                <h3>Medical Report</h3>
-                <p>Health status</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='training.php'">
-                <h3>Training Sessions</h3>
-                <p>Schedule & drills</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='nextmatch.php'">
-                <h3>Next Match Squad</h3>
-                <p>Lineup & tactics</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='points.php'">
-                <h3>Points Table</h3>
-                <p>League standings</p>
-            </div>
-            
-            <div class="nav-card" onclick="location.href='fixtures.php'">
-                <h3>Fixtures</h3>
-                <p>Match schedule</p>
-            </div>
-        </section>
-    </main>
+    </div>
 
     <script src="playerProfile.js"></script>
 </body>

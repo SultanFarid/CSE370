@@ -2,66 +2,88 @@
 session_start();
 require_once('dbconnect.php');
 
-// Check if user came from signup
-if (!isset($_SESSION['signup_username']) || !isset($_SESSION['signup_email']) || !isset($_SESSION['signup_password'])) {
+// 1. Security Check
+if (!isset($_SESSION['signup_email']) || !isset($_SESSION['signup_password'])) {
     header("Location: login.html");
     exit();
 }
 
-// Get signup data from session
-$signup_username = $_SESSION['signup_username'];
 $signup_email = $_SESSION['signup_email'];
 $signup_password = $_SESSION['signup_password'];
+$error_message = "";
 
-// Handle form submission
+// 2. Handle Form Submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $scout_name = $_POST['player_name'];
-    $scout_age = $_POST['age'];
-    $scout_date_of_birth = $_POST['date_of_birth'];
-    $scout_phone_no = $_POST['phone_no'];
-    $scout_position = $_POST['position'];
-    $scout_previous_club = $_POST['previous_club'];
-    $scout_height = $_POST['height'];
-    $scout_weight = $_POST['weight'];
-    $scout_injury_status = $_POST['injury_status'];
-    $scout_preferred_foot = $_POST['preferred_foot'];
-    $scout_experience = $_POST['experience'];
-
-    // Insert into scouted_players table
-    $insert_scouted = "INSERT INTO scouted_player
-        (scout_name, scout_email, scout_password, scout_age, scout_date_of_birth, scout_phone_no, scout_position, scout_previous_club, scout_height, scout_weight, scout_injury_status, scout_preferred_foot, scout_experience)
-        VALUES 
-        ('$scout_name', '$signup_email', '$signup_password', '$scout_age', '$scout_date_of_birth', '$scout_phone_no', '$scout_position', '$scout_previous_club', '$scout_height', '$scout_weight', '$scout_injury_status', '$scout_preferred_foot', '$scout_experience')";
     
-    if (mysqli_query($conn, $insert_scouted)) {
-        // Also insert into users table for login purposes
-        $insert_user = "INSERT INTO users 
-            (user_name, user_email, user_password, user_type, age, date_of_birth, phone_no) 
-            VALUES 
-            ('$signup_username', '$signup_email', '$signup_password', 'scouted', '$scout_age', '$scout_date_of_birth', '$scout_phone_no')";
-        
-        if (mysqli_query($conn, $insert_user)) {
-            // Get the user_id that was just created
-            $user_id = mysqli_insert_id($conn);
-            
-            // Set session variables
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['user_name'] = $scout_name;
-            $_SESSION['user_email'] = $signup_email;
-            
-            // Clear signup session data
-            unset($_SESSION['signup_username']);
-            unset($_SESSION['signup_email']);
-            unset($_SESSION['signup_password']);
-            
-            // Redirect to profile
-            header("Location: scoutedPlayerProfile.php");
-            exit();
-        } else {
-            $error_message = "Error creating user account: " . mysqli_error($conn);
-        }
+    // Get Data
+    $name = $_POST['player_name'];
+    $age = $_POST['age'];
+    $dob = $_POST['date_of_birth'];
+    $phone = $_POST['phone_no'];
+    
+    // NID HANDLING (Optional)
+    $nid_input = $_POST['nid'];
+    if (empty($nid_input)) {
+        $nid_value = "NULL"; 
     } else {
-        $error_message = "Error registering player: " . mysqli_error($conn);
+        $nid_value = "'$nid_input'"; 
+    }
+
+    $address = $_POST['address'];
+    $height = $_POST['height'];
+    $weight = $_POST['weight'];
+    $foot = $_POST['preferred_foot'];
+    $position = $_POST['position'];
+    $injury = $_POST['injury_status'];
+    $prev_club = $_POST['previous_club'];
+    $experience = $_POST['experience'];
+    $bio = $_POST['bio']; 
+
+    try {
+        // STEP 1: Create User
+        $sql_user = "INSERT INTO users (Name, Age, NID, Email, Address, Phone_No, Date_of_Birth, Password, Role) 
+                     VALUES ('$name', '$age', $nid_value, '$signup_email', '$address', '$phone', '$dob', '$signup_password', 'scouted_player')";
+        
+        if (!mysqli_query($conn, $sql_user)) {
+            throw new Exception(mysqli_error($conn));
+        }
+        
+        $new_id = mysqli_insert_id($conn);
+
+        // STEP 2: Create Player Profile
+        $sql_player = "INSERT INTO Player (Player_ID, Position, Preferred_foot, Height, Weight, Current_Injury_Status)
+                       VALUES ('$new_id', '$position', '$foot', '$height', '$weight', '$injury')";
+        
+        if (!mysqli_query($conn, $sql_player)) {
+            throw new Exception(mysqli_error($conn));
+        }
+
+        // STEP 3: Create Scout Application
+        $sql_scout = "INSERT INTO Scouted_Player (Scouted_Player_ID, Scouted_Player_Experience, Scouted_Player_Previous_Club, Bio)
+                      VALUES ('$new_id', '$experience', '$prev_club', '$bio')";
+        
+        if (!mysqli_query($conn, $sql_scout)) {
+            throw new Exception(mysqli_error($conn));
+        }
+
+        // --- SUCCESS: AUTO-LOGIN LOGIC ---
+        
+        // 1. Set the Session Variables (Just like login.php does)
+        $_SESSION['user_id'] = $new_id;
+        $_SESSION['user_name'] = $name;
+        $_SESSION['user_email'] = $signup_email;
+        $_SESSION['user_role'] = 'scouted_player';
+
+        // 2. Clear the temporary signup variables
+        unset($_SESSION['signup_email']);
+        unset($_SESSION['signup_password']);
+        
+        // 3. Redirect directly to the Player Dashboard
+        header("Location: playerProfile.php");
+        exit();
+
+    } catch (Exception $e) {
+        $error_message = "Error: " . $e->getMessage();
     }
 }
 ?>
@@ -71,169 +93,149 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scouted Player Registration - BUFC</title>
+    <title>Registration - BUFC</title>
     <link rel="stylesheet" href="scoutedPlayerRegistration.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
+    
     <header class="site-header">
-        <div class="header-inner">
-            <div class="site-logo"></div>
-            <div class="header-center">
-                <h1 class="site-title">BUFC Player Management</h1>
-                <p class="site-subtitle">Complete Your Registration</p>
+        <div class="header-container">
+            <div class="brand-area">
+                <img src="images/bufc-logo.jpg" alt="BUFC Logo" class="header-logo">
+                <span class="brand-name">BUFC</span>
+            </div>
+            <div class="slogan-area">
+                <p>Welcome to BUFC <span class="divider">|</span> <span class="highlight">Together We Triumph</span></p>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main-container">
-        <div class="registration-card">
+        <div class="registration-card fade-in">
             <div class="card-header">
-                <h2>Player Information</h2>
-                <p class="card-subtitle">Please provide your details to complete registration</p>
+                <h2>Player Application</h2>
+                <p>Complete your profile to join the trials.</p>
             </div>
 
-            <?php if (isset($error_message)): ?>
-                <div class="alert alert-error"><?php echo $error_message; ?></div>
+            <?php if ($error_message != ""): ?>
+                <div class="form-errors">
+                    <?php echo $error_message; ?>
+                </div>
             <?php endif; ?>
 
             <form method="POST" action="" id="registrationForm">
                 
-                <!-- Basic Information -->
                 <div class="form-section">
+                    <h3 class="section-title">Personal Details</h3>
                     <div class="form-group">
-                        <label for="player_name">Full Name *</label>
-                        <input type="text" id="player_name" name="player_name" 
-                               required placeholder="Enter your full name">
+                        <label>Full Name</label>
+                        <input type="text" id="player_name" name="player_name" required placeholder="Enter your full name">
                     </div>
-
+                    
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="age">Age *</label>
-                            <input type="number" id="age" name="age" min="16" max="40" 
-                                   required placeholder="e.g., 22">
+                            <label>Age</label>
+                            <input type="number" id="age" name="age" min="16" max="40" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="date_of_birth">Date of Birth *</label>
+                            <label>Date of Birth</label>
                             <input type="date" id="date_of_birth" name="date_of_birth" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone_no">Phone Number *</label>
-                        <input type="tel" id="phone_no" name="phone_no" 
-                               required placeholder="e.g., +880 1234-567890">
+                        <label>National ID (Optional)</label>
+                        <input type="text" id="nid" name="nid" placeholder="Enter NID Number (if available)">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="address" name="address" required placeholder="Full Address">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone_no" name="phone_no" required placeholder="+880...">
                     </div>
                 </div>
 
-                <!-- Physical Information -->
                 <div class="form-section">
-                    <h3 class="section-divider">Physical Information</h3>
-                    
+                    <h3 class="section-title">Physical Stats</h3>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="height">Height (cm) *</label>
-                            <input type="number" id="height" name="height" 
-                                   min="150" max="220" step="0.1" 
-                                   required placeholder="e.g., 175">
-                            <small class="field-hint">Enter height in centimeters</small>
+                            <label>Height (cm)</label>
+                            <input type="number" id="height" name="height" min="150" max="220" step="0.1" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="weight">Weight (kg) *</label>
-                            <input type="number" id="weight" name="weight" 
-                                   min="50" max="120" step="0.1" 
-                                   required placeholder="e.g., 70">
-                            <small class="field-hint">Enter weight in kilograms</small>
+                            <label>Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" min="50" max="120" step="0.1" required>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="injury_status">Injury Status *</label>
-                            <select id="injury_status" name="injury_status" required>
-                                <option value="">Select status</option>
-                                <option value="Fit">Fit</option>
-                                <option value="Minor Injury">Minor Injury</option>
-                                <option value="Major Injury">Major Injury</option>
-                                <option value="Recovering">Recovering</option>
-                            </select>
+                            <label>Preferred Foot</label>
+                            <div class="select-wrapper">
+                                <select name="preferred_foot" id="preferred_foot" required>
+                                    <option value="">Select</option>
+                                    <option value="Right">Right</option>
+                                    <option value="Left">Left</option>
+                                    <option value="Both">Both</option>
+                                </select>
+                            </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="preferred_foot">Preferred Foot *</label>
-                            <select id="preferred_foot" name="preferred_foot" required>
-                                <option value="">Select foot</option>
-                                <option value="Right">Right</option>
-                                <option value="Left">Left</option>
-                                <option value="Both">Both</option>
-                            </select>
+                            <label>Injury Status</label>
+                            <div class="select-wrapper">
+                                <select name="injury_status" id="injury_status" required>
+                                    <option value="Fit">Fit</option>
+                                    <option value="Recovering">Recovering</option>
+                                    <option value="Injured">Injured</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Football Information -->
                 <div class="form-section">
-                    <h3 class="section-divider">Football Information</h3>
+                    <h3 class="section-title">Football Profile</h3>
+                    <div class="form-group">
+                        <label>Position</label>
+                        <div class="select-wrapper">
+                            <select name="position" id="position" required>
+                                <option value="">Select Position</option>
+                                <option value="Goalkeeper">Goalkeeper</option>
+                                <option value="Defender">Defender</option>
+                                <option value="Midfielder">Midfielder</option>
+                                <option value="Striker">Striker</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Previous Club/Academy</label>
+                            <input type="text" name="previous_club" id="previous_club" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Experience (Years)</label>
+                            <input type="text" name="experience" id="experience" required placeholder="e.g. U-19 District Team">
+                        </div>
+                    </div>
                     
                     <div class="form-group">
-                        <label for="position">Playing Position *</label>
-                        <select id="position" name="position" required>
-                            <option value="">Select your position</option>
-                            <option value="Goalkeeper">Goalkeeper</option>
-                            <option value="Defender">Defender</option>
-                            <option value="Center Back">Center Back</option>
-                            <option value="Full Back">Full Back</option>
-                            <option value="Midfielder">Midfielder</option>
-                            <option value="Defensive Midfielder">Defensive Midfielder</option>
-                            <option value="Attacking Midfielder">Attacking Midfielder</option>
-                            <option value="Winger">Winger</option>
-                            <option value="Forward">Forward</option>
-                            <option value="Striker">Striker</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="previous_club">Previous Club/Team *</label>
-                        <input type="text" id="previous_club" name="previous_club" 
-                               required placeholder="e.g., BUFC Academy">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="experience">Years of Experience *</label>
-                        <input type="number" id="experience" name="experience" 
-                            min="0" max="30" required placeholder="e.g., 5">
+                        <label>Bio / Self Description</label>
+                        <textarea name="bio" id="bio" required placeholder="Tell us about your playing style..."></textarea>
                     </div>
                 </div>
 
-                <!-- Email (Read-only) -->
-                <div class="form-section">
-                    <div class="form-group">
-                        <label for="player_email">Email (pre-filled from signup)</label>
-                        <input type="email" id="player_email" 
-                               value="<?php echo htmlspecialchars($signup_email); ?>" 
-                               readonly class="readonly-field">
-                        <small class="field-hint">Email cannot be changed</small>
-                    </div>
+                <div class="form-group">
+                    <label>Account Email</label>
+                    <input type="text" value="<?php echo htmlspecialchars($signup_email); ?>" readonly class="readonly-field">
                 </div>
-
-                <!-- Error Display -->
-                <div id="formErrors" class="form-errors"></div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit">Complete Registration</button>
-
-                <p class="form-footer">
-                    By registering, you agree to BUFC's terms and conditions.
-                    <br>
-                    <a href="login.html" class="link-back">Return to login</a>
-                </p>
+                
+                <button type="submit" class="btn-submit">Submit Application</button>
             </form>
         </div>
     </main>
-
     <script src="scoutedPlayerRegistration.js"></script>
 </body>
 </html>

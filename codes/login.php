@@ -8,25 +8,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $role = $_POST['role'];
     
     // Use the identifier for both username and email in the query
-    $query = "SELECT * FROM users WHERE (user_email='$identifier' OR user_name = '$identifier') AND user_password='$password'";
+    $query = "SELECT * FROM users WHERE Email='$identifier' AND Password='$password'";
     
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['user_name'] = $user['user_name'];
-        $_SESSION['user_email'] = $user['user_email'];
+        $_SESSION['user_id'] = $user['User_ID'];
+        $_SESSION['user_name'] = $user['Name'];
+        $_SESSION['user_email'] = $user['Email'];
+        $_SESSION['user_role'] = $user['Role'];
 
-        if ($role == 'coach' && $user['user_type']=='coach') {
+        if ($role == 'coach' && $user['Role']=='coach') {
             header("Location: coachProfile.php");
             exit();
-        } else if ($role == 'player' && $user['user_type']=='player') {
+        } else if ($role == 'player' && ($user['Role'] == 'scouted_player' || $user['Role'] == 'regular_player')){
             header("Location: playerProfile.php");
-            exit();
-        } else if ($role == 'player' && $user['user_type']=='scouted') {
-            header("Location: scoutedPlayerProfile.php");
             exit();
         } else {
             header("Location: login.html");

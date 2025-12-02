@@ -2,13 +2,12 @@
 session_start();
 require_once('dbconnect.php');
 
-if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
-    $username = $_POST['username'];
+if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
     // Check if user already exists
-    $check_query = "SELECT * FROM users WHERE user_email='$email' OR user_name='$username'";
+    $check_query = "SELECT * FROM users WHERE Email='$email'";
     $check_result = mysqli_query($conn, $check_query);
     
     if (mysqli_num_rows($check_result) > 0) {
@@ -16,10 +15,8 @@ if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['passwor
         exit();
     } else {
         // Store signup data as separate session variables
-        $_SESSION['signup_username'] = $username;
         $_SESSION['signup_email'] = $email;
         $_SESSION['signup_password'] = $password;
-        
         header("Location: scoutedPlayerRegistration.php");
         exit();
     }
