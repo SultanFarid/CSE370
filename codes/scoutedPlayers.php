@@ -3,10 +3,7 @@ session_start();
 require_once('dbconnect.php');
 
 // 1. GATEKEEPER
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
-    exit();
-}
+if (!isset($_SESSION['user_id'])) { header("Location: login.html"); exit(); }
 
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role'];
@@ -22,19 +19,14 @@ if ($user_role == 'coach') {
     }
 }
 
-// 3. FETCH SCOUTED PLAYERS
-// Ordered by Status (Trialing first), then Name
-$query = "SELECT 
-            u.User_ID, u.Name, u.Age,
-            p.Position, p.Height, p.Weight, p.Preferred_foot,
-            sp.Scouted_Player_Experience, sp.Scouted_Player_Previous_Club,
-            sp.Application_Status, sp.Bio
+// 3. FETCH DATA
+$query = "SELECT u.User_ID, u.Name, u.Age, p.Position, p.Height, p.Weight, p.Preferred_foot,
+            sp.Scouted_Player_Experience, sp.Scouted_Player_Previous_Club, sp.Application_Status, sp.Bio
           FROM Scouted_Player sp
           JOIN Player p ON sp.Scouted_Player_ID = p.Player_ID
           JOIN users u ON p.Player_ID = u.User_ID
           WHERE sp.Application_Status != 'Rejected' 
           ORDER BY FIELD(sp.Application_Status, 'Trialing', 'Pending') ASC, u.Name ASC";
-
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -50,11 +42,10 @@ $result = mysqli_query($conn, $query);
 <body>
 
 <div class="dashboard-container">
-    
     <aside class="sidebar">
         <nav class="sidebar-nav">
             <?php if ($user_role == 'coach'): ?>
-                <a href="coachProfile.php" class="nav-item">My Profile</a>
+                <a href="coachProfile.php" class="nav-item">Profile</a>
                 <a href="mySquad.php" class="nav-item">My Squad</a>
                 <a href="medicalReport.php" class="nav-item">Medical Report</a>
                 <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
@@ -88,7 +79,7 @@ $result = mysqli_query($conn, $query);
                         <label>Status</label>
                         <select id="statusFilter" class="custom-select">
                             <option value="all">All Applications</option>
-                            <option value="Trialing">Trialists (Active)</option>
+                            <option value="Trialing">Trialing</option>
                             <option value="Pending">Pending</option>
                         </select>
                     </div>
@@ -116,7 +107,6 @@ $result = mysqli_query($conn, $query);
                     $status = $row['Application_Status'];
                     $status_class = ($status == 'Trialing') ? 'status-blue' : 'status-yellow';
                 ?>
-                
                 <div class="scout-card <?php echo $status_class; ?>">
                     <div class="card-header">
                         <div class="header-info">
@@ -125,7 +115,6 @@ $result = mysqli_query($conn, $query);
                         </div>
                         <span class="status-pill"><?php echo $status; ?></span>
                     </div>
-
                     <div class="card-body">
                         <div class="stat-row">
                             <div class="stat"><span class="lbl">Age</span><span class="val"><?php echo $row['Age']; ?></span></div>
@@ -134,26 +123,37 @@ $result = mysqli_query($conn, $query);
                         </div>
                         <div class="detail-block">
                             <p><strong>Prev. Club:</strong> <?php echo htmlspecialchars($row['Scouted_Player_Previous_Club']); ?></p>
-                            <p><strong>Experience:</strong> <?php echo htmlspecialchars($row['Scouted_Player_Experience']); ?></p>
+                            <p><strong>Exp:</strong> <?php echo htmlspecialchars($row['Scouted_Player_Experience']); ?></p>
                         </div>
                         <div class="hidden-id" style="display:none;"><?php echo $row['User_ID']; ?></div>
                     </div>
 
                     <?php if ($can_manage): ?>
                     <div class="card-actions">
-                        
                         <?php if ($status == 'Pending'): ?>
                             <button class="action-btn ai-btn" onclick="generateReport(this)">✨ Evaluate Application</button>
+    
+                        <div class="btn-group">
                             <button class="action-btn trial-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Trialing')">Call to Trial</button>
-                        
+                            <button class="action-btn reject-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Rejected')">Reject</button>
+                        </div>
                         <?php elseif ($status == 'Trialing'): ?>
-                            <button class="action-btn ai-btn" onclick="generateReport(this)">✨ Evaluate Trialist</button>
+                            
+                            <button class="action-btn ai-btn" onclick="generateReport(this)">
+                                ✨ Evaluate Trialist
+                            </button>
+                            
                             <div class="btn-group">
-                                <button class="action-btn train-btn disabled" title="Training Module Coming Soon">Assign Session</button>
-                                <button class="action-btn promote-btn" onclick="openPromoteModal('<?php echo $row['User_ID']; ?>', '<?php echo $row['Name']; ?>')">Promote</button>
+                                <button class="action-btn demote-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Pending')">
+                                    Demote
+                                </button>
+                                
+                                <button class="action-btn promote-btn" onclick="openPromoteModal('<?php echo $row['User_ID']; ?>', '<?php echo $row['Name']; ?>')">
+                                    Promote
+                                </button>
                             </div>
-                        <?php endif; ?>
 
+                        <?php endif; ?>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -180,14 +180,8 @@ $result = mysqli_query($conn, $query);
         <p>Promoting <span id="pName" style="font-weight:bold;"></span> to First Team.</p>
         <form id="promoteForm" action="promote_player.php" method="POST">
             <input type="hidden" name="player_id" id="promoteId">
-            <div class="form-group">
-                <label>Assign Jersey Number</label>
-                <input type="number" name="jersey_no" class="form-input" required placeholder="Unique No (e.g. 10)">
-            </div>
-            <div class="form-group">
-                <label>Monthly Salary (BDT)</label>
-                <input type="number" name="salary" class="form-input" required placeholder="e.g. 50000">
-            </div>
+            <div class="form-group"><label>Assign Jersey Number</label><input type="number" name="jersey_no" class="form-input" required placeholder="Unique No"></div>
+            <div class="form-group"><label>Monthly Salary (BDT)</label><input type="number" name="salary" class="form-input" required placeholder="e.g. 50000"></div>
             <div class="form-row-split">
                 <div class="form-group"><label>Start Date</label><input type="date" name="start_date" class="form-input" required value="<?php echo date('Y-m-d'); ?>"></div>
                 <div class="form-group"><label>End Date</label><input type="date" name="end_date" class="form-input" required></div>

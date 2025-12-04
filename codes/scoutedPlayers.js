@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const text = searchInput.value.toLowerCase().trim();
     const stat = statusFilter.value;
     const posVal = positionFilter.value;
-
     cards.forEach((card) => {
       const name = card.querySelector("h3").textContent.toLowerCase();
       const status = card.querySelector(".status-pill").textContent.trim();
@@ -39,9 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
 async function generateReport(btn) {
   const card = btn.closest(".scout-card");
   const id = card.querySelector(".hidden-id").textContent;
-  const status = card.querySelector(".status-pill").textContent;
+  const status = card.querySelector(".status-pill").textContent.trim();
 
-  // Open Modal
   const modal = document.getElementById("aiModal");
   const loader = document.getElementById("aiLoader");
   const result = document.getElementById("aiResult");
@@ -55,7 +53,8 @@ async function generateReport(btn) {
     params.append("player_id", id);
     params.append("status", status);
 
-    const response = await fetch("api_generate_report.php", {
+    // Pointing to the SINGLE file
+    const response = await fetch("api_scouted_report.php", {
       method: "POST",
       body: params,
     });
@@ -68,23 +67,29 @@ async function generateReport(btn) {
   }
 }
 
-// 4. UPDATE STATUS (Call to Trial)
+// 4. UPDATE STATUS
+// 4. UPDATE STATUS (Fixed to show real error)
 function updateStatus(userId, newStatus) {
-  if (confirm(`Move this player to ${newStatus} list?`)) {
-    const formData = new FormData();
-    formData.append("user_id", userId);
-    formData.append("status", newStatus);
+    if(confirm(`Move this player to ${newStatus} list?`)) {
+        const formData = new FormData();
+        formData.append('user_id', userId);
+        formData.append('status', newStatus);
 
-    fetch("update_scout_status.php", { method: "POST", body: formData })
-      .then((res) => res.text())
-      .then((data) => {
-        if (data.trim() === "success") location.reload();
-        else alert("Error updating status");
-      });
-  }
+        fetch('update_scout_status.php', { method: 'POST', body: formData })
+        .then(res => res.text())
+        .then(data => {
+            // Trim whitespace to ensure clean comparison
+            if(data.trim() === 'success') {
+                location.reload();
+            } else {
+                // ALERT THE ACTUAL ERROR MESSAGE FROM PHP
+                alert('Update Failed: ' + data);
+            }
+        });
+    }
 }
 
-// 5. PROMOTE MODAL HANDLERS
+// 5. PROMOTE MODAL
 function openPromoteModal(id, name) {
   document.getElementById("promoteModal").style.display = "block";
   document.getElementById("promoteId").value = id;
