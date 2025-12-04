@@ -194,6 +194,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: slideInText 0.8s forwards 0.5s;
+  zoom: 1.10;
 }
 
 .tagline {
@@ -219,6 +220,7 @@ body {
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px;
   animation: movePattern 60s linear infinite;
+  zoom: 1.25;
 }
 
 .form-wrapper {
@@ -438,3 +440,4 @@ select:focus ~ .select-wrapper::after {
       background-image: none;
   }
 }
+
