@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2025 at 02:16 PM
+-- Generation Time: Dec 04, 2025 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,6 +69,66 @@ CREATE TABLE `medical_record` (
   `Injured_to` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `medical_record`
+--
+
+INSERT INTO `medical_record` (`Prescription_ID`, `Player_ID`, `Doctor_in_charge`, `Recovery_status`, `Hospital`, `Injury_Type`, `Injured_from`, `Injured_to`) VALUES
+(1, 11, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Groin Pull', '2023-11-05', '2023-11-25'),
+(2, 11, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Rib Contusion', '2024-02-14', '2024-03-01'),
+(3, 11, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Wrist Sprain', '2023-05-10', '2023-05-25'),
+(4, 12, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Muscle Fatigue', '2023-08-01', '2023-08-05'),
+(5, 13, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Ankle Sprain', '2022-03-10', '2022-04-05'),
+(6, 13, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Concussion', '2023-09-15', '2023-09-25'),
+(7, 13, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Thigh Strain', '2024-01-10', '2024-01-20'),
+(8, 14, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Dislocated Finger', '2022-08-01', '2022-09-01'),
+(9, 14, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Lower Back Pain', '2023-05-10', '2023-05-20'),
+(10, 14, 'Dr. Robert Smith', 'Critical', 'Evercare Hospital', 'ACL Tear', '2024-11-01', '2025-05-01'),
+(11, 15, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Ankle Sprain', '2023-11-10', '2023-12-01'),
+(12, 15, 'Dr. Local Medic', 'Healed', 'Barisal Sadar', 'Shin Bruise', '2022-06-15', '2022-06-25'),
+(13, 16, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Calf Cramps', '2023-02-10', '2023-02-15'),
+(14, 16, 'Dr. Nashir Uddin', 'Rehabilitating', 'Apollo Dhaka', 'Hamstring Strain', '2024-10-15', '2024-12-20'),
+(15, 17, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Hamstring Tightness', '2022-12-01', '2022-12-15'),
+(16, 17, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Hamstring Strain', '2023-04-10', '2023-05-01'),
+(17, 17, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Shin Splints', '2023-09-01', '2023-09-15'),
+(18, 18, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Lower Back Pain', '2024-03-10', '2024-03-20'),
+(19, 19, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Thumb Fracture', '2023-06-01', '2023-07-01'),
+(20, 20, 'Dr. Nashir Uddin', 'Healed', 'Square Hospital', 'Quad Strain', '2024-02-15', '2024-03-01'),
+(21, 20, 'Dr. Local Medic', 'Healed', 'Chittagong Medical', 'Dehydration', '2022-05-20', '2022-05-25'),
+(22, 21, 'Dr. Robert Smith', 'Healed', 'Rajshahi Clinic', 'Knee Scrape', '2023-01-10', '2023-01-20'),
+(23, 21, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Knock', '2024-12-01', '2024-12-07'),
+(24, 22, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Cut on Eyebrow', '2023-12-20', '2024-01-05'),
+(25, 23, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Flu/Viral Fever', '2024-05-01', '2024-05-10'),
+(26, 24, 'Dr. Nashir Uddin', 'Healed', 'Sylhet MAG Osmani', 'Ankle Twist', '2022-11-10', '2022-11-25'),
+(27, 24, 'Dr. Nashir Uddin', 'Physiotherapy', 'Club Clinic', 'Groin Strain', '2024-11-28', '2024-12-10'),
+(28, 25, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Hamstring Tightness', '2023-10-05', '2023-10-12'),
+(29, 26, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Toe Injury', '2024-04-15', '2024-04-30'),
+(30, 26, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Mild Concussion', '2022-09-01', '2022-09-10'),
+(31, 27, 'Dr. Robert Smith', 'Healed', 'Mymensingh Medical', 'Knee Pain', '2023-01-05', '2023-01-15'),
+(32, 27, 'Dr. Robert Smith', 'Healed', 'Square Hospital', 'Calf Strain', '2024-11-25', '2024-12-15'),
+(33, 28, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Flu', '2023-06-10', '2023-06-17'),
+(34, 28, 'Dr. Sarah Khan', 'Light Training', 'Club Clinic', 'Concussion', '2024-11-10', '2024-12-05'),
+(35, 29, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Rib Contusion', '2023-07-20', '2023-08-10'),
+(36, 30, 'Dr. Robert Smith', 'Healed', 'Chittagong Medical', 'Ankle Sprain', '2022-12-01', '2023-01-01'),
+(37, 30, 'Dr. Robert Smith', 'Post-Surgery', 'Evercare Hospital', 'Metatarsal Fracture', '2024-09-01', '2025-01-01'),
+(38, 31, 'Dr. Nashir Uddin', 'Healed', 'Dhaka Medical', 'Wrist Fracture', '2021-05-15', '2021-07-01'),
+(39, 31, 'Dr. Nashir Uddin', 'Treatment', 'Apollo Dhaka', 'Shoulder Dislocation', '2024-11-20', '2025-01-15'),
+(40, 32, 'Dr. Nashir Uddin', 'Healed', 'Evercare Hospital', 'Achilles Tendonitis', '2023-02-01', '2023-03-01'),
+(41, 33, 'Dr. Robert Smith', 'Healed', 'Apollo Dhaka', 'Hip Flexor Strain', '2024-01-10', '2024-01-25'),
+(42, 34, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Dehydration', '2023-06-15', '2023-06-18'),
+(43, 35, 'Dr. Nashir Uddin', 'Healed', 'United Hospital', 'Sprained Finger', '2023-12-01', '2023-12-10'),
+(44, 36, 'Dr. Robert Smith', 'Healed', 'Square Hospital', 'Knee Ligament Strain', '2023-04-01', '2023-05-01'),
+(45, 37, 'Dr. Sarah Khan', 'Healed', 'Evercare Hospital', 'Concussion', '2023-09-10', '2023-09-25'),
+(46, 38, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Elbow Brusie', '2024-02-20', '2024-02-28'),
+(47, 39, 'Dr. Robert Smith', 'Healed', 'Club Clinic', 'Groin Pull', '2023-11-05', '2023-11-20'),
+(48, 40, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Twist', '2024-01-05', '2024-01-20'),
+(49, 41, 'Dr. Local Medic', 'Healed', 'Comilla Medical', 'Meniscus Tear', '2022-01-01', '2022-06-01'),
+(50, 42, 'Dr. Local Medic', 'Healed', 'BKSP Clinic', 'Shin Splints', '2023-01-01', '2023-02-01'),
+(51, 42, 'Dr. Local Medic', 'Healed', 'BKSP Clinic', 'Ankle Twist', '2023-08-15', '2023-08-25'),
+(52, 43, 'Dr. Nashir Uddin', 'Healed', 'Dhaka Medical', 'Arm Fracture', '2023-03-10', '2023-05-10'),
+(53, 45, 'Dr. Sarah Khan', 'Healed', 'Barisal Sadar', 'Nose Fracture', '2023-11-01', '2023-11-20'),
+(54, 27, 'Dr. Ananda', 'Healed', 'United Hospital', 'ACL Tear', '2025-12-05', '2025-12-13');
+
 -- --------------------------------------------------------
 
 --
@@ -99,13 +159,13 @@ INSERT INTO `player` (`Player_ID`, `Position`, `Preferred_foot`, `Height`, `Weig
 (18, 'Midfielder', 'Right', 169, 66, 'Fit'),
 (19, 'Midfielder', 'Right', 175, 71, 'Fit'),
 (20, 'Defender', 'Left', 175, 70, 'Fit'),
-(21, 'Defender', 'Left', 174, 69, 'Doubtful'),
+(21, 'Defender', 'Left', 174, 69, 'Fit'),
 (22, 'Defender', 'Right', 180, 76, 'Fit'),
 (23, 'Striker', 'Right', 180, 76, 'Fit'),
 (24, 'Striker', 'Left', 178, 74, 'Doubtful'),
 (25, 'Striker', 'Right', 179, 75, 'Fit'),
 (26, 'Striker', 'Right', 176, 71, 'Fit'),
-(27, 'Striker', 'Right', 174, 69, 'Injured'),
+(27, 'Striker', 'Left', 174, 70, 'Fit'),
 (28, 'Midfielder', 'Right', 171, 68, 'Recovering'),
 (29, 'Midfielder', 'Right', 172, 69, 'Fit'),
 (30, 'Midfielder', 'Right', 174, 70, 'Injured'),
@@ -123,7 +183,9 @@ INSERT INTO `player` (`Player_ID`, `Position`, `Preferred_foot`, `Height`, `Weig
 (42, 'Midfielder', 'Left', 170, 65, 'Fit'),
 (43, 'Defender', 'Right', 180, 75, 'Fit'),
 (44, 'Winger', 'Both', 168, 62, 'Fit'),
-(45, 'Goalkeeper', 'Right', 182, 76, 'Fit');
+(45, 'Goalkeeper', 'Right', 182, 76, 'Fit'),
+(48, 'Midfielder', 'Right', 181, 69, 'Recovering'),
+(49, 'Defender', 'Left', 185, 71, 'Recovering');
 
 -- --------------------------------------------------------
 
@@ -282,7 +344,9 @@ INSERT INTO `scouted_player` (`Scouted_Player_ID`, `Scouted_Player_Experience`, 
 (42, 'BKSP Student', 'BKSP', 'Creative midfielder with good vision.', 'Trialing'),
 (43, 'Local League', 'Rampura KC', 'Strong defender, good in the air.', 'Pending'),
 (44, 'School Team', 'Sylhet School', 'Very fast winger, can play on both sides.', 'Pending'),
-(45, 'U-19 Divisional', 'Barisal Divisional Team', 'Good reflexes and shot stopping ability.', 'Trialing');
+(45, 'U-19 Divisional', 'Barisal Divisional Team', 'Good reflexes and shot stopping ability.', 'Trialing'),
+(48, '5 years', 'NSU FC Academy', 'I am a good striker with aggressive mentality.', 'Pending'),
+(49, '5 Years', 'IUB FC Academy', 'I am a no nonsense defender,', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -342,7 +406,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone_No`, `Date_of_Birth`, `salary`, `contract_start_date`, `contract_end_date`, `Password`, `Role`) VALUES
-(1, 'Nazmul Islam', 45, '1928374655', 'nazmul@bufc.com', 'Dhaka, Bangladesh', '01711000001', '1980-01-01', 100000.00, '2024-01-01', '2026-01-01', 'nazmul123', 'coach'),
+(1, 'Nazmul Islam', 45, '1928374669', 'nazmul@bufc.com', 'Dhaka, Bangladesh', '01711000069', '1980-01-01', 100000.00, '2024-01-01', '2026-01-01', 'nazmul123', 'coach'),
 (2, 'Tamkin Mahmud Tan', 32, '9182736455', 'tamkin@bufc.com', 'Chittagong, Bangladesh', '01711000002', '1992-05-15', 60000.00, '2024-06-01', '2026-06-01', 'tamkin123', 'coach'),
 (3, 'Maruful Haque', 50, '8273645192', 'maruful@bufc.com', 'Dhaka', '01711000003', '1973-01-18', 80000.00, '2023-01-01', '2025-12-31', 'maruful123', 'coach'),
 (4, 'Saiful Bari Titu', 53, '7364519283', 'saiful@bufc.com', 'Sylhet', '01711000004', '1970-06-16', 80000.00, '2023-01-01', '2025-12-31', 'saiful123', 'coach'),
@@ -368,7 +432,7 @@ INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone
 (24, 'Matin Miah', 25, '9304756182', 'matin@bufc.com', 'Sylhet', '01911000014', '1998-12-20', 42000.00, '2024-01-01', '2025-12-31', 'matin123', 'regular_player'),
 (25, 'Mahbubur Rahman Sufil', 24, '1425364758', 'sufil@bufc.com', 'Dhaka', '01911000015', '1999-09-10', 41000.00, '2024-01-01', '2025-12-31', 'mahbubur123', 'regular_player'),
 (26, 'Nabib Newaj Jibon', 31, '2536475869', 'jibon@bufc.com', 'Dhaka', '01911000016', '1992-11-15', 46000.00, '2024-01-01', '2025-12-31', 'nabib123', 'regular_player'),
-(27, 'Jewel Rana', 27, '3647586970', 'jewel@bufc.com', 'Mymensingh', '01911000017', '1996-12-25', 43000.00, '2024-01-01', '2025-12-31', 'jewel123', 'regular_player'),
+(27, 'Jewel Rana', 27, '3647586970', 'jewel@bufc.com', 'Dhaka', '01911000017', '1996-12-25', 43000.00, '2024-01-01', '2025-12-31', 'jewel123', 'regular_player'),
 (28, 'Emon Mahmud Babu', 29, '4758697081', 'emon@bufc.com', 'Dhaka', '01911000018', '1994-06-03', 44000.00, '2024-01-01', '2025-12-31', 'emon123', 'regular_player'),
 (29, 'Masuk Miah Zoni', 25, '5869708192', 'masuk@bufc.com', 'Sylhet', '01911000019', '1998-01-16', 42000.00, '2024-01-01', '2025-12-31', 'masuk123', 'regular_player'),
 (30, 'Atiqur Rahman Fahad', 26, '6970819203', 'atiqur@bufc.com', 'Chittagong', '01911000020', '1997-09-15', 41000.00, '2024-01-01', '2025-12-31', 'atiqur123', 'regular_player'),
@@ -386,7 +450,9 @@ INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone
 (42, 'Karim Mia', 18, '2233445566', 'karim@gmail.com', 'Noakhali', '01811000042', '2006-05-20', NULL, NULL, NULL, 'karim123', 'scouted_player'),
 (43, 'Sajid Hasan', 20, '3344556677', 'sajid@gmail.com', 'Dhaka', '01811000043', '2004-11-15', NULL, NULL, NULL, 'sajid123', 'scouted_player'),
 (44, 'Tanvir Ahmed', 17, '4455667788', 'tanvir@gmail.com', 'Sylhet', '01811000044', '2007-02-28', NULL, NULL, NULL, 'tanvir123', 'scouted_player'),
-(45, 'Rafiqul Islam', 19, '5566778899', 'rafiq@gmail.com', 'Barisal', '01811000045', '2005-07-30', NULL, NULL, NULL, 'rafiqul123', 'scouted_player');
+(45, 'Rafiqul Islam', 19, '5566778899', 'rafiq@gmail.com', 'Barisal', '01811000045', '2005-07-30', NULL, NULL, NULL, 'rafiqul123', 'scouted_player'),
+(48, 'Arshad Zaman Araf', 21, '6468527659', 'arshad.zaman.araf@example.com', 'Khilgaon, Dhaka', '+8801823459372', '2003-12-19', NULL, NULL, NULL, '123456', 'scouted_player'),
+(49, 'Amirun Nahin', 21, '1235896457', 'amirunnahin04@gmail.com', 'Dhaka', '+8801823459372', '2003-12-19', NULL, NULL, NULL, '123456', 'scouted_player');
 
 --
 -- Indexes for dumped tables
@@ -465,7 +531,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `medical_record`
 --
 ALTER TABLE `medical_record`
-  MODIFY `Prescription_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Prescription_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `training_sessions`
@@ -477,7 +543,7 @@ ALTER TABLE `training_sessions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables
