@@ -4,8 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.nav-item');
 
     menuItems.forEach(item => {
-        // Check if the link matches the current page URL
-        if(item.href === currentLocation) {
+        
+        /* --- FIX: RESPECT PHP ACTIVE CLASS --- */
+        // If PHP already marked an item (e.g., 'My Squad' for coaches),
+        // we skip the logic so JS doesn't remove it.
+        if (item.classList.contains('active')) {
+            return;
+        }
+        /* ------------------------------------- */
+
+        // Standard Logic for other items
+        if(currentLocation.includes(item.getAttribute('href'))) {
             item.classList.add('active');
         } else {
             item.classList.remove('active');

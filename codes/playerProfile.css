@@ -526,3 +526,39 @@ body {
     grid-template-columns: 1fr; /* Stack vertically on phones */
   }
 }
+/* --- PREMIUM BACK BUTTON --- */
+.back-btn-wrapper {
+  margin-bottom: 25px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  
+  /* DEFAULT STATE (Now looks like the old hover state) */
+  background-color: white;
+  color: #2563eb; /* Brand Blue Text */
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  border-radius: 50px; 
+  border: 1px solid #2563eb; /* Blue Border */
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15); /* Blue Glow */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* NEW HOVER STATE (Brighter / Filled) */
+.back-btn:hover {
+  background-color: #2563eb; /* Turns Solid Blue */
+  color: white; /* Text turns White */
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); /* Stronger/Brighter Glow */
+  transform: translateX(-5px); /* Slide Left */
+}
+
+.back-btn span {
+  font-size: 1.2rem;
+  line-height: 0;
+  margin-top: -2px;
+}

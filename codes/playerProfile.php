@@ -22,7 +22,7 @@ $query_base = "SELECT * FROM users u
 $result_base = mysqli_query($conn, $query_base);
 $base = mysqli_fetch_assoc($result_base);
 
-// *** SAFETY FIX: If user is a Coach viewing themselves, $base is empty. Redirect. ***
+// SAFETY: If user is a Coach viewing themselves (shouldn't happen here but safe to keep), redirect
 if (!$base && $_SESSION['user_role'] == 'coach') {
     header("Location: coachProfile.php");
     exit();
@@ -54,10 +54,10 @@ if ($base['Role'] == 'regular_player') {
     
     <aside class="sidebar">
         <nav class="sidebar-nav">
-    <?php if ($_SESSION['user_role'] == 'coach'): ?>
+            <?php if ($_SESSION['user_role'] == 'coach'): ?>
                 <a href="coachProfile.php" class="nav-item">Profile</a>
                 
-                <a href="mySquad.php" class="nav-item active">My Squad 🠈</a>
+                <a href="mySquad.php" class="nav-item active">My Squad</a>
                 
                 <a href="medicalReport.php" class="nav-item">Medical Report</a>
                 <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
@@ -69,23 +69,24 @@ if ($base['Role'] == 'regular_player') {
 
             <?php else: ?>
                 <a href="playerProfile.php" class="nav-item active">Profile</a>
-        <?php if ($base['Role'] == 'regular_player'): ?>
-            <a href="mySquad.php" class="nav-item">My Squad</a>
-            <a href="medicalReport.php" class="nav-item">Medical Report</a>
-        <?php endif; ?>
+                
+                <?php if ($base['Role'] == 'regular_player'): ?>
+                    <a href="mySquad.php" class="nav-item">My Squad</a>
+                    <a href="medicalReport.php" class="nav-item">Medical Report</a>
+                <?php endif; ?>
 
-        <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
+                <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
 
-        <?php if ($base['Role'] == 'regular_player'): ?>
-            <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
-            <a href="coaches.php" class="nav-item">Coaches</a>
-            <a href="pointsTable.php" class="nav-item">Points Table</a>
-            <a href="fixtures.php" class="nav-item">Fixtures</a>
-        <?php endif; ?>
-    <?php endif; ?>
+                <?php if ($base['Role'] == 'regular_player'): ?>
+                    <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
+                    <a href="coaches.php" class="nav-item">Coaches</a>
+                    <a href="pointsTable.php" class="nav-item">Points Table</a>
+                    <a href="fixtures.php" class="nav-item">Fixtures</a>
+                <?php endif; ?>
+            <?php endif; ?>
 
-    <a href="logout.php" class="nav-item logout-link">Logout</a>
-</nav>
+            <a href="logout.php" class="nav-item logout-link">Logout</a>
+        </nav>
     </aside>
 
     <div class="main-content">
@@ -102,6 +103,13 @@ if ($base['Role'] == 'regular_player') {
 
         <div class="profile-container fade-in">
             
+            <?php if ($_SESSION['user_role'] == 'coach'): ?>
+            <div class="back-btn-wrapper">
+                <a href="mySquad.php" class="back-btn">
+                    <span>&#8592;</span> Back to Squad
+                </a>
+            </div>
+            <?php endif; ?>
             <div class="top-section">
                 <div class="photo-box">
                     <div class="photo-placeholder">
@@ -122,6 +130,7 @@ if ($base['Role'] == 'regular_player') {
                                 </span>
                             <?php endif; ?>
                         </div>
+                        
                         <?php if ($_SESSION['user_role'] != 'coach' && $user_id == $_SESSION['user_id']): ?>
                             <a href="editPlayerProfile.php" class="edit-btn">Edit Profile</a>
                         <?php endif; ?>
@@ -177,7 +186,7 @@ if ($base['Role'] == 'regular_player') {
                     </div>
                 </div>
             </div>
-
+            
             <hr class="divider-line">
 
             <div class="bottom-section">
@@ -243,6 +252,6 @@ if ($base['Role'] == 'regular_player') {
         </div>
     </div>
 
-    <!-- <script src="playerProfile.js"></script> -->
+    <script src="playerProfile.js"></script>
 </body>
 </html>

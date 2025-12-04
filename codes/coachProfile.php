@@ -8,14 +8,28 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'coach') {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$current_user_id = $_SESSION['user_id'];
 
-// 2. FETCH COACH DATA
+// 2. DETERMINE TARGET COACH & VIEW MODE
+$target_id = $current_user_id; // Default to self
+$is_viewing_others = false;
+
+// CRITICAL: Only switch to "View Other" mode if the ID is NOT yours
+if (isset($_GET['coach_id']) && $_GET['coach_id'] != $current_user_id) {
+    $target_id = $_GET['coach_id'];
+    $is_viewing_others = true;
+}
+
+// 3. FETCH COACH DATA
 $query = "SELECT * FROM users u 
-          JOIN Coach c ON u.User_ID = c.Coach_ID
-          WHERE u.User_ID = '$user_id'";
+          JOIN Coach c ON u.User_ID = c.Coach_ID 
+          WHERE u.User_ID = '$target_id'";
 
 $result = mysqli_query($conn, $query);
+if(mysqli_num_rows($result) == 0) {
+    echo "Coach not found.";
+    exit();
+}
 $data = mysqli_fetch_assoc($result);
 ?>
 
@@ -34,12 +48,19 @@ $data = mysqli_fetch_assoc($result);
     
     <aside class="sidebar">
         <nav class="sidebar-nav">
-            <a href="coachProfile.php" class="nav-item active">Profile</a>
+            <a href="coachProfile.php" class="nav-item <?php echo !$is_viewing_others ? 'active' : ''; ?>">Profile</a>
+            
             <a href="mySquad.php" class="nav-item">My Squad</a>
             <a href="medicalReport.php" class="nav-item">Medical Report</a>
             <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
             <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
-            <a href="coaches.php" class="nav-item">Coaches</a>
+            
+            <?php if($is_viewing_others): ?>
+                <a href="coaches.php" class="nav-item active">Coaches</a>
+            <?php else: ?>
+                <a href="coaches.php" class="nav-item">Coaches</a>
+            <?php endif; ?>
+
             <a href="pointsTable.php" class="nav-item">Points Table</a>
             <a href="scoutedPlayers.php" class="nav-item">Scouted Players</a>
             <a href="fixtures.php" class="nav-item">Fixtures</a>
@@ -61,11 +82,18 @@ $data = mysqli_fetch_assoc($result);
         </header>
 
         <div class="profile-container fade-in">
-            
+           <?php if($is_viewing_others): ?>
+            <div class="back-btn-wrapper">
+                <a href="coaches.php" class="back-btn">
+                    <span>&#8592;</span> Back to Staff List
+                </a>
+            </div>
+            <?php endif; ?>
+
             <div class="top-section">
                 <div class="photo-box">
                     <div class="photo-placeholder">
-                        <img src="images/coaches/<?php echo $user_id; ?>.jpg" alt="Coach Photo" onerror="this.style.display='none'; this.parentNode.innerText='Photo'">
+                        <img src="images/coaches/<?php echo $target_id; ?>.jpg" alt="Coach Photo" onerror="this.style.display='none'; this.parentNode.innerText='Photo'">
                     </div>
                 </div>
 
@@ -76,7 +104,9 @@ $data = mysqli_fetch_assoc($result);
                             <span class="role-pill"><?php echo htmlspecialchars($data['Coach_Type']); ?></span>
                         </div>
                         
-                        <a href="editCoachProfile.php" class="edit-btn">Edit Profile</a>
+                        <?php if(!$is_viewing_others): ?>
+                            <a href="editCoachProfile.php" class="edit-btn">Edit Profile</a>
+                        <?php endif; ?>
                     </div>
 
                     <div class="info-grid">
@@ -128,8 +158,8 @@ $data = mysqli_fetch_assoc($result);
                 </div>
             </div>
 
+            <?php if(!$is_viewing_others): ?>
             <hr class="divider-line">
-
             <div class="bottom-section">
                 <h3>Contract Information</h3>
                 <div class="info-content">
@@ -149,6 +179,7 @@ $data = mysqli_fetch_assoc($result);
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
         </div>
     </div>
