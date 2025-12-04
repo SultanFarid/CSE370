@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dob = $_POST['dob'];
     $phone = $_POST['phone'];
     $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $nid = $_POST['nid'];
+    $nid_input = $_POST['nid'];
+    if (empty($nid_input)) {
+        $nid_sql = "NULL"; 
+    } else {
+        $nid_sql = "'$nid_input'";
+    }
 
     // Coach Specific Fields
     $experience = mysqli_real_escape_string($conn, $_POST['experience']);
@@ -33,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
            Date_of_Birth='$dob', 
            Phone_No='$phone', 
            Address='$address', 
-           NID='$nid' 
+           NID=$nid_sql
            WHERE User_ID='$user_id'";
     mysqli_query($conn, $q1);
 
@@ -232,5 +237,6 @@ $data = mysqli_fetch_assoc($result);
         </div>
     </div>
 </div>
+<script src="editCoachProfile.js"></script>
 </body>
 </html>

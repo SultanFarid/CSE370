@@ -8,8 +8,12 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
+// Check if we are viewing a specific player (via Link) or our own profile
+if (isset($_GET['player_id'])) {
+    $user_id = $_GET['player_id'];
+} else {
+    $user_id = $_SESSION['user_id'];
+}
 
 // 2. FETCH BASE DATA
 $query_base = "SELECT * FROM users u 
@@ -18,9 +22,15 @@ $query_base = "SELECT * FROM users u
 $result_base = mysqli_query($conn, $query_base);
 $base = mysqli_fetch_assoc($result_base);
 
+// *** SAFETY FIX: If user is a Coach viewing themselves, $base is empty. Redirect. ***
+if (!$base && $_SESSION['user_role'] == 'coach') {
+    header("Location: coachProfile.php");
+    exit();
+}
+
 // 3. FETCH ROLE SPECIFIC DATA
 $spec = [];
-if ($role == 'regular_player') {
+if ($base['Role'] == 'regular_player') {
     $q = "SELECT * FROM Regular_Player WHERE Regular_Player_ID = '$user_id'";
     $spec = mysqli_fetch_assoc(mysqli_query($conn, $q));
 } else {
@@ -44,24 +54,38 @@ if ($role == 'regular_player') {
     
     <aside class="sidebar">
         <nav class="sidebar-nav">
-            <a href="playerProfile.php" class="nav-item active">Profile</a>
-
-            <?php if ($role == 'regular_player'): ?>
-                <a href="mySquad.php" class="nav-item">My Squad</a>
+    <?php if ($_SESSION['user_role'] == 'coach'): ?>
+                <a href="coachProfile.php" class="nav-item">Profile</a>
+                
+                <a href="mySquad.php" class="nav-item active">My Squad 🠈</a>
+                
                 <a href="medicalReport.php" class="nav-item">Medical Report</a>
-            <?php endif; ?>
-
-            <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
-
-            <?php if ($role == 'regular_player'): ?>
+                <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
                 <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
                 <a href="coaches.php" class="nav-item">Coaches</a>
                 <a href="pointsTable.php" class="nav-item">Points Table</a>
+                <a href="scoutedPlayers.php" class="nav-item">Scouted Players</a>
                 <a href="fixtures.php" class="nav-item">Fixtures</a>
-            <?php endif; ?>
 
-            <a href="logout.php" class="nav-item logout-link">Logout</a>
-        </nav>
+            <?php else: ?>
+                <a href="playerProfile.php" class="nav-item active">Profile</a>
+        <?php if ($base['Role'] == 'regular_player'): ?>
+            <a href="mySquad.php" class="nav-item">My Squad</a>
+            <a href="medicalReport.php" class="nav-item">Medical Report</a>
+        <?php endif; ?>
+
+        <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
+
+        <?php if ($base['Role'] == 'regular_player'): ?>
+            <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
+            <a href="coaches.php" class="nav-item">Coaches</a>
+            <a href="pointsTable.php" class="nav-item">Points Table</a>
+            <a href="fixtures.php" class="nav-item">Fixtures</a>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <a href="logout.php" class="nav-item logout-link">Logout</a>
+</nav>
     </aside>
 
     <div class="main-content">
@@ -89,7 +113,8 @@ if ($role == 'regular_player') {
                     <div class="details-header">
                         <div class="header-left-group">
                             <h2 class="player-name"><?php echo htmlspecialchars($base['Name']); ?></h2>
-                            <?php if ($role == 'regular_player'): ?>
+                            
+                            <?php if ($base['Role'] == 'regular_player'): ?>
                                 <span class="role-pill">First Team</span>
                             <?php else: ?>
                                 <span class="role-pill status-<?php echo strtolower($spec['Application_Status']); ?>">
@@ -97,7 +122,9 @@ if ($role == 'regular_player') {
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <a href="editPlayerProfile.php" class="edit-btn">Edit Profile</a>
+                        <?php if ($_SESSION['user_role'] != 'coach' && $user_id == $_SESSION['user_id']): ?>
+                            <a href="editPlayerProfile.php" class="edit-btn">Edit Profile</a>
+                        <?php endif; ?>
                     </div>
 
                     <div class="info-grid">
@@ -156,7 +183,7 @@ if ($role == 'regular_player') {
             <div class="bottom-section">
                 <h3>Additional Information</h3>
                 
-                <?php if ($role == 'scouted_player'): ?>
+                <?php if ($base['Role'] == 'scouted_player'): ?>
                     <div class="info-content">
                         <div class="data-row">
                             <span class="data-label">Experience:</span> <?php echo $spec['Scouted_Player_Experience']; ?>
@@ -216,6 +243,6 @@ if ($role == 'regular_player') {
         </div>
     </div>
 
-    <script src="playerProfile.js"></script>
+    <!-- <script src="playerProfile.js"></script> -->
 </body>
 </html>

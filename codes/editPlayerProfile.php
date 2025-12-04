@@ -22,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $height = $_POST['height'];
     $weight = $_POST['weight'];
     $foot = $_POST['foot'];
-    $nid = $_POST['nid']; // Editable for both now
+    $nid_input = $_POST['nid'];
+    if (empty($nid_input)) {
+        $nid_sql = "NULL"; 
+    } else {
+        $nid_sql = "'$nid_input'";
+    }
 
     // --- LOGIC FOR POSITION & INJURY ---
     // Fetch current data to preserve values if they are read-only
@@ -46,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
            Date_of_Birth='$dob', 
            Phone_No='$phone', 
            Address='$address',
-           NID='$nid' 
+           NID=$nid_sql
            WHERE User_ID='$user_id'";
     mysqli_query($conn, $q1);
 

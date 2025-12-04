@@ -1,13 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. IMAGE ERROR HANDLING
-    const profileImg = document.querySelector('.player-img'); // Matches class in PHP
-    if (profileImg) {
-        profileImg.addEventListener('error', function() {
-            this.style.display = 'none';
-        });
-    }
-
     // 2. FORM VALIDATION
     const editForm = document.querySelector('form');
     if (editForm) {

@@ -12,7 +12,7 @@ $user_id = $_SESSION['user_id'];
 
 // 2. FETCH COACH DATA
 $query = "SELECT * FROM users u 
-          JOIN Coach c ON u.User_ID = c.Coach_ID 
+          JOIN Coach c ON u.User_ID = c.Coach_ID
           WHERE u.User_ID = '$user_id'";
 
 $result = mysqli_query($conn, $query);
@@ -39,10 +39,11 @@ $data = mysqli_fetch_assoc($result);
             <a href="medicalReport.php" class="nav-item">Medical Report</a>
             <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
             <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
+            <a href="coaches.php" class="nav-item">Coaches</a>
             <a href="pointsTable.php" class="nav-item">Points Table</a>
             <a href="scoutedPlayers.php" class="nav-item">Scouted Players</a>
             <a href="fixtures.php" class="nav-item">Fixtures</a>
-            
+
             <a href="logout.php" class="nav-item logout-link">Logout</a>
         </nav>
     </aside>
