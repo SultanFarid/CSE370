@@ -166,7 +166,7 @@ $result = mysqli_query($conn, $query);
 <div id="aiModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('aiModal')">&times;</span>
-        <div class="ai-header"><h3>🤖 Gemini Scout Analysis</h3></div>
+        <div class="ai-header"><h3>🤖 Scout Analysis</h3></div>
         <div id="aiLoader" class="loader" style="display:none;">Analyzing Data & Squad Depth...</div>
         <div id="aiResult" class="ai-body"></div>
         <button class="close-btn" onclick="closeModal('aiModal')">Close Report</button>

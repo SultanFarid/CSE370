@@ -130,7 +130,16 @@ $result = mysqli_query($conn, $query);
                         
                         // Determine Color Class based on Availability
                         // Assuming 'Active' is the keyword for green, others red
-                        $status_class = (stripos($row['Coach_Availability'], 'Active') !== false) ? 'status-green' : 'status-red';
+                        $availability = trim($row['Coach_Availability']); // Remove extra spaces
+
+                        if ($availability === 'Active') {
+                            $status_class = 'status-green';
+                        } elseif ($availability === 'On Leave') {
+                            $status_class = 'status-yellow';
+                        } else {
+                        // This catches 'Inactive' or any other status
+                        $status_class = 'status-red';
+                        }
                         
                         // LOGIC: Only Head Coach gets link
                         if ($is_head_coach) {

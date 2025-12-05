@@ -75,7 +75,16 @@ if ($base['Role'] == 'regular_player') {
                     <a href="medicalReport.php" class="nav-item">Medical Report</a>
                 <?php endif; ?>
 
-                <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
+                <?php
+                // Default: Show the link
+                $show_training = true;
+                // HIDE ONLY IF: User is a Scouted Player AND Status is exactly "Rejected"
+                if ($base['Role'] == 'scouted_player' && $spec['Application_Status'] == 'Rejected') {
+                    $show_training = false;
+                }
+                if ($show_training): ?>
+                    <a href="trainingSessions.php" class="nav-item">Training Sessions</a>
+                <?php endif; ?>
 
                 <?php if ($base['Role'] == 'regular_player'): ?>
                     <a href="nextMatchSquad.php" class="nav-item">Next Match Squad</a>
@@ -125,9 +134,13 @@ if ($base['Role'] == 'regular_player') {
                             <?php if ($base['Role'] == 'regular_player'): ?>
                                 <span class="role-pill">First Team</span>
                             <?php else: ?>
-                                <span class="role-pill status-<?php echo strtolower($spec['Application_Status']); ?>">
-                                    <?php echo htmlspecialchars($spec['Application_Status']); ?>
-                                </span>
+                            <?php 
+                                // 1. Get the exact value from DB (e.g., "Trialing", "Pending", "Rejected")
+                                $status_text = $spec['Application_Status'];
+                                // 2. Create a class name by forcing it to lowercase (e.g., "status-trialing")
+                                $status_class = 'status-' . strtolower($status_text);?>
+                                <span class="role-pill <?php echo $status_class; ?>">
+                                <?php echo htmlspecialchars($status_text); ?></span>
                             <?php endif; ?>
                         </div>
                         

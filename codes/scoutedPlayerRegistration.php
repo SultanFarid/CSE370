@@ -232,7 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="text" value="<?php echo htmlspecialchars($signup_email); ?>" readonly class="readonly-field">
                 </div>
                 
-                <button type="submit" class="btn-submit">Submit Application</button>
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                    <a href="login.html" class="btn-cancel">Cancel Application</a>
+                </div>
             </form>
         </div>
     </main>

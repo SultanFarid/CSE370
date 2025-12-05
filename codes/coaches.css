@@ -9,6 +9,7 @@
   
   --status-fit: #10b981; /* Green for Active */
   --status-bad: #ef4444; /* Red for Inactive */
+  --status-warn: #f59e0b;
 }
 
 body {
@@ -235,6 +236,7 @@ a.player-card:hover {
 
 .player-card.status-green { border-left: 5px solid var(--status-fit); }
 .player-card.status-red { border-left: 5px solid var(--status-bad); }
+.player-card.status-yellow { border-left: 5px solid var(--status-warn); } /* NEW */
 
 .card-header {
   padding: 15px;
@@ -304,3 +306,4 @@ a.player-card:hover {
 }
 .status-green .status-indicator { color: var(--status-fit); }
 .status-red .status-indicator { color: var(--status-bad); }
+.status-yellow .status-indicator { color: var(--status-warn); } /* NEW */

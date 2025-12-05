@@ -261,6 +261,55 @@ select {
     box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
 }
 
+/* --- BUTTON GROUP --- */
+.button-group {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+/* --- CANCEL BUTTON STYLING --- */
+.btn-cancel {
+    flex: 1; /* Takes equal width as submit button */
+    padding: 16px;
+    background: white; /* White background */
+    color: #ef4444;    /* Red text */
+    border: 2px solid #fee2e2; /* Light red border */
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none; /* Removes underline from link */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box; /* Ensures padding doesn't break layout */
+    display: inline-block; /* Behave like a block for padding */
+}
+
+.btn-cancel:hover {
+    background: #fef2f2; /* Light red background on hover */
+    border-color: #ef4444; /* Darker red border on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);
+}
+
+/* Adjust the existing Submit Button to play nice in the group */
+.btn-submit {
+    flex: 2; /* Submit button is 2x wider than cancel (Optional, or use flex:1 for equal) */
+    margin-top: 0; /* Remove old margin since group handles it */
+}
+
+/* Mobile Fix: Stack them on small screens */
+@media (max-width: 500px) {
+    .button-group {
+        flex-direction: column;
+    }
+    .btn-submit, .btn-cancel {
+        width: 100%;
+        flex: auto;
+    }
+}
+
 /* Error Box */
 .form-errors {
     background: #fef2f2;
