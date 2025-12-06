@@ -2,7 +2,7 @@
 require_once('dbconnect.php');
 
 // --- PASTE YOUR API KEY HERE ---
-$apiKey = "AIzaSyAx6jJ4JfHdmuDb_Q-hQ3klm7HM6rbbB9o"; 
+$apiKey = "#"; 
 // ------------------------------
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         SQUAD CONTEXT: We have {$depth['total']} players in this position ({$depth['fit']} fit).
         
         STRICT OUTPUT FORMAT:
-        1. First line MUST be: 'VERDICT: [CALL TO TRIAL / REJECT]'
+        1. First line MUST be: 'VERDICT: [CALL TO TRIAL / REJECT] in Bold'
         2. Followed by exactly 3 short bullet points (max 20-25 words each) explaining why.
         3. Do not write anything else.";
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         TASK: Look critically at Training Scores/Remarks. Is he performing at a professional level? 
         STRICT OUTPUT FORMAT:
-        1. First line MUST be: 'VERDICT: [SIGN / RELEASE]'
+        1. First line MUST be: 'VERDICT: [SIGN / RELEASE]' in bold
         2. Followed by exactly 3 short bullet points (max 10 words each) based on training data.
         3. Do not write anything else.";
     }
@@ -95,7 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $raw = $json['candidates'][0]['content']['parts'][0]['text'];
         echo nl2br(preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $raw));
     } else {
-        echo "AI Analysis unavailable. (Check API Key)";
+        echo "<b>GOOGLE ERROR:</b><br>";
+        var_dump($json);
     }
     curl_close($ch);
 }

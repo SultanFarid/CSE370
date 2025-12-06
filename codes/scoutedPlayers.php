@@ -107,7 +107,16 @@ $result = mysqli_query($conn, $query);
                     $status = $row['Application_Status'];
                     $status_class = ($status == 'Trialing') ? 'status-blue' : 'status-yellow';
                 ?>
-                <div class="scout-card <?php echo $status_class; ?>">
+                
+                <?php 
+                // OPENING TAG: If Coach, allow clicking to view profile
+                if ($user_role == 'coach') {
+                    // Added &from=scout so the back button works
+                    echo '<a href="playerProfile.php?player_id=' . $row['User_ID'] . '&from=scout" class="scout-card ' . $status_class . '" style="text-decoration:none; color:inherit; display:flex;">';
+                } else {
+                    echo '<div class="scout-card ' . $status_class . '">';
+                }
+                ?>
                     <div class="card-header">
                         <div class="header-info">
                             <h3><?php echo htmlspecialchars($row['Name']); ?></h3>
@@ -126,29 +135,30 @@ $result = mysqli_query($conn, $query);
                             <p><strong>Exp:</strong> <?php echo htmlspecialchars($row['Scouted_Player_Experience']); ?></p>
                         </div>
                         <div class="hidden-id" style="display:none;"><?php echo $row['User_ID']; ?></div>
+                        <div class="hidden-bio" style="display:none;"><?php echo htmlspecialchars($row['Bio']); ?></div>
                     </div>
 
                     <?php if ($can_manage): ?>
                     <div class="card-actions">
                         <?php if ($status == 'Pending'): ?>
-                            <button class="action-btn ai-btn" onclick="generateReport(this)">✨ Evaluate Application</button>
+                            <button class="action-btn ai-btn" onclick="event.preventDefault(); generateReport(this)">✨ Evaluate Application</button>
     
-                        <div class="btn-group">
-                            <button class="action-btn trial-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Trialing')">Call to Trial</button>
-                            <button class="action-btn reject-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Rejected')">Reject</button>
-                        </div>
+                            <div class="btn-group">
+                                <button class="action-btn trial-btn" onclick="event.preventDefault(); updateStatus('<?php echo $row['User_ID']; ?>', 'Trialing')">Call to Trial</button>
+                                <button class="action-btn reject-btn" onclick="event.preventDefault(); updateStatus('<?php echo $row['User_ID']; ?>', 'Rejected')">Reject</button>
+                            </div>
                         <?php elseif ($status == 'Trialing'): ?>
                             
-                            <button class="action-btn ai-btn" onclick="generateReport(this)">
+                            <button class="action-btn ai-btn" onclick="event.preventDefault(); generateReport(this)">
                                 ✨ Evaluate Trialist
                             </button>
                             
                             <div class="btn-group">
-                                <button class="action-btn demote-btn" onclick="updateStatus('<?php echo $row['User_ID']; ?>', 'Pending')">
+                                <button class="action-btn demote-btn" onclick="event.preventDefault(); updateStatus('<?php echo $row['User_ID']; ?>', 'Pending')">
                                     Demote
                                 </button>
                                 
-                                <button class="action-btn promote-btn" onclick="openPromoteModal('<?php echo $row['User_ID']; ?>', '<?php echo $row['Name']; ?>')">
+                                <button class="action-btn promote-btn" onclick="event.preventDefault(); openPromoteModal('<?php echo $row['User_ID']; ?>', '<?php echo $row['Name']; ?>')">
                                     Promote
                                 </button>
                             </div>
@@ -156,7 +166,15 @@ $result = mysqli_query($conn, $query);
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
-                </div>
+                
+                <?php 
+                // CLOSING TAG: Must match the opening tag
+                if ($user_role == 'coach') {
+                    echo '</a>';
+                } else {
+                    echo '</div>';
+                }
+                ?>
                 <?php endwhile; ?>
             </div>
         </div>

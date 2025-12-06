@@ -585,3 +585,19 @@ body {
     color: #991b1b !important;
     border: 1px solid #fecaca !important;
 }
+
+/* --- FULL WIDTH FIX FOR PUBLIC VIEW --- */
+.split-grid.single-col {
+    grid-template-columns: 1fr; /* Force 1 column instead of 2 */
+}
+
+/* Optional: Make the stats row centered and cleaner when full width */
+.single-col .stats-row {
+    justify-content: center; /* Center the pills */
+    gap: 40px; /* Add more breathing room */
+}
+
+.single-col .stat-pill {
+    min-width: 150px; /* Make pills slightly wider */
+    flex: 0 1 auto; /* Stop them from stretching infinitely */
+}

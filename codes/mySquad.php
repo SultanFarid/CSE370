@@ -135,14 +135,18 @@ $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         
-                        $status_class = ($row['Current_Injury_Status'] == 'Fit') ? 'status-green' : 'status-red';
-                        
-                        // *** UPDATE: LINK TO playerProfile.php ***
-                        if ($user_role == 'coach') {
-                            echo '<a href="playerProfile.php?player_id=' . $row['User_ID'] . '" class="player-card ' . $status_class . '">';
+                        // Determine Color Class based on Injury Status
+                        $injury_status = $row['Current_Injury_Status'];
+                        if ($injury_status == 'Fit') {
+                            $status_class = 'status-green';
+                        } elseif ($injury_status == 'Recovering' || $injury_status == 'Doubtful') {
+                            $status_class = 'status-yellow';
                         } else {
-                            echo '<div class="player-card ' . $status_class . '">';
+                            // Default to Red for 'Injured'
+                            $status_class = 'status-red';
                         }
+                        // *** UPDATE: LINK TO playerProfile.php ***
+                        echo '<a href="playerProfile.php?player_id=' . $row['User_ID'] . '" class="player-card ' . $status_class . '">';
                         ?>
                             
                             <div class="card-header">
@@ -189,11 +193,7 @@ $result = mysqli_query($conn, $query);
                             </div>
 
                         <?php 
-                        if ($user_role == 'coach') {
                             echo '</a>';
-                        } else {
-                            echo '</div>';
-                        }
                     }
                 } else {
                     echo '<div class="no-data">No players found in the squad.</div>';

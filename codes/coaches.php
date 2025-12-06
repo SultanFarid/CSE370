@@ -141,13 +141,7 @@ $result = mysqli_query($conn, $query);
                         $status_class = 'status-red';
                         }
                         
-                        // LOGIC: Only Head Coach gets link
-                        if ($is_head_coach) {
-                            // Points to coachProfile.php with coach_id parameter
                             echo '<a href="coachProfile.php?coach_id=' . $row['User_ID'] . '" class="player-card ' . $status_class . '">';
-                        } else {
-                            echo '<div class="player-card ' . $status_class . '">';
-                        }
                         ?>
                             
 
@@ -174,11 +168,7 @@ $result = mysqli_query($conn, $query);
                             </div>
 
                         <?php 
-                        if ($is_head_coach) {
                             echo '</a>';
-                        } else {
-                            echo '</div>';
-                        }
                     }
                 } else {
                     echo '<div class="no-data">No coaches found.</div>';

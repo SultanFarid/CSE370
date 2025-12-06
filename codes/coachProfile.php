@@ -3,7 +3,7 @@ session_start();
 require_once('dbconnect.php');
 
 // 1. GATEKEEPER
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'coach') {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
@@ -62,7 +62,9 @@ $data = mysqli_fetch_assoc($result);
             <?php endif; ?>
 
             <a href="pointsTable.php" class="nav-item">Points Table</a>
-            <a href="scoutedPlayers.php" class="nav-item">Scouted Players</a>
+            <?php if ($_SESSION['user_role'] == 'coach'): ?>
+                <a href="scoutedPlayers.php" class="nav-item">Scouted Players</a>
+            <?php endif; ?>
             <a href="fixtures.php" class="nav-item">Fixtures</a>
 
             <a href="logout.php" class="nav-item logout-link">Logout</a>
