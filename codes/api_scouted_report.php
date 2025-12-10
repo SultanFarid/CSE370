@@ -2,7 +2,7 @@
 require_once('dbconnect.php');
 
 // --- PASTE YOUR API KEY HERE ---
-$apiKey = ""; 
+$apiKey = "#";
 // ------------------------------
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

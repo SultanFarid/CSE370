@@ -32,7 +32,7 @@ $session = mysqli_fetch_assoc($session_result);
 // 4. GET PLAYERS IN THIS SESSION
 $players_query = "SELECT u.User_ID as Player_ID, u.Name, p.Position, p.Current_Injury_Status,
                   tp.Technical_score, tp.Physical_score, tp.Tactical_score, 
-                  tp.Coach_remarks, tp.participation_status
+                  tp.Coach_remarks, tp.participation_status, tp.Coach_ID
                   FROM training_participation tp
                   JOIN users u ON tp.Player_ID = u.User_ID
                   JOIN player p ON u.User_ID = p.Player_ID
@@ -47,10 +47,17 @@ while ($player = mysqli_fetch_assoc($players_result)) {
 }
 
 // 5. RETURN DATA
+$coach_id = null;
+if (count($players) > 0) {
+    $coach_id = $players[0]['Coach_ID'];
+}
+
+// 6. RETURN DATA
 echo json_encode([
     'success' => true,
     'session' => $session,
-    'players' => $players
+    'players' => $players,
+    'coach_id' => $coach_id  // ← ADD THIS LINE
 ]);
 
 mysqli_close($conn);
