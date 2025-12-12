@@ -29,7 +29,7 @@ $stats = ['wins' => 0, 'draws' => 0, 'losses' => 0, 'total' => 0];
 
 $previous_query = "SELECT f.*, g.Score, g.MVP
                    FROM fixtures f
-                   LEFT JOIN generates g ON f.Match_id = g.Match_id AND g.Team_Name = 'BRAC University'
+                   LEFT JOIN generates g ON f.Match_id = g.Match_id AND g.Team_Name = 'BUFC'
                    WHERE f.Match_status IN ('Won', 'Lost', 'Draw')
                    ORDER BY f.Match_date DESC";
 $previous_result = mysqli_query($tournament_conn, $previous_query);
@@ -200,10 +200,17 @@ mysqli_close($tournament_conn);
                                             <div class="match-month"><?php echo $month; ?></div>
                                         </div>
                                         <div class="match-score-section upcoming">
-                                            <div class="team-name">BRAC University</div>
-                                            <div class="vs-text">VS</div>
-                                            <div class="team-name"><?php echo htmlspecialchars($fixture['Opponent']); ?></div>
-                                        </div>
+    <div class="team-container">
+        <img src="images/teams/BUFC.png" alt="BUFC" class="team-logo" onerror="this.style.display='none'">
+        <div class="team-name">BUFC</div>
+    </div>
+    <div class="vs-text">VS</div>
+    <div class="team-container">
+        <img src="images/teams/<?php echo htmlspecialchars($fixture['Opponent']) ?>.png" alt="<?php echo htmlspecialchars($fixture['Opponent']) ?>" class="team-logo" onerror="this.style.display='none'">
+        <div class="team-name"><?php echo htmlspecialchars($fixture['Opponent']) ?></div>
+    </div>
+</div>
+
                                     </div>
                                     <div class="match-meta">
                                         <div class="match-status-badge scheduled"><?php echo $time; ?></div>
@@ -324,12 +331,19 @@ mysqli_close($tournament_conn);
                                             <div class="match-month"><?php echo $month; ?></div>
                                         </div>
                                         <div class="match-score-section finished">
-                                            <div class="team-name">BRAC University</div>
-                                            <div class="score-display"><?php echo $fixture['bufc_score']; ?></div>
-                                            <div class="vs-text">-</div>
-                                            <div class="score-display"><?php echo $fixture['opponent_score']; ?></div>
-                                            <div class="team-name"><?php echo htmlspecialchars($fixture['Opponent']); ?></div>
-                                        </div>
+    <div class="team-container">
+        <img src="images/teams/BUFC.png" alt="BUFC" class="team-logo" onerror="this.style.display='none'">
+        <div class="team-name">BUFC</div>
+    </div>
+    <div class="score-display"><?php echo $fixture['bufc_score'] ?></div>
+    <div class="vs-text">-</div>
+    <div class="score-display"><?php echo $fixture['opponent_score'] ?></div>
+    <div class="team-container">
+        <img src="images/teams/<?php echo htmlspecialchars($fixture['Opponent']) ?>.png" alt="<?php echo htmlspecialchars($fixture['Opponent']) ?>" class="team-logo" onerror="this.style.display='none'">
+        <div class="team-name"><?php echo htmlspecialchars($fixture['Opponent']) ?></div>
+    </div>
+</div>
+
                                     </div>
                                     <div class="match-meta">
                                         <div class="match-status-badge <?php echo $fixture['result']; ?>"><?php echo $statusText; ?></div>
