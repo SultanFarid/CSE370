@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2025 at 03:35 PM
+-- Generation Time: Dec 12, 2025 at 05:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,7 +52,7 @@ INSERT INTO `fixtures` (`Match_id`, `Match_date`, `Match_time`, `Stadium`, `Matc
 (9, '2025-11-10', '18:00:00', 'Rajshahi Stadium', 'Won', 'RUFC'),
 (10, '2025-11-17', '15:00:00', 'BRAC University Ground', 'Won', 'AUST FC'),
 (11, '2025-11-24', '17:00:00', 'BRAC University Ground', 'Draw', 'JUFC'),
-(12, '2025-12-01', '16:00:00', 'BRAC University Ground', 'Draw', 'DUFC'),
+(12, '2025-12-01', '16:00:00', 'BRAC University Ground', 'Scheduled', 'DUFC'),
 (13, '2025-12-08', '17:00:00', 'BAU Sports Complex', 'Scheduled', 'BAU FC'),
 (14, '2025-12-15', '17:00:00', 'BRAC University Ground', 'Scheduled', 'BUET FC'),
 (15, '2025-12-22', '15:00:00', 'BRAC University Ground', 'Scheduled', 'CUFC'),
@@ -100,8 +100,7 @@ INSERT INTO `generates` (`Match_id`, `Team_Name`, `Score`, `MVP`) VALUES
 (8, 'BUFC', '1-1', 'Sumon Reza'),
 (9, 'BUFC', '2-1', 'Mohammad Ibrahim'),
 (10, 'BUFC', '4-1', 'Mohammad Ibrahim'),
-(11, 'BUFC', '3-3', 'Shahin Alam'),
-(12, 'BUFC', '1-1', 'Pending');
+(11, 'BUFC', '3-3', 'Shahin Alam');
 
 -- --------------------------------------------------------
 
@@ -127,22 +126,22 @@ CREATE TABLE `league_standings` (
 --
 
 INSERT INTO `league_standings` (`Team_Name`, `Points`, `Matches_Won`, `Matches_Drawn`, `Matches_Lost`, `Coach_Name`, `Captain`, `Most_Goal_Player`, `Most_Assist_Player`, `Best_Player`) VALUES
-('AIUB FC', 15, 4, 3, 5, 'Monirul Islam', 'Rubel Mia', 'Yasir Ali', 'Taskin Ahmed', 'Saif Hassan'),
-('AUST FC', 19, 6, 1, 5, 'Akram Khan', 'Imrul Kayes', 'Mosaddek Hossain', 'Saifuddin Khan', 'Tushar Imran'),
-('BAU FC', 17, 5, 2, 5, 'Manjural Islam', 'Arafat Sunny', 'Nazmul Hossain', 'Shafiul Islam', 'Farhad Reza'),
-('BUET FC', 8, 2, 2, 8, 'Aminul Islam', 'Sakib Rahman', 'Ariful Islam', 'Najmul Islam', 'Shakil Ahmed'),
-('BUFC', 12, 3, 3, 6, 'Nazmul Islam', 'Jamal Bhuyan', 'Rakib Hossain', 'Mohammad Ibrahim', 'Sumon Reza'),
-('CUFC', 23, 7, 2, 3, 'Mahfuzul Haque', 'Taskin Mahmud', 'Anamul Haque', 'Shoriful Khan', 'Shamim Patwari'),
-('DIU FC', 6, 1, 3, 8, 'Habibul Bashar', 'Shahriar Nafees', 'Sabbir Rahman', 'Rubel Hossain', 'Naeem Islam Jr'),
-('DUFC', 16, 5, 1, 6, 'Khaled Mahmud', 'Fahim Ahmed', 'Imran Hossain', 'Mahmudul Joy', 'Rahim Uddin'),
-('EWU FC', 28, 9, 1, 2, 'Masud Karim', 'Rakib Ahmed', 'Kamrul Hassan', 'Parvez Ahmed', 'Mahedi Hasan'),
-('IIUC FC', 20, 6, 2, 4, 'Khaled Mashud', 'Nasir Hossain', 'Soumya Sarkar', 'Al-Amin Hossain', 'Raqibul Hasan'),
-('IUB FC', 28, 9, 1, 2, 'Shahidul Rahman', 'Mushfiq Hasan', 'Shahriar Alam', 'Towhid Ridoy', 'Jaker Rahman'),
-('JUFC', 29, 9, 2, 1, 'Rafiqul Alam', 'Tamim Hassan', 'Sohag Ahmed', 'Afif Hossain', 'Miraz Hossain'),
-('NSU FC', 6, 1, 3, 8, 'Jahangir Kabir', 'Ashraful Karim', 'Taijul Rahman', 'Nurul Amin', 'Tanzid Tamim'),
-('RUFC', 10, 2, 4, 6, 'Ashraful Amin', 'Sabbir Hossain', 'Shanto Mia', 'Ebadot Ali', 'Mim Mosaddek'),
-('SUST FC', 9, 3, 0, 9, 'Rezaul Karim', 'Nafis Iqbal', 'Liton Ahmed', 'Hasan Mahmud', 'Yasir Rabbi'),
-('UIU FC', 26, 8, 2, 2, 'Tariqul Islam', 'Soumya Khan', 'Naeem Islam', 'Tanzim Sakib', 'Tawhid Hridoy');
+('AIUB FC', 12, 3, 3, 5, 'Monirul Islam', 'Rubel Mia', 'Yasir Ali', 'Taskin Ahmed', 'Saif Hassan'),
+('AUST FC', 18, 6, 0, 5, 'Akram Khan', 'Imrul Kayes', 'Mosaddek Hossain', 'Saifuddin Khan', 'Tushar Imran'),
+('BAU FC', 16, 5, 1, 5, 'Manjural Islam', 'Arafat Sunny', 'Nazmul Hossain', 'Shafiul Islam', 'Farhad Reza'),
+('BUET FC', 8, 2, 2, 7, 'Aminul Islam', 'Sakib Rahman', 'Ariful Islam', 'Najmul Islam', 'Shakil Ahmed'),
+('BUFC', 11, 3, 2, 6, 'Nazmul Islam', 'Jamal Bhuyan', 'Rakib Hossain', 'Mohammad Ibrahim', 'Sumon Reza'),
+('CUFC', 20, 6, 2, 3, 'Mahfuzul Haque', 'Taskin Mahmud', 'Anamul Haque', 'Shoriful Khan', 'Shamim Patwari'),
+('DIU FC', 6, 1, 3, 7, 'Habibul Bashar', 'Shahriar Nafees', 'Sabbir Rahman', 'Rubel Hossain', 'Naeem Islam Jr'),
+('DUFC', 15, 5, 0, 6, 'Khaled Mahmud', 'Fahim Ahmed', 'Imran Hossain', 'Mahmudul Joy', 'Rahim Uddin'),
+('EWU FC', 28, 9, 1, 1, 'Masud Karim', 'Rakib Ahmed', 'Kamrul Hassan', 'Parvez Ahmed', 'Mahedi Hasan'),
+('IIUC FC', 20, 6, 2, 3, 'Khaled Mashud', 'Nasir Hossain', 'Soumya Sarkar', 'Al-Amin Hossain', 'Raqibul Hasan'),
+('IUB FC', 28, 9, 1, 1, 'Shahidul Rahman', 'Mushfiq Hasan', 'Shahriar Alam', 'Towhid Ridoy', 'Jaker Rahman'),
+('JUFC', 26, 8, 2, 1, 'Rafiqul Alam', 'Tamim Hassan', 'Sohag Ahmed', 'Afif Hossain', 'Miraz Hossain'),
+('NSU FC', 6, 1, 3, 7, 'Jahangir Kabir', 'Ashraful Karim', 'Taijul Rahman', 'Nurul Amin', 'Tanzid Tamim'),
+('RUFC', 10, 2, 4, 5, 'Ashraful Amin', 'Sabbir Hossain', 'Shanto Mia', 'Ebadot Ali', 'Mim Mosaddek'),
+('SUST FC', 9, 3, 0, 8, 'Rezaul Karim', 'Nafis Iqbal', 'Liton Ahmed', 'Hasan Mahmud', 'Yasir Rabbi'),
+('UIU FC', 25, 8, 1, 2, 'Tariqul Islam', 'Soumya Khan', 'Naeem Islam', 'Tanzim Sakib', 'Tawhid Hridoy');
 
 --
 -- Indexes for dumped tables
