@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2025 at 03:02 PM
+-- Generation Time: Dec 12, 2025 at 03:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,36 +41,36 @@ CREATE TABLE `fixtures` (
 --
 
 INSERT INTO `fixtures` (`Match_id`, `Match_date`, `Match_time`, `Stadium`, `Match_status`, `Opponent`) VALUES
-(1, '2025-09-15', '18:00:00', 'BRAC University Ground', 'Won', 'Islamic University Bangladesh'),
-(2, '2025-09-22', '17:00:00', 'NSU Sports Complex', 'Lost', 'North South University'),
-(3, '2025-09-29', '18:00:00', 'BRAC University Ground', 'Lost', 'Daffodil International University'),
-(4, '2025-10-06', '15:00:00', 'Sylhet District Stadium', 'Lost', 'Shahjalal University'),
-(5, '2025-10-13', '18:00:00', 'BRAC University Ground', 'Lost', 'Bangladesh Agricultural University'),
-(6, '2025-10-20', '16:00:00', 'UIU Sports Field', 'Lost', 'United International University'),
-(7, '2025-10-27', '16:00:00', 'Jahangirnagar University Stadium', 'Lost', 'Jahangirnagar University'),
-(8, '2025-11-03', '15:00:00', 'Islamic University Stadium', 'Draw', 'Islamic University Bangladesh'),
-(9, '2025-11-10', '18:00:00', 'Rajshahi Stadium', 'Won', 'Rajshahi University'),
-(10, '2025-11-17', '15:00:00', 'BRAC University Ground', 'Won', 'Ahsanullah University of Science and Technology'),
-(11, '2025-11-24', '17:00:00', 'BRAC University Ground', 'Draw', 'Jahangirnagar University'),
-(12, '2025-12-01', '16:00:00', 'BRAC University Ground', 'Scheduled', 'Dhaka University'),
-(13, '2025-12-08', '17:00:00', 'BAU Sports Complex', 'Scheduled', 'Bangladesh Agricultural University'),
-(14, '2025-12-15', '17:00:00', 'BRAC University Ground', 'Scheduled', 'Bangladesh University of Engineering and Technology'),
-(15, '2025-12-22', '15:00:00', 'BRAC University Ground', 'Scheduled', 'Chittagong University'),
-(16, '2025-12-29', '15:00:00', 'BRAC University Ground', 'Scheduled', 'Rajshahi University'),
-(17, '2026-01-05', '16:00:00', 'BRAC University Ground', 'Scheduled', 'American International University'),
-(18, '2026-01-12', '16:00:00', 'BRAC University Ground', 'Scheduled', 'East West University'),
-(19, '2026-01-19', '17:00:00', 'Dhaka University Stadium', 'Scheduled', 'Dhaka University'),
-(20, '2026-01-26', '16:00:00', 'BUET Sports Complex', 'Scheduled', 'Bangladesh University of Engineering and Technology'),
-(21, '2026-02-02', '15:00:00', 'BRAC University Ground', 'Scheduled', 'Independent University Bangladesh'),
-(22, '2026-02-09', '17:00:00', 'BRAC University Ground', 'Scheduled', 'United International University'),
-(23, '2026-02-16', '18:00:00', 'EWU Sports Ground', 'Scheduled', 'East West University'),
-(24, '2026-02-23', '15:00:00', 'Chittagong MA Aziz Stadium', 'Scheduled', 'Chittagong University'),
-(25, '2026-03-02', '16:00:00', 'Daffodil Sports Complex', 'Scheduled', 'Daffodil International University'),
-(26, '2026-03-09', '18:00:00', 'BRAC University Ground', 'Scheduled', 'North South University'),
-(27, '2026-03-16', '15:00:00', 'BRAC University Ground', 'Scheduled', 'Shahjalal University'),
-(28, '2026-03-23', '18:00:00', 'IUB Sports Complex', 'Scheduled', 'Independent University Bangladesh'),
-(29, '2026-03-30', '16:00:00', 'AIUB Field', 'Scheduled', 'American International University'),
-(30, '2026-04-06', '15:00:00', 'AUST Ground', 'Scheduled', 'Ahsanullah University of Science and Technology');
+(1, '2025-09-15', '18:00:00', 'BRAC University Ground', 'Won', 'IUB FC'),
+(2, '2025-09-22', '17:00:00', 'NSU Sports Complex', 'Lost', 'NSU FC'),
+(3, '2025-09-29', '18:00:00', 'BRAC University Ground', 'Lost', 'DIU FC'),
+(4, '2025-10-06', '15:00:00', 'Sylhet District Stadium', 'Lost', 'SUST FC'),
+(5, '2025-10-13', '18:00:00', 'BRAC University Ground', 'Lost', 'BAU FC'),
+(6, '2025-10-20', '16:00:00', 'UIU Sports Field', 'Lost', 'UIU FC'),
+(7, '2025-10-27', '16:00:00', 'Jahangirnagar University Stadium', 'Lost', 'JUFC'),
+(8, '2025-11-03', '15:00:00', 'Islamic University Stadium', 'Draw', 'IUB FC'),
+(9, '2025-11-10', '18:00:00', 'Rajshahi Stadium', 'Won', 'RUFC'),
+(10, '2025-11-17', '15:00:00', 'BRAC University Ground', 'Won', 'AUST FC'),
+(11, '2025-11-24', '17:00:00', 'BRAC University Ground', 'Draw', 'JUFC'),
+(12, '2025-12-01', '16:00:00', 'BRAC University Ground', 'Draw', 'DUFC'),
+(13, '2025-12-08', '17:00:00', 'BAU Sports Complex', 'Scheduled', 'BAU FC'),
+(14, '2025-12-15', '17:00:00', 'BRAC University Ground', 'Scheduled', 'BUET FC'),
+(15, '2025-12-22', '15:00:00', 'BRAC University Ground', 'Scheduled', 'CUFC'),
+(16, '2025-12-29', '15:00:00', 'BRAC University Ground', 'Scheduled', 'RUFC'),
+(17, '2026-01-05', '16:00:00', 'BRAC University Ground', 'Scheduled', 'AIUB FC'),
+(18, '2026-01-12', '16:00:00', 'BRAC University Ground', 'Scheduled', 'EWU FC'),
+(19, '2026-01-19', '17:00:00', 'Dhaka University Stadium', 'Scheduled', 'DUFC'),
+(20, '2026-01-26', '16:00:00', 'BUET Sports Complex', 'Scheduled', 'BUET FC'),
+(21, '2026-02-02', '15:00:00', 'BRAC University Ground', 'Scheduled', 'IUB FC'),
+(22, '2026-02-09', '17:00:00', 'BRAC University Ground', 'Scheduled', 'UIU FC'),
+(23, '2026-02-16', '18:00:00', 'EWU Sports Ground', 'Scheduled', 'EWU FC'),
+(24, '2026-02-23', '15:00:00', 'Chittagong MA Aziz Stadium', 'Scheduled', 'CUFC'),
+(25, '2026-03-02', '16:00:00', 'Daffodil Sports Complex', 'Scheduled', 'DIU FC'),
+(26, '2026-03-09', '18:00:00', 'BRAC University Ground', 'Scheduled', 'NSU FC'),
+(27, '2026-03-16', '15:00:00', 'BRAC University Ground', 'Scheduled', 'SUST FC'),
+(28, '2026-03-23', '18:00:00', 'IUB Sports Complex', 'Scheduled', 'IUB FC'),
+(29, '2026-03-30', '16:00:00', 'AIUB Field', 'Scheduled', 'AIUB FC'),
+(30, '2026-04-06', '15:00:00', 'AUST Ground', 'Scheduled', 'AUST FC');
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,8 @@ INSERT INTO `generates` (`Match_id`, `Team_Name`, `Score`, `MVP`) VALUES
 (8, 'BUFC', '1-1', 'Sumon Reza'),
 (9, 'BUFC', '2-1', 'Mohammad Ibrahim'),
 (10, 'BUFC', '4-1', 'Mohammad Ibrahim'),
-(11, 'BUFC', '3-3', 'Shahin Alam');
+(11, 'BUFC', '3-3', 'Shahin Alam'),
+(12, 'BUFC', '1-1', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -126,22 +127,22 @@ CREATE TABLE `league_standings` (
 --
 
 INSERT INTO `league_standings` (`Team_Name`, `Points`, `Matches_Won`, `Matches_Drawn`, `Matches_Lost`, `Coach_Name`, `Captain`, `Most_Goal_Player`, `Most_Assist_Player`, `Best_Player`) VALUES
-('AIUB FC', 12, 3, 3, 5, 'Monirul Islam', 'Rubel Mia', 'Yasir Ali', 'Taskin Ahmed', 'Saif Hassan'),
-('AUST FC', 16, 5, 1, 5, 'Akram Khan', 'Imrul Kayes', 'Mosaddek Hossain', 'Saifuddin Khan', 'Tushar Imran'),
-('BAU FC', 16, 5, 1, 5, 'Manjural Islam', 'Arafat Sunny', 'Nazmul Hossain', 'Shafiul Islam', 'Farhad Reza'),
-('BUET FC', 7, 2, 1, 8, 'Aminul Islam', 'Sakib Rahman', 'Ariful Islam', 'Najmul Islam', 'Shakil Ahmed'),
-('BUFC', 11, 3, 2, 6, 'Nazmul Islam', 'Jamal Bhuyan', 'Rakib Hossain', 'Mohammad Ibrahim', 'Sumon Reza'),
-('CUFC', 20, 6, 2, 3, 'Mahfuzul Haque', 'Taskin Mahmud', 'Anamul Haque', 'Shoriful Khan', 'Shamim Patwari'),
-('DIU FC', 5, 1, 2, 8, 'Habibul Bashar', 'Shahriar Nafees', 'Sabbir Rahman', 'Rubel Hossain', 'Naeem Islam Jr'),
-('DUFC', 15, 5, 0, 6, 'Khaled Mahmud', 'Fahim Ahmed', 'Imran Hossain', 'Mahmudul Joy', 'Rahim Uddin'),
-('EWU FC', 28, 9, 1, 1, 'Masud Karim', 'Rakib Ahmed', 'Kamrul Hassan', 'Parvez Ahmed', 'Mahedi Hasan'),
-('IIUC FC', 17, 5, 2, 4, 'Khaled Mashud', 'Nasir Hossain', 'Soumya Sarkar', 'Al-Amin Hossain', 'Raqibul Hasan'),
-('IUB FC', 25, 8, 1, 2, 'Shahidul Rahman', 'Mushfiq Hasan', 'Shahriar Alam', 'Towhid Ridoy', 'Jaker Rahman'),
-('JUFC', 29, 9, 2, 0, 'Rafiqul Alam', 'Tamim Hassan', 'Sohag Ahmed', 'Afif Hossain', 'Miraz Hossain'),
-('NSU FC', 5, 1, 2, 8, 'Jahangir Kabir', 'Ashraful Karim', 'Taijul Rahman', 'Nurul Amin', 'Tanzid Tamim'),
-('RUFC', 7, 1, 4, 6, 'Ashraful Amin', 'Sabbir Hossain', 'Shanto Mia', 'Ebadot Ali', 'Mim Mosaddek'),
-('SUST FC', 6, 2, 0, 9, 'Rezaul Karim', 'Nafis Iqbal', 'Liton Ahmed', 'Hasan Mahmud', 'Yasir Rabbi'),
-('UIU FC', 23, 7, 2, 2, 'Tariqul Islam', 'Soumya Khan', 'Naeem Islam', 'Tanzim Sakib', 'Tawhid Hridoy');
+('AIUB FC', 15, 4, 3, 5, 'Monirul Islam', 'Rubel Mia', 'Yasir Ali', 'Taskin Ahmed', 'Saif Hassan'),
+('AUST FC', 19, 6, 1, 5, 'Akram Khan', 'Imrul Kayes', 'Mosaddek Hossain', 'Saifuddin Khan', 'Tushar Imran'),
+('BAU FC', 17, 5, 2, 5, 'Manjural Islam', 'Arafat Sunny', 'Nazmul Hossain', 'Shafiul Islam', 'Farhad Reza'),
+('BUET FC', 8, 2, 2, 8, 'Aminul Islam', 'Sakib Rahman', 'Ariful Islam', 'Najmul Islam', 'Shakil Ahmed'),
+('BUFC', 12, 3, 3, 6, 'Nazmul Islam', 'Jamal Bhuyan', 'Rakib Hossain', 'Mohammad Ibrahim', 'Sumon Reza'),
+('CUFC', 23, 7, 2, 3, 'Mahfuzul Haque', 'Taskin Mahmud', 'Anamul Haque', 'Shoriful Khan', 'Shamim Patwari'),
+('DIU FC', 6, 1, 3, 8, 'Habibul Bashar', 'Shahriar Nafees', 'Sabbir Rahman', 'Rubel Hossain', 'Naeem Islam Jr'),
+('DUFC', 16, 5, 1, 6, 'Khaled Mahmud', 'Fahim Ahmed', 'Imran Hossain', 'Mahmudul Joy', 'Rahim Uddin'),
+('EWU FC', 28, 9, 1, 2, 'Masud Karim', 'Rakib Ahmed', 'Kamrul Hassan', 'Parvez Ahmed', 'Mahedi Hasan'),
+('IIUC FC', 20, 6, 2, 4, 'Khaled Mashud', 'Nasir Hossain', 'Soumya Sarkar', 'Al-Amin Hossain', 'Raqibul Hasan'),
+('IUB FC', 28, 9, 1, 2, 'Shahidul Rahman', 'Mushfiq Hasan', 'Shahriar Alam', 'Towhid Ridoy', 'Jaker Rahman'),
+('JUFC', 29, 9, 2, 1, 'Rafiqul Alam', 'Tamim Hassan', 'Sohag Ahmed', 'Afif Hossain', 'Miraz Hossain'),
+('NSU FC', 6, 1, 3, 8, 'Jahangir Kabir', 'Ashraful Karim', 'Taijul Rahman', 'Nurul Amin', 'Tanzid Tamim'),
+('RUFC', 10, 2, 4, 6, 'Ashraful Amin', 'Sabbir Hossain', 'Shanto Mia', 'Ebadot Ali', 'Mim Mosaddek'),
+('SUST FC', 9, 3, 0, 9, 'Rezaul Karim', 'Nafis Iqbal', 'Liton Ahmed', 'Hasan Mahmud', 'Yasir Rabbi'),
+('UIU FC', 26, 8, 2, 2, 'Tariqul Islam', 'Soumya Khan', 'Naeem Islam', 'Tanzim Sakib', 'Tawhid Hridoy');
 
 --
 -- Indexes for dumped tables
