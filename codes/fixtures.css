@@ -832,62 +832,85 @@ body {
   gap: 25px;
 }
 
+/* ========== REVISED FORMATION LAYOUT ========== */
+
+/* GK: Centered on goal line */
 .gk-slot {
-  left: 5%;
-  top: 57%;
-  transform: translateY(-50%);
-}
-
-.lb-slot {
-  left: 25%;
-  top: 0%;
-}
-
-.cb-slot {
-  left: 15%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.rb-slot {
-  left: 25%;
-  bottom: 0%;
-}
-
-.dm-slot {
-  left: 40%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.cm-slot {
-  left: 50%;
+  left: 6%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
+/* LB: Upper left, wide (Wingback position) */
+.lb-slot {
+  left: 26%;
+  top: 8%;
+  transform: translate(-50%, -50%);
+}
+
+/* RB: Lower left, wide (Wingback position) */
+.rb-slot {
+  left: 26%;
+  bottom: 8%;
+  transform: translate(-50%, 50%);
+}
+
+/* CB: Centered vertically, but split apart */
+.cb-slot {
+  left: 26%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Remove default gap so we can control spacing precisely with transform */
+  gap: 5px; 
+}
+
+/* If there's only 1 CB (red card/injury), reset transform */
+.cb-slot .player-card-field:only-child {
+  transform: none;
+}
+
+/* DM: Sitting in the 'hole' (center circle edge) */
+.dm-slot {
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* CM: Advanced central area, split vertically */
+.cm-slot {
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  gap: 0;
+}
+
+/* Logic to spread the two CMs vertically apart */
 .cm-slot .player-card-field:first-child {
-  transform: translateY(-60%);
+  transform: translateY(-80%); /* Push Top CM up */
 }
-
 .cm-slot .player-card-field:last-child {
-  transform: translateY(60%);
+  transform: translateY(80%); /* Push Bottom CM down */
 }
 
+/* LW: High and Wide Left */
 .lw-slot {
-  left: 60%;
-  top: 5%;
+  right: 15%;
+  top: 20%;
+  transform: translate(50%, -50%);
 }
 
+/* ST: Spearhead (Center Forward) */
 .st-slot {
   right: 15%;
-  top: 55%;
-  transform: translateY(-50%);
+  top: 50%;
+  transform: translate(50%, -50%);
 }
 
+/* RW: High and Wide Right */
 .rw-slot {
-  left: 60%;
-  bottom: 5%;
+  right: 15%;
+  bottom: 20%;
+  transform: translate(50%, 50%);
 }
 
 .player-card-field {
