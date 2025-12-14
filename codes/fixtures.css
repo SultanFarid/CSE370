@@ -881,16 +881,9 @@ body {
   left: 55%;
   top: 50%;
   transform: translate(-50%, -50%);
-  gap: 0;
+  gap: 200px;
 }
 
-/* Logic to spread the two CMs vertically apart */
-.cm-slot .player-card-field:first-child {
-  transform: translateY(-80%); /* Push Top CM up */
-}
-.cm-slot .player-card-field:last-child {
-  transform: translateY(80%); /* Push Bottom CM down */
-}
 
 /* LW: High and Wide Left */
 .lw-slot {
