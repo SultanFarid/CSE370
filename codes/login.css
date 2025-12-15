@@ -1,6 +1,5 @@
 :root {
-  /* Vibrant Palette */
-  --brand-blue: #3b82f6;       /* Electric Blue */
+  --brand-blue: #3b82f6;
   --brand-dark: #020617;
   --brand-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
 
@@ -12,55 +11,106 @@
   --text-muted: #64748b;
   --border-color: #e2e8f0;
 
-  /* NEW: Blue shades for the background animation */
-  --light-blue: #38bdf8;       /* Sky Blue */
-  --medium-blue: #1d4ed8;      /* Royal Blue */
-  --medium-dark-blue: #0f3460; /* Slightly darker midnight blue */
+
+  --light-blue: #38bdf8;
+  --medium-blue: #1d4ed8;
+  --medium-dark-blue: #0f3460;
 }
 
-/* --- KEYFRAMES --- */
 /* 1. Background color transition */
 @keyframes colorChange {
-    0% { background: linear-gradient(145deg, var(--medium-dark-blue) 0%, var(--medium-blue) 50%, var(--light-blue) 100%); }
-    50% { background: linear-gradient(145deg, var(--light-blue) 0%, var(--medium-blue) 50%, var(--medium-dark-blue) 100%); }
-    100% { background: linear-gradient(145deg, var(--medium-dark-blue) 0%, var(--medium-blue) 50%, var(--light-blue) 100%); }
+  0% {
+    background: linear-gradient(
+      145deg,
+      var(--medium-dark-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--light-blue) 100%
+    );
+  }
+  50% {
+    background: linear-gradient(
+      145deg,
+      var(--light-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--medium-dark-blue) 100%
+    );
+  }
+  100% {
+    background: linear-gradient(
+      145deg,
+      var(--medium-dark-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--light-blue) 100%
+    );
+  }
 }
 
-/* 2. Lightning/Glow effect around the logo (Continuous and softer) */
+/* 2. Lightning/Glow effect around the logo */
 @keyframes lightningGlow {
-    0%, 100% { box-shadow: 0 0 5px 0px var(--light-blue), 0 20px 40px rgba(0,0,0,0.3); }
-    50% { box-shadow: 0 0 10px 5px #2563eb, 0 0 20px 10px var(--light-blue), 0 25px 50px rgba(0,0,0,0.4); }
+  0%,
+  100% {
+    box-shadow: 0 0 5px 0px var(--light-blue), 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 10px 5px #2563eb, 0 0 20px 10px var(--light-blue),
+      0 25px 50px rgba(0, 0, 0, 0.4);
+  }
 }
 
 /* 3. Moving Beam of Light (Circulation effect) */
 @keyframes movingBeam {
-    0% { transform: rotate(0deg) translate(0, -110px) rotate(-0deg); } /* Start at top */
-    100% { transform: rotate(360deg) translate(0, -110px) rotate(-360deg); } /* Full circle */
+  0% {
+    transform: rotate(0deg) translate(0, -110px) rotate(-0deg);
+  } /* Start at top */
+  100% {
+    transform: rotate(360deg) translate(0, -110px) rotate(-360deg);
+  } /* Full circle */
 }
 
-/* Pulse animation for the logo (Existing) */
+/* Pulse animation for the logo */
 @keyframes pulseLogo {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.01); }
-    100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Other existing keyframes */
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 @keyframes slideInText {
-    to { opacity: 1; transform: translateY(0); }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes movePattern {
-    from { background-position: 0 0, 10px 10px; }
-    to { background-position: 20px 20px, 30px 30px; }
+  from {
+    background-position: 0 0, 10px 10px;
+  }
+  to {
+    background-position: 20px 20px, 30px 30px;
+  }
 }
-
 
 * {
   box-sizing: border-box;
@@ -68,7 +118,7 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   height: 100vh;
   overflow: hidden;
   background-color: var(--bg-main);
@@ -88,17 +138,17 @@ body {
 .brand-panel {
   flex: 1;
   background: linear-gradient(145deg, #0f172a 0%, #1e3a8a 50%, #0ea5e9 100%);
-  
+
   /* Apply color changing animation */
-  animation: colorChange 15s ease-in-out infinite, 
-             moveBackground 30s ease infinite; 
+  animation: colorChange 15s ease-in-out infinite,
+    moveBackground 30s ease infinite;
   background-size: 400% 400%;
-  
+
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Center content for better beam origin */
+  align-items: center;
   padding: 80px;
   color: white;
   overflow: hidden;
@@ -107,11 +157,13 @@ body {
 .brand-panel::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('images/login-background.avif');
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("images/login-background.avif");
   background-size: cover;
-  /* ADJUSTED: Shift background position to try and hide the light circle */
-  background-position: center 30%; /* Shifted down slightly */
+  background-position: center 30%;
   opacity: 0.1;
   mix-blend-mode: hard-light;
   transition: transform 0.5s ease-out;
@@ -121,10 +173,9 @@ body {
   position: relative;
   z-index: 2;
   max-width: 500px;
-  /* Center the content container */
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   text-align: center;
 }
 
@@ -138,39 +189,42 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 32px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
-  overflow: visible; /* Important for the beam overflow */
-  border: 2px solid rgba(255,255,255,0.1);
-  position: relative; /* Context for the circulating beam */
-  
-  /* Continuous animations: pulse AND lightning glow */
-  animation: pulseLogo 6s infinite ease-in-out, 
-             lightningGlow 3s infinite alternate ease-in-out;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  animation: pulseLogo 6s infinite ease-in-out,
+    lightningGlow 3s infinite alternate ease-in-out;
   transition: transform 0.3s ease;
 }
 
 /* The Circulating Beam Element */
 .logo-circle::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 15px; 
-    border-radius: 50%;
-    
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(56,189,248,0.8) 50%, rgba(59,130,246,0) 100%);
-    
-    /* Circulation Animation */
-    animation: movingBeam 4s linear infinite;
-    
-    transform-origin: center center; 
-    z-index: 10;
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 15px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(56, 189, 248, 0.8) 50%,
+    rgba(59, 130, 246, 0) 100%
+  );
+
+  /* Circulation Animation */
+  animation: movingBeam 4s linear infinite;
+
+  transform-origin: center center;
+  z-index: 10;
 }
 
 .logo-circle:hover {
-    transform: scale(1.05) rotate(-3deg);
-    cursor: pointer;
-    box-shadow: 0 0 25px 10px var(--light-blue), 0 20px 40px rgba(0,0,0,0.5);
-    animation: pulseLogo 6s infinite ease-in-out; 
+  transform: scale(1.05) rotate(-3deg);
+  cursor: pointer;
+  box-shadow: 0 0 25px 10px var(--light-blue), 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: pulseLogo 6s infinite ease-in-out;
 }
 
 .logo-circle img {
@@ -194,7 +248,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: slideInText 0.8s forwards 0.5s;
-  zoom: 1.10;
+  zoom: 1.1;
 }
 
 .tagline {
@@ -216,7 +270,8 @@ body {
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background-image: radial-gradient(#e5e7eb 1px, transparent 1px), radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px),
+    radial-gradient(#e5e7eb 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px;
   animation: movePattern 60s linear infinite;
@@ -289,14 +344,6 @@ form {
   gap: 8px;
 }
 
-.row {
-  display: flex;
-  gap: 16px;
-}
-.row .input-group {
-  flex: 1;
-}
-
 label {
   font-size: 11px;
   font-weight: 700;
@@ -306,7 +353,8 @@ label {
   transition: color 0.3s ease;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 14px 16px;
   border-radius: 10px;
@@ -319,13 +367,15 @@ input, select {
   outline: none;
 }
 
-input:hover, select:hover {
+input:hover,
+select:hover {
   border-color: #cbd5e1;
   transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   background-color: var(--bg-input-focus);
   border-color: var(--brand-blue);
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
@@ -338,11 +388,12 @@ input::placeholder {
   transition: color 0.3s ease;
 }
 input:focus::placeholder {
-    color: transparent;
+  color: transparent;
 }
 
-
-.select-wrapper { position: relative; }
+.select-wrapper {
+  position: relative;
+}
 .select-wrapper::after {
   content: "▼";
   font-size: 10px;
@@ -354,12 +405,14 @@ input:focus::placeholder {
   pointer-events: none;
   transition: transform 0.3s ease;
 }
-select { appearance: none; cursor: pointer; }
-select:focus ~ .select-wrapper::after {
-    transform: translateY(-50%) scaleY(-1);
-    color: var(--brand-blue);
+select {
+  appearance: none;
+  cursor: pointer;
 }
-
+select:focus ~ .select-wrapper::after {
+  transform: translateY(-50%) scaleY(-1);
+  color: var(--brand-blue);
+}
 
 /* --- BUTTONS --- */
 .btn-primary {
@@ -375,16 +428,16 @@ select:focus ~ .select-wrapper::after {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  
+
   box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2),
-              0 2px 4px -1px rgba(79, 70, 229, 0.1);
+    0 2px 4px -1px rgba(79, 70, 229, 0.1);
   background-size: 200% auto;
 }
 
 .btn-primary:hover {
   transform: translateY(-4px);
   box-shadow: 0 15px 25px -5px rgba(79, 70, 229, 0.4),
-              0 4px 6px -2px rgba(79, 70, 229, 0.2);
+    0 4px 6px -2px rgba(79, 70, 229, 0.2);
   background-position: right center;
 }
 
@@ -394,11 +447,21 @@ select:focus ~ .select-wrapper::after {
 }
 
 /* --- UTILITIES --- */
-.hidden { display: none; }
-.fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.hidden {
+  display: none;
+}
+.fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .copyright {
@@ -408,36 +471,59 @@ select:focus ~ .select-wrapper::after {
   text-align: center;
   font-weight: 500;
 }
-.inline-error { 
-    color: #ef4444; 
-    font-size: 13px; 
-    font-weight: 500; 
-    margin-top: -10px;
-    animation: shake 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+.inline-error {
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: -10px;
+  animation: shake 0.5s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 /* --- MOBILE --- */
 @media (max-width: 900px) {
-  .split-screen { flex-direction: column; overflow-y: auto; }
-  .brand-panel { 
-      flex: none; height: auto; padding: 40px 30px; min-height: 250px; 
-      animation: none;
-      background-size: cover;
-      background: linear-gradient(145deg, var(--medium-dark-blue) 0%, var(--medium-blue) 100%);
+  .split-screen {
+    flex-direction: column;
+    overflow-y: auto;
   }
-  .brand-panel h1 { font-size: 36px; }
-  .tagline { font-size: 16px; }
-  .logo-circle { 
-      margin-bottom: 20px; width: 60px; height: 60px; border-radius: 12px;
-      animation: none;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  .brand-panel {
+    flex: none;
+    height: auto;
+    padding: 40px 30px;
+    min-height: 250px;
+    animation: none;
+    background-size: cover;
+    background: linear-gradient(
+      145deg,
+      var(--medium-dark-blue) 0%,
+      var(--medium-blue) 100%
+    );
   }
-  .logo-circle::after { display: none; } /* Ensure beam is off */
-  .logo-circle img { width: 80%; height: 80%; }
-  .form-panel { 
-      flex: none; padding: 40px 20px; height: auto; 
-      animation: none;
-      background-image: none;
+  .brand-panel h1 {
+    font-size: 36px;
+  }
+  .tagline {
+    font-size: 16px;
+  }
+  .logo-circle {
+    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    animation: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  .logo-circle::after {
+    display: none;
+  }
+  .logo-circle img {
+    width: 80%;
+    height: 80%;
+  }
+  .form-panel {
+    flex: none;
+    padding: 40px 20px;
+    height: auto;
+    animation: none;
+    background-image: none;
   }
 }
-

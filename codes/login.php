@@ -3,11 +3,10 @@ session_start();
 require_once('dbconnect.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $identifier = $_POST['identifier'];  // This is the username OR email field
+    $identifier = $_POST['identifier'];
     $password = $_POST['password'];
     $role = $_POST['role'];
     
-    // Use the identifier for both username and email in the query
     $query = "SELECT * FROM users WHERE Email='$identifier' AND Password='$password'";
     
     $result = mysqli_query($conn, $query);

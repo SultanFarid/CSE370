@@ -2,7 +2,7 @@
 session_start();
 require_once('dbconnect.php');
 
-// 1. Security Check
+// GATEKEEPER
 if (!isset($_SESSION['signup_email']) || !isset($_SESSION['signup_password'])) {
     header("Location: login.html");
     exit();
@@ -12,21 +12,20 @@ $signup_email = $_SESSION['signup_email'];
 $signup_password = $_SESSION['signup_password'];
 $error_message = "";
 
-// 2. Handle Form Submission
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
     // Get Data
     $name = $_POST['player_name'];
     $age = $_POST['age'];
     $dob = $_POST['date_of_birth'];
     $phone = $_POST['phone_no'];
-    
-    // NID HANDLING (Optional)
+
+    // NID HANDLING 
     $nid_input = $_POST['nid'];
     if (empty($nid_input)) {
-        $nid_value = "NULL"; 
+        $nid_value = "NULL";
     } else {
-        $nid_value = "'$nid_input'"; 
+        $nid_value = "'$nid_input'";
     }
 
     $address = $_POST['address'];
@@ -37,47 +36,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $injury = $_POST['injury_status'];
     $prev_club = $_POST['previous_club'];
     $experience = $_POST['experience'];
-    $bio = $_POST['bio']; 
+    $bio = $_POST['bio'];
 
     try {
-        // STEP 1: Create User
+        // Create User
         $sql_user = "INSERT INTO users (Name, Age, NID, Email, Address, Phone_No, Date_of_Birth, Password, Role) 
                      VALUES ('$name', '$age', $nid_value, '$signup_email', '$address', '$phone', '$dob', '$signup_password', 'scouted_player')";
-        
+
         if (!mysqli_query($conn, $sql_user)) {
             throw new Exception(mysqli_error($conn));
         }
-        
+
         $new_id = mysqli_insert_id($conn);
 
-        // STEP 2: Create Player Profile
+        // Create Player Profile
         $sql_player = "INSERT INTO Player (Player_ID, Position, Preferred_foot, Height, Weight, Current_Injury_Status)
                        VALUES ('$new_id', '$position', '$foot', '$height', '$weight', '$injury')";
-        
+
         if (!mysqli_query($conn, $sql_player)) {
             throw new Exception(mysqli_error($conn));
         }
 
-        // STEP 3: Create Scout Application
+        // Create Scout Application
         $sql_scout = "INSERT INTO Scouted_Player (Scouted_Player_ID, Scouted_Player_Experience, Scouted_Player_Previous_Club, Bio)
                       VALUES ('$new_id', '$experience', '$prev_club', '$bio')";
-        
+
         if (!mysqli_query($conn, $sql_scout)) {
             throw new Exception(mysqli_error($conn));
         }
 
-        // --- SUCCESS: AUTO-LOGIN LOGIC ---
-        
-        // 1. Set the Session Variables (Just like login.php does)
+
+        // Set the Session Variables
         $_SESSION['user_id'] = $new_id;
         $_SESSION['user_name'] = $name;
         $_SESSION['user_email'] = $signup_email;
         $_SESSION['user_role'] = 'scouted_player';
 
-        // 2. Clear the temporary signup variables
+        // Clear the temporary signup variables
         unset($_SESSION['signup_email']);
         unset($_SESSION['signup_password']);
-        
+
         // 3. Redirect directly to the Player Dashboard
         header("Location: playerProfile.php");
         exit();
@@ -90,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,8 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="scoutedPlayerRegistration.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    
+
     <header class="site-header">
         <div class="header-container">
             <div class="brand-area">
@@ -125,14 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <form method="POST" action="" id="registrationForm">
-                
+
                 <div class="form-section">
                     <h3 class="section-title">Personal Details</h3>
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="player_name" name="player_name" required placeholder="Enter your full name">
+                        <input type="text" id="player_name" name="player_name" required
+                            placeholder="Enter your full name">
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label>Age</label>
@@ -217,21 +218,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="form-group">
                             <label>Experience (Years)</label>
-                            <input type="text" name="experience" id="experience" required placeholder="e.g. U-19 District Team">
+                            <input type="text" name="experience" id="experience" required
+                                placeholder="e.g. U-19 District Team">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Bio / Self Description</label>
-                        <textarea name="bio" id="bio" required placeholder="Tell us about your playing style..."></textarea>
+                        <textarea name="bio" id="bio" required
+                            placeholder="Tell us about your playing style..."></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Account Email</label>
-                    <input type="text" value="<?php echo htmlspecialchars($signup_email); ?>" readonly class="readonly-field">
+                    <input type="text" value="<?php echo htmlspecialchars($signup_email); ?>" readonly
+                        class="readonly-field">
                 </div>
-                
+
                 <div class="button-group">
                     <button type="submit" class="btn-submit">Submit Application</button>
                     <a href="login.html" class="btn-cancel">Cancel Application</a>
@@ -241,4 +245,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
     <script src="scoutedPlayerRegistration.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,4 @@
 :root {
-  /* Exact variables from login.css */
   --brand-blue: #3b82f6;
   --brand-dark: #020617;
   --brand-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
@@ -8,323 +7,356 @@
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
-  
-  /* Background Animation Colors */
+
   --light-blue: #38bdf8;
   --medium-blue: #1d4ed8;
   --medium-dark-blue: #0f3460;
 }
 
-/* Background Animation */
 @keyframes colorChange {
-    0% { background: linear-gradient(145deg, var(--medium-dark-blue) 0%, var(--medium-blue) 50%, var(--light-blue) 100%); }
-    50% { background: linear-gradient(145deg, var(--light-blue) 0%, var(--medium-blue) 50%, var(--medium-dark-blue) 100%); }
-    100% { background: linear-gradient(145deg, var(--medium-dark-blue) 0%, var(--medium-blue) 50%, var(--light-blue) 100%); }
+  0% {
+    background: linear-gradient(
+      145deg,
+      var(--medium-dark-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--light-blue) 100%
+    );
+  }
+  50% {
+    background: linear-gradient(
+      145deg,
+      var(--light-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--medium-dark-blue) 100%
+    );
+  }
+  100% {
+    background: linear-gradient(
+      145deg,
+      var(--medium-dark-blue) 0%,
+      var(--medium-blue) 50%,
+      var(--light-blue) 100%
+    );
+  }
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    background-size: 400% 400%;
-    animation: colorChange 15s ease-in-out infinite;
-    color: var(--text-main);
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  background-size: 400% 400%;
+  animation: colorChange 15s ease-in-out infinite;
+  color: var(--text-main);
 }
 
-/* --- UPDATED HEADER DESIGN --- */
+/* HEADER  */
 .site-header {
-    background: rgba(2, 6, 23, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* CHANGE 1: Increased padding to make header bigger */
-    padding: 25px 0;
-    
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    animation: slideDown 0.6s ease-out;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 25px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: slideDown 0.6s ease-out;
 }
 
 .header-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    
-    /* CHANGE 2: Kept elements closer together */
-    justify-content: center; /* Brings them to center instead of edges */
-    gap: 60px; /* Controls the exact distance between Logo and Slogan */
-    
-    align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  align-items: center;
 }
 
-/* Left Side: Logo + Name */
 .brand-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .header-logo {
-    width: 50px; /* Slightly larger logo */
-    height: 50px;
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
 }
 
 .brand-name {
-    font-size: 26px; /* Slightly larger text */
-    font-weight: 800;
-    color: white;
-    letter-spacing: -1px;
-    background: linear-gradient(to right, #ffffff, #93c5fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #ffffff, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Right Side: Slogan */
 .slogan-area p {
-    margin: 0;
-    color: #cbd5e1;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .slogan-area .divider {
-    color: var(--brand-blue);
-    margin: 0 12px; /* More breathing room around divider */
-    font-weight: 300;
+  color: var(--brand-blue);
+  margin: 0 12px;
+  font-weight: 300;
 }
 
 .slogan-area .highlight {
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 1px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
 }
-
 
 /* --- MAIN CARD --- */
 .main-container {
-    max-width: 700px;
-    margin: 40px auto 60px;
-    padding: 0 20px;
+  max-width: 700px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
 }
 
 .registration-card {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    animation: fadeInUp 0.8s ease-out;
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .card-header {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .card-header h2 {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--brand-dark);
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--brand-dark);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
 }
 
 .card-header p {
-    color: var(--text-muted);
-    font-size: 15px;
+  color: var(--text-muted);
+  font-size: 15px;
 }
 
 /* --- FORM STYLING --- */
 .form-section {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .section-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--brand-blue);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .form-group label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Inputs matching login.css inputs */
-input, select, textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-input);
-    color: var(--text-main);
-    font-size: 15px;
-    font-weight: 500;
-    font-family: inherit;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-input:focus, select:focus, textarea:focus {
-    background-color: var(--bg-input-focus);
-    border-color: var(--brand-blue);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-    outline: none;
+input:focus,
+select:focus,
+textarea:focus {
+  background-color: var(--bg-input-focus);
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  outline: none;
 }
 
 textarea {
-    resize: vertical;
-    min-height: 100px;
+  resize: vertical;
+  min-height: 100px;
 }
 
 .readonly-field {
-    background-color: #e2e8f0 !important;
-    cursor: not-allowed;
-    color: #94a3b8;
+  background-color: #e2e8f0 !important;
+  cursor: not-allowed;
+  color: #94a3b8;
 }
 
 /* Select Arrow Styling */
 .select-wrapper {
-    position: relative;
+  position: relative;
 }
 .select-wrapper::after {
-    content: "▼";
-    font-size: 10px;
-    color: var(--text-muted);
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
+  content: "▼";
+  font-size: 10px;
+  color: var(--text-muted);
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 select {
-    appearance: none;
-    cursor: pointer;
+  appearance: none;
+  cursor: pointer;
 }
 
 /* Button */
 .btn-submit {
-    width: 100%;
-    padding: 16px;
-    background: var(--brand-gradient);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+  width: 100%;
+  padding: 16px;
+  background: var(--brand-gradient);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
 }
 
 .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
 }
 
 /* --- BUTTON GROUP --- */
 .button-group {
-    display: flex;
-    gap: 15px; /* Space between buttons */
-    margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 /* --- CANCEL BUTTON STYLING --- */
 .btn-cancel {
-    flex: 1; /* Takes equal width as submit button */
-    padding: 16px;
-    background: white; /* White background */
-    color: #ef4444;    /* Red text */
-    border: 2px solid #fee2e2; /* Light red border */
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none; /* Removes underline from link */
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-sizing: border-box; /* Ensures padding doesn't break layout */
-    display: inline-block; /* Behave like a block for padding */
+  flex: 1;
+  padding: 16px;
+  background: white;
+  color: #ef4444;
+  border: 2px solid #fee2e2;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  display: inline-block;
 }
 
 .btn-cancel:hover {
-    background: #fef2f2; /* Light red background on hover */
-    border-color: #ef4444; /* Darker red border on hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);
+  background: #fef2f2;
+  border-color: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);
 }
 
-/* Adjust the existing Submit Button to play nice in the group */
 .btn-submit {
-    flex: 2; /* Submit button is 2x wider than cancel (Optional, or use flex:1 for equal) */
-    margin-top: 0; /* Remove old margin since group handles it */
+  flex: 2;
+  margin-top: 0;
 }
 
-/* Mobile Fix: Stack them on small screens */
 @media (max-width: 500px) {
-    .button-group {
-        flex-direction: column;
-    }
-    .btn-submit, .btn-cancel {
-        width: 100%;
-        flex: auto;
-    }
+  .button-group {
+    flex-direction: column;
+  }
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+    flex: auto;
+  }
 }
 
 /* Error Box */
 .form-errors {
-    background: #fef2f2;
-    color: #ef4444;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 25px;
-    border: 1px solid #fee2e2;
+  background: #fef2f2;
+  color: #ef4444;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  border: 1px solid #fee2e2;
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-    .header-container { flex-direction: column; gap: 15px; text-align: center; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
-    .registration-card { padding: 25px; }
+  .header-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .registration-card {
+    padding: 25px;
+  }
 }

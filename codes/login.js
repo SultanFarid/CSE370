@@ -1,5 +1,3 @@
-// login.js - Clean production version
-
 // Tab switching functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Get all elements
