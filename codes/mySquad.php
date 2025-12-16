@@ -2,7 +2,7 @@
 session_start();
 require_once('dbconnect.php');
 
-// 1. GATEKEEPER
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
@@ -11,8 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role']; 
 
-// 2. FETCH SQUAD DATA
-// Sorting by Jersey Number as requested
+// FETCH SQUAD DATA (sorted by jersey no)
 $query = "SELECT 
             u.User_ID, 
             u.Name,
@@ -46,8 +45,6 @@ $result = mysqli_query($conn, $query);
 <body>
 
 <div class="dashboard-container">
-    
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <nav class="sidebar-nav">
             <?php if ($user_role == 'coach'): ?>
@@ -88,11 +85,7 @@ $result = mysqli_query($conn, $query);
         </header>
 
         <div class="squad-container fade-in">
-            
-            <!-- FILTER BAR -->
             <div class="filter-bar">
-                
-                <!-- LEFT SIDE: FILTERS -->
                 <div class="filter-left">
                     <div class="filter-item">
                         <label>Injury Status</label>
@@ -116,8 +109,6 @@ $result = mysqli_query($conn, $query);
                         </select>
                     </div>
                 </div>
-
-                <!-- RIGHT SIDE: SEARCH -->
                 <div class="filter-right">
                     <label>Search Player</label>
                     <div class="search-wrapper">
@@ -128,7 +119,6 @@ $result = mysqli_query($conn, $query);
 
             </div>
 
-            <!-- SQUAD GRID -->
             <div class="squad-grid" id="squadGrid">
                 
                 <?php 
@@ -145,12 +135,10 @@ $result = mysqli_query($conn, $query);
                             // Default to Red for 'Injured'
                             $status_class = 'status-red';
                         }
-                        // *** UPDATE: LINK TO playerProfile.php ***
                         echo '<a href="playerProfile.php?player_id=' . $row['User_ID'] . '" class="player-card ' . $status_class . '">';
                         ?>
                             
                             <div class="card-header">
-                                <!-- Badge shows Jersey No -->
                                 <span class="jersey-badge">Jersey: <?php echo $row['Jersey_No']; ?></span>
                             </div>
 
@@ -159,7 +147,6 @@ $result = mysqli_query($conn, $query);
                                 <p class="player-pos"><?php echo htmlspecialchars($row['Position']); ?></p>
                                 
                                 <div class="stat-grid">
-                                    <!-- ID inside stat grid -->
                                     <div class="stat-item">
                                         <span class="lbl">Age</span>
                                         <span class="id-badge val" style="background:none; padding:0; font-family:inherit; color:var(--brand-dark); font-size:0.9rem;"><?php echo $row['Age']; ?></span>

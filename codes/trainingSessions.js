@@ -1,4 +1,4 @@
-// ==================== MODAL FUNCTIONS ====================
+// MODAL FUNCTIONS
 function openAddModal() {
   document.getElementById("addModal").style.display = "block";
 }
@@ -14,7 +14,7 @@ window.onclick = function (event) {
   }
 };
 
-// ==================== TAB SWITCHING ====================
+// TAB SWITCHING
 function switchPlayerTab(type) {
   // Update tab buttons
   const tabs = document.querySelectorAll(".tab-btn");
@@ -34,24 +34,31 @@ function switchPlayerTab(type) {
 
 // Tab switching for EDIT modal
 function switchPlayerTabEdit(type) {
-    // Update tab buttons
-    const tabs = document.querySelectorAll('#editModal .tab-btn');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    // Update sections
-    document.getElementById('editRegularPlayersSection').classList.remove('active');
-    document.getElementById('editScoutedPlayersSection').classList.remove('active');
-    
-    if (type === 'regular') {
-        document.getElementById('editRegularPlayersSection').classList.add('active');
-    } else {
-        document.getElementById('editScoutedPlayersSection').classList.add('active');
-    }
+  // Update tab buttons
+  const tabs = document.querySelectorAll("#editModal .tab-btn");
+  tabs.forEach((tab) => tab.classList.remove("active"));
+  event.target.classList.add("active");
+
+  // Update sections
+  document
+    .getElementById("editRegularPlayersSection")
+    .classList.remove("active");
+  document
+    .getElementById("editScoutedPlayersSection")
+    .classList.remove("active");
+
+  if (type === "regular") {
+    document
+      .getElementById("editRegularPlayersSection")
+      .classList.add("active");
+  } else {
+    document
+      .getElementById("editScoutedPlayersSection")
+      .classList.add("active");
+  }
 }
 
-
-// ==================== PLAYER SELECTION HELPERS ====================
+// PLAYER SELECTION HELPERS
 function selectByPosition(position, type) {
   const selector =
     type === "regular"
@@ -89,7 +96,7 @@ function clearAllPlayers(type) {
   checkboxes.forEach((cb) => (cb.checked = false));
 }
 
-// ==================== CREATE SESSION FORM SUBMIT ====================
+// CREATE SESSION FORM SUBMIT
 document
   .getElementById("createSessionForm")
   ?.addEventListener("submit", async function (e) {
@@ -141,7 +148,7 @@ document
     }
   });
 
-// ==================== FILTERING (Player View) ====================
+// FILTERING (Player View)
 const weekFilter = document.getElementById("weekFilter");
 const statusFilter = document.getElementById("statusFilter");
 
@@ -185,7 +192,7 @@ function filterPlayerSessions() {
   });
 }
 
-// ==================== FILTERING (Coach View) ====================
+// FILTERING (Coach View)
 const sessionStatusFilter = document.getElementById("sessionStatusFilter");
 const sessionTypeFilter = document.getElementById("sessionTypeFilter");
 
@@ -218,13 +225,13 @@ function filterCoachSessions() {
   });
 }
 
-// ==================== COMPLETE SESSION (SIMPLIFIED) ====================
+// COMPLETE SESSION (SIMPLIFIED)
 async function completeSession(sessionId) {
   if (!confirm("Mark this training session as completed?")) {
     return;
   }
 
-  // 1. Get session details first
+  // Get session details first
   try {
     const response = await fetch(
       `get_session_details.php?session_id=${sessionId}`
@@ -236,7 +243,7 @@ async function completeSession(sessionId) {
       return;
     }
 
-    // 2. Generate scores for all players
+    // Generate scores for all players
     const players = [];
     data.players.forEach((player) => {
       const scores = generatePositionBasedScores(
@@ -246,7 +253,6 @@ async function completeSession(sessionId) {
 
       // Generate random remark
       const remarks = [
-        // Original
         "Good performance overall",
         "Shows improvement",
         "Solid work ethic",
@@ -257,8 +263,6 @@ async function completeSession(sessionId) {
         "Consistent effort",
         "Great decision making",
         "Needs improvement in passing",
-
-        // New: Mental & Tactical
         "Reads the game well",
         "Needs better communication",
         "Demonstrated great leadership",
@@ -267,8 +271,6 @@ async function completeSession(sessionId) {
         "Remained calm under pressure",
         "Tactically disciplined",
         "Needs to track back more",
-
-        // New: Technical & Skill
         "Clinical finishing today",
         "First touch needs work",
         "Great ball control",
@@ -277,16 +279,12 @@ async function completeSession(sessionId) {
         "Solid defensive display",
         "Creative playmaker",
         "Tackling was timed perfectly",
-
-        // New: Physical & Effort
         "High energy levels",
         "Needs to improve stamina",
         "Fast and agile",
         "Outworked the opposition",
         "Lacked pace in key moments",
         "Physicality was a key asset",
-
-        // New: General Feedback
         "Impact player off the bench",
         "Man of the match performance",
         "Needs to be more consistent",
@@ -304,7 +302,7 @@ async function completeSession(sessionId) {
       });
     });
 
-    // 3. Send to backend
+    // Send to backend
     const completeResponse = await fetch("complete_training_session.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -328,9 +326,8 @@ async function completeSession(sessionId) {
   }
 }
 
-// ==================== GENERATE POSITION-BASED SCORES ====================
+// GENERATE POSITION-BASED SCORES
 function generatePositionBasedScores(position, injury) {
-  // Define score ranges per position
   const ranges = {
     Goalkeeper: {
       technical: [7.0, 9.5],
@@ -389,7 +386,7 @@ function generatePositionBasedScores(position, injury) {
   return { technical, physical, tactical };
 }
 
-// ==================== VIEW SESSION DETAILS ====================
+// VIEW SESSION DETAILS
 async function viewSessionDetails(sessionId) {
   const modal = document.getElementById("viewModal");
   const content = document.getElementById("viewContent");
@@ -479,116 +476,120 @@ function renderSessionDetails(session, players) {
   content.innerHTML = html;
 }
 
-// ==================== EDIT SESSION FUNCTIONALITY (COMPLETE) ====================
+// EDIT SESSION FUNCTIONALITY
 async function editSession(sessionId) {
-    try {
-        const response = await fetch(`get_session_details.php?session_id=${sessionId}`);
-        const data = await response.json();
-        
-        if (!data.success) {
-            alert('Error loading session: ' + data.message);
-            return;
-        }
-        
-        // 1. Populate basic fields
-        document.getElementById('edit_session_id').value = sessionId;
-        document.getElementById('edit_session_date').value = data.session.Session_date;
-        document.getElementById('edit_session_time').value = data.session.Session_time;
-        document.getElementById('edit_session_type').value = data.session.Session_Type;
-        
-        // 2. Pre-select the assigned coach ← NEW
-        if (data.coach_id) {
-            document.getElementById('edit_assigned_coach').value = data.coach_id;
-        }
-        
-        // 3. Clear all checkboxes first ← NEW
-        document.querySelectorAll('#editModal input[type="checkbox"]').forEach(cb => cb.checked = false);
-        
-        // 4. Check the players who are in this session ← NEW
-        const playerIds = data.players.map(p => p.Player_ID.toString());
-        
-        playerIds.forEach(playerId => {
-            // Check in regular players
-            const regularCheckbox = document.querySelector(`#editModal input[name="edit_regular_players[]"][value="${playerId}"]`);
-            if (regularCheckbox) {
-                regularCheckbox.checked = true;
-            }
-            
-            // Check in scouted players
-            const scoutedCheckbox = document.querySelector(`#editModal input[name="edit_scouted_players[]"][value="${playerId}"]`);
-            if (scoutedCheckbox) {
-                scoutedCheckbox.checked = true;
-            }
-        });
-        
-        // 5. Open the modal
-        document.getElementById('editModal').style.display = 'block';
-        
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to load session details. Please try again.');
+  try {
+    const response = await fetch(
+      `get_session_details.php?session_id=${sessionId}`
+    );
+    const data = await response.json();
+
+    if (!data.success) {
+      alert("Error loading session: " + data.message);
+      return;
     }
+
+    // 1. Populate basic fields
+    document.getElementById("edit_session_id").value = sessionId;
+    document.getElementById("edit_session_date").value =
+      data.session.Session_date;
+    document.getElementById("edit_session_time").value =
+      data.session.Session_time;
+    document.getElementById("edit_session_type").value =
+      data.session.Session_Type;
+
+    // 2. Pre-select the assigned coach
+    if (data.coach_id) {
+      document.getElementById("edit_assigned_coach").value = data.coach_id;
+    }
+
+    // 3. Clear all checkboxes first
+    document
+      .querySelectorAll('#editModal input[type="checkbox"]')
+      .forEach((cb) => (cb.checked = false));
+
+    // 4. Check the players who are in this session
+    const playerIds = data.players.map((p) => p.Player_ID.toString());
+
+    playerIds.forEach((playerId) => {
+      // Check in regular players
+      const regularCheckbox = document.querySelector(
+        `#editModal input[name="edit_regular_players[]"][value="${playerId}"]`
+      );
+      if (regularCheckbox) {
+        regularCheckbox.checked = true;
+      }
+
+      // Check in scouted players
+      const scoutedCheckbox = document.querySelector(
+        `#editModal input[name="edit_scouted_players[]"][value="${playerId}"]`
+      );
+      if (scoutedCheckbox) {
+        scoutedCheckbox.checked = true;
+      }
+    });
+
+    // 5. Open the modal
+    document.getElementById("editModal").style.display = "block";
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to load session details. Please try again.");
+  }
 }
 
-
-// ==========================================
-// EDIT SESSION FORM SUBMIT (NEW)
-// ==========================================
-
-// ==================== EDIT SESSION FORM SUBMIT ====================
-document.getElementById('editSessionForm')?.addEventListener('submit', async function(e) {
+// EDIT SESSION FORM SUBMIT
+document
+  .getElementById("editSessionForm")
+  ?.addEventListener("submit", async function (e) {
     e.preventDefault();
-    
+
     const formData = new FormData(this);
-    
+
     // Get selected regular players
-    const regularPlayers = Array.from(document.querySelectorAll('input[name="edit_regular_players[]"]:checked'))
-        .map(cb => cb.value);
-    
+    const regularPlayers = Array.from(
+      document.querySelectorAll('input[name="edit_regular_players[]"]:checked')
+    ).map((cb) => cb.value);
+
     // Get selected scouted players
-    const scoutedPlayers = Array.from(document.querySelectorAll('input[name="edit_scouted_players[]"]:checked'))
-        .map(cb => cb.value);
-    
+    const scoutedPlayers = Array.from(
+      document.querySelectorAll('input[name="edit_scouted_players[]"]:checked')
+    ).map((cb) => cb.value);
+
     // Combine both arrays
     const allPlayers = [...regularPlayers, ...scoutedPlayers];
-    
+
     if (allPlayers.length === 0) {
-        alert('❌ Please select at least one player for the session.');
-        return;
+      alert("❌ Please select at least one player for the session.");
+      return;
     }
-    
+
     // Clear default form data and add combined players
-    formData.delete('edit_regular_players[]');
-    formData.delete('edit_scouted_players[]');
-    formData.append('players', JSON.stringify(allPlayers));
-    
+    formData.delete("edit_regular_players[]");
+    formData.delete("edit_scouted_players[]");
+    formData.append("players", JSON.stringify(allPlayers));
+
     try {
-        const response = await fetch('edit_training_session.php', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            alert('✅ Training session updated successfully!');
-            closeModal('editModal');
-            location.reload();
-        } else {
-            alert('❌ Error: ' + result.message);
-        }
-        
+      const response = await fetch("edit_training_session.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("✅ Training session updated successfully!");
+        closeModal("editModal");
+        location.reload();
+      } else {
+        alert("❌ Error: " + result.message);
+      }
     } catch (error) {
-        console.error('Error:', error);
-        alert('❌ Failed to update session. Please try again.');
+      console.error("Error:", error);
+      alert("❌ Failed to update session. Please try again.");
     }
-});
+  });
 
-
-// ==========================================
-// DELETE SESSION FUNCTIONALITY (NEW)
-// ==========================================
-
+// DELETE SESSION FUNCTIONALITY
 async function deleteSession(sessionId) {
   // Confirm deletion
   if (

@@ -4,7 +4,7 @@ require_once 'dbconnect.php';
 
 header('Content-Type: application/json');
 
-// 1. GATEKEEPER
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not authenticated']);
     exit();
@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
-// 2. CHECK PERMISSIONS (Only Head/Assistant Coach)
+// CHECK if Head/Assistant Coach
 if ($role != 'coach') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit();
@@ -27,10 +27,12 @@ if (!in_array($coach_data['Coach_Type'], ['Head Coach', 'Assistant Coach'])) {
     exit();
 }
 
-// 3. VALIDATE INPUT
-if (!isset($_POST['session_date']) || !isset($_POST['session_time']) || 
-    !isset($_POST['session_type']) || !isset($_POST['assigned_coach']) || 
-    !isset($_POST['players'])) {
+// VALIDATE INPUT
+if (
+    !isset($_POST['session_date']) || !isset($_POST['session_time']) ||
+    !isset($_POST['session_type']) || !isset($_POST['assigned_coach']) ||
+    !isset($_POST['players'])
+) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit();
 }
@@ -46,31 +48,31 @@ if (empty($players)) {
     exit();
 }
 
-// 4. CREATE TRAINING SESSION
+// CREATE TRAINING SESSION
 $insert_session = "INSERT INTO training_sessions (Session_Type, Session_date, Session_time, Session_status) 
                    VALUES ('$session_type', '$session_date', '$session_time', 'Scheduled')";
 
 if (mysqli_query($conn, $insert_session)) {
     $session_id = mysqli_insert_id($conn);
-    
-    // 5. ASSIGN PLAYERS TO SESSION
+
+    // ASSIGN PLAYERS TO SESSION
     $success = true;
     foreach ($players as $player_id) {
         $player_id = mysqli_real_escape_string($conn, $player_id);
-        
+
         $insert_participation = "INSERT INTO training_participation 
                                 (Session_id, Player_ID, Coach_ID, participation_status) 
                                 VALUES ('$session_id', '$player_id', '$assigned_coach', 'Scheduled')";
-        
+
         if (!mysqli_query($conn, $insert_participation)) {
             $success = false;
             break;
         }
     }
-    
+
     if ($success) {
         echo json_encode([
-            'success' => true, 
+            'success' => true,
             'message' => 'Training session created successfully',
             'session_id' => $session_id
         ]);

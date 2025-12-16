@@ -3,7 +3,7 @@ session_start();
 require_once 'dbconnect.php';
 header('Content-Type: application/json');
 
-// 1. GATEKEEPER
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not authenticated']);
     exit();
@@ -12,16 +12,18 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
-// 2. CHECK PERMISSIONS (only coaches can edit)
+// CHECK if coach
 if ($role != 'coach') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit();
 }
 
-// 3. VALIDATE INPUT
-if (!isset($_POST['session_id']) || !isset($_POST['session_date']) || 
-    !isset($_POST['session_time']) || !isset($_POST['session_type']) || 
-    !isset($_POST['assigned_coach']) || !isset($_POST['players'])) {
+// VALIDATE INPUT
+if (
+    !isset($_POST['session_id']) || !isset($_POST['session_date']) ||
+    !isset($_POST['session_time']) || !isset($_POST['session_type']) ||
+    !isset($_POST['assigned_coach']) || !isset($_POST['players'])
+) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit();
 }
@@ -33,13 +35,13 @@ $session_type = mysqli_real_escape_string($conn, $_POST['session_type']);
 $assigned_coach = mysqli_real_escape_string($conn, $_POST['assigned_coach']);
 $players = json_decode($_POST['players'], true);
 
-// 4. VALIDATE PLAYERS
+// VALIDATE PLAYERS
 if (empty($players) || !is_array($players)) {
     echo json_encode(['success' => false, 'message' => 'Please select at least one player']);
     exit();
 }
 
-// 5. CHECK IF SESSION EXISTS
+// CHECK IF SESSION EXISTS
 $check_query = "SELECT * FROM training_sessions WHERE Session_id = '$session_id'";
 $check_result = mysqli_query($conn, $check_query);
 
@@ -48,7 +50,7 @@ if (mysqli_num_rows($check_result) == 0) {
     exit();
 }
 
-// 6. UPDATE TRAINING SESSION
+// UPDATE TRAINING SESSION
 $update_session = "UPDATE training_sessions 
                    SET Session_date = '$session_date',
                        Session_time = '$session_time',
@@ -60,25 +62,25 @@ if (!mysqli_query($conn, $update_session)) {
     exit();
 }
 
-// 7. DELETE OLD PARTICIPATION RECORDS
+// DELETE OLD PARTICIPATION RECORDS
 $delete_old = "DELETE FROM training_participation WHERE Session_id = '$session_id'";
 mysqli_query($conn, $delete_old);
 
-// 8. INSERT NEW PARTICIPATION RECORDS
+// INSERT NEW PARTICIPATION RECORDS
 $success_count = 0;
 foreach ($players as $player_id) {
     $player_id = mysqli_real_escape_string($conn, $player_id);
-    
+
     $insert_query = "INSERT INTO training_participation 
                      (Session_id, Player_ID, Coach_ID, participation_status) 
                      VALUES ('$session_id', '$player_id', '$assigned_coach', 'Scheduled')";
-    
+
     if (mysqli_query($conn, $insert_query)) {
         $success_count++;
     }
 }
 
-// 9. RETURN SUCCESS
+// SUCCESS
 if ($success_count == count($players)) {
     echo json_encode([
         'success' => true,

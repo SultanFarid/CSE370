@@ -25,7 +25,7 @@ body {
   width: 100%;
 }
 
-/* --- CONSISTENT SIDEBAR (ALL PAGES) --- */
+/* --- SIDEBAR --- */
 .sidebar {
   width: 250px;
   background-color: var(--brand-dark);
@@ -84,7 +84,7 @@ body {
   box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
 }
 
-/* --- CONSISTENT HEADER (ALL PAGES) --- */
+/* --- HEADER --- */
 .main-content {
   flex-grow: 1;
   display: flex;
@@ -305,7 +305,6 @@ body {
   font-weight: 600;
 }
 
-/* FIX: Button style for updating */
 .edit-card-btn {
   width: 100%;
   background: white;
@@ -323,7 +322,6 @@ body {
   color: white;
 }
 
-/* FORM STYLES */
 .form-group {
   margin-bottom: 15px;
 }

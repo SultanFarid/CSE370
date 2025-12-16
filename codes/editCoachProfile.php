@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'coach') {
 
 $user_id = $_SESSION['user_id'];
 
-// ANDLE UPDATES
+// HANDLE UPDATES
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($conn, $_POST['name']); // NOW EDITABLE
     $age = $_POST['age'];

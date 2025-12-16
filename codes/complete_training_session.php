@@ -4,7 +4,7 @@ require_once 'dbconnect.php';
 
 header('Content-Type: application/json');
 
-// 1. GATEKEEPER
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not authenticated']);
     exit();
@@ -13,13 +13,13 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
-// 2. CHECK IF COACH
+// CHECK IF COACH
 if ($role != 'coach') {
     echo json_encode(['success' => false, 'message' => 'Only coaches can complete sessions']);
     exit();
 }
 
-// 3. GET JSON INPUT
+// GET JSON INPUT
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($input['session_id']) || !isset($input['players'])) {
@@ -30,7 +30,7 @@ if (!isset($input['session_id']) || !isset($input['players'])) {
 $session_id = mysqli_real_escape_string($conn, $input['session_id']);
 $players = $input['players'];
 
-// 4. VERIFY THIS COACH IS ASSIGNED TO THIS SESSION
+// VERIFY THIS COACH IS ASSIGNED TO THIS SESSION
 $verify_query = "SELECT COUNT(*) as count FROM training_participation 
                  WHERE Session_id = '$session_id' AND Coach_ID = '$user_id'";
 $verify_result = mysqli_query($conn, $verify_query);
@@ -41,7 +41,7 @@ if ($verify_data['count'] == 0) {
     exit();
 }
 
-// 5. CHECK IF ALREADY COMPLETED
+// CHECK IF ALREADY COMPLETED
 $status_check = mysqli_query($conn, "SELECT Session_status FROM training_sessions WHERE Session_id = '$session_id'");
 $status_data = mysqli_fetch_assoc($status_check);
 
@@ -50,11 +50,11 @@ if ($status_data['Session_status'] == 'Completed') {
     exit();
 }
 
-// 6. UPDATE TRAINING SESSION STATUS
+// UPDATE TRAINING SESSION STATUS
 $update_session = "UPDATE training_sessions SET Session_status = 'Completed' WHERE Session_id = '$session_id'";
 
 if (mysqli_query($conn, $update_session)) {
-    // 7. UPDATE PLAYER SCORES
+    // UPDATE PLAYER SCORES
     $success = true;
     foreach ($players as $player) {
         $player_id = mysqli_real_escape_string($conn, $player['player_id']);
@@ -62,7 +62,7 @@ if (mysqli_query($conn, $update_session)) {
         $physical = mysqli_real_escape_string($conn, $player['physical_score']);
         $tactical = mysqli_real_escape_string($conn, $player['tactical_score']);
         $remarks = isset($player['remarks']) ? mysqli_real_escape_string($conn, $player['remarks']) : '';
-        
+
         $update_participation = "UPDATE training_participation 
                                 SET Technical_score = '$technical',
                                     Physical_score = '$physical',
@@ -70,13 +70,13 @@ if (mysqli_query($conn, $update_session)) {
                                     Coach_remarks = '$remarks',
                                     participation_status = 'Attended'
                                 WHERE Session_id = '$session_id' AND Player_ID = '$player_id'";
-        
+
         if (!mysqli_query($conn, $update_participation)) {
             $success = false;
             break;
         }
     }
-    
+
     if ($success) {
         echo json_encode(['success' => true, 'message' => 'Training session completed successfully']);
     } else {

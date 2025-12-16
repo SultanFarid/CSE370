@@ -7,8 +7,8 @@
   --text-muted: #64748b;
   --border-color: #e2e8f0;
 
-  --status-fit: #10b981; /* Green */
-  --status-bad: #ef4444; /* Red */
+  --status-fit: #10b981;
+  --status-bad: #ef4444;
   --status-warn: #f59e0b;
 }
 
@@ -29,7 +29,7 @@ body {
   width: 100%;
 }
 
-/* SIDEBAR - CONSISTENT WITH playerProfile.css & coachProfile.css */
+/* SIDEBAR */
 .sidebar {
   width: 250px;
   background-color: var(--brand-dark);
@@ -38,7 +38,6 @@ body {
   padding: 60px 20px 40px 20px;
   flex-shrink: 0;
   color: white;
-  /* CONSISTENT: Removed overflow-y to match playerProfile.css */
 }
 
 .sidebar-nav {
@@ -65,20 +64,18 @@ body {
 }
 
 .nav-item.active {
-  background-color: var(
-    --brand-blue
-  ); /* CONSISTENT: Changed from background to background-color */
+  background-color: var(--brand-blue);
   color: white;
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
-/* LOGOUT BUTTON - CONSISTENT WITH playerProfile.css */
+/* LOGOUT BUTTON */
 .logout-link {
-  margin-top: auto; /* CONSISTENT: Changed from 20px to auto */
+  margin-top: auto;
   background-color: #ef4444;
   color: white !important;
-  padding: 14px 16px; /* CONSISTENT: Changed from 12px 16px */
+  padding: 14px 16px;
   border-radius: 8px;
   text-align: center;
   font-weight: 700;
@@ -99,14 +96,14 @@ body {
   overflow-y: auto;
 }
 
-/* HEADER - CONSISTENT WITH playerProfile.css & coachProfile.css */
+/* HEADER */
 .top-header {
   background: var(--brand-gradient);
-  padding: 30px 0; /* CONSISTENT: Changed from 20px 0 */
+  padding: 30px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2); /* CONSISTENT: Changed from 0 4px 15px */
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -116,34 +113,34 @@ body {
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 25px; /* CONSISTENT: Changed from 20px */
+  gap: 25px;
 }
 
 .header-logo {
-  width: 65px; /* CONSISTENT: Changed from 50px */
-  height: 65px; /* CONSISTENT: Changed from 50px */
-  border-radius: 12px; /* CONSISTENT: Changed from 8px */
+  width: 65px;
+  height: 65px;
+  border-radius: 12px;
   object-fit: cover;
   background: white;
   padding: 2px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* CONSISTENT: Added shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .header-text-group h1 {
   margin: 0;
-  font-size: 1.8rem; /* CONSISTENT: Changed from 1.5rem */
+  font-size: 1.8rem;
   font-weight: 800;
   color: white;
   letter-spacing: 1px;
   line-height: 1;
   text-transform: uppercase;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* CONSISTENT: Added text-shadow */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .slogan {
-  margin: 6px 0 0 0; /* CONSISTENT: Changed from margin: 0 */
+  margin: 6px 0 0 0;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem; /* CONSISTENT: Changed from 0.8rem */
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -288,11 +285,11 @@ a.player-card:hover {
 .card-header {
   padding: 15px;
   display: flex;
-  justify-content: flex-end; /* Badge on Right */
+  justify-content: flex-end;
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* JERSEY BADGE (Replaced ID Badge) */
+/* JERSEY BADGE */
 .jersey-badge {
   font-family: "Inter", sans-serif;
   font-size: 0.9rem;
@@ -323,10 +320,9 @@ a.player-card:hover {
   text-transform: uppercase;
 }
 
-/* Updated Stat Grid for 4 items */
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 Columns now */
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   background: #f8fafc;
   padding: 10px;
@@ -397,5 +393,5 @@ a.player-card:hover {
   }
   .stat-grid {
     grid-template-columns: repeat(2, 1fr);
-  } /* 2x2 grid on mobile */
+  }
 }

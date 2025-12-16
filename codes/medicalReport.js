@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. HIGHLIGHT ACTIVE SIDEBAR LINK
+
+    // HIGHLIGHT ACTIVE SIDEBAR LINK
     const currentLocation = location.href;
     const menuItems = document.querySelectorAll('.nav-item');
     menuItems.forEach(item => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 2. SEARCH & FILTER LOGIC
+    // SEARCH & FILTER LOGIC
     const searchInput = document.getElementById('searchInput');
     const statusFilter = document.getElementById('statusFilter');
     const cards = document.querySelectorAll('.injury-card');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// --- MODAL FUNCTIONS ---
+// MODAL
 function openEditModal(presId, playerId, currentStatus, currentDate) {
     const modal = document.getElementById("editModal");
     if(modal) {

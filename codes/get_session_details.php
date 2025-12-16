@@ -4,13 +4,13 @@ require_once 'dbconnect.php';
 
 header('Content-Type: application/json');
 
-// 1. GATEKEEPER
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not authenticated']);
     exit();
 }
 
-// 2. VALIDATE INPUT
+// VALIDATE INPUT
 if (!isset($_GET['session_id'])) {
     echo json_encode(['success' => false, 'message' => 'Session ID required']);
     exit();
@@ -18,7 +18,7 @@ if (!isset($_GET['session_id'])) {
 
 $session_id = mysqli_real_escape_string($conn, $_GET['session_id']);
 
-// 3. GET SESSION DETAILS
+// GET SESSION DETAILS
 $session_query = "SELECT * FROM training_sessions WHERE Session_id = '$session_id'";
 $session_result = mysqli_query($conn, $session_query);
 
@@ -29,7 +29,7 @@ if (mysqli_num_rows($session_result) == 0) {
 
 $session = mysqli_fetch_assoc($session_result);
 
-// 4. GET PLAYERS IN THIS SESSION
+// GET PLAYERS IN THIS SESSION
 $players_query = "SELECT u.User_ID as Player_ID, u.Name, p.Position, p.Current_Injury_Status,
                   tp.Technical_score, tp.Physical_score, tp.Tactical_score, 
                   tp.Coach_remarks, tp.participation_status, tp.Coach_ID
@@ -46,13 +46,11 @@ while ($player = mysqli_fetch_assoc($players_result)) {
     $players[] = $player;
 }
 
-// 5. RETURN DATA
 $coach_id = null;
 if (count($players) > 0) {
     $coach_id = $players[0]['Coach_ID'];
 }
 
-// 6. RETURN DATA
 echo json_encode([
     'success' => true,
     'session' => $session,
