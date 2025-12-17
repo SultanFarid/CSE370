@@ -1,6 +1,3 @@
-/* =========================================
-   1. SHARED LAYOUT (MATCHING MEDICAL REPORT)
-   ========================================= */
 :root {
   --brand-blue: #3b82f6;
   --brand-dark: #0f172a;
@@ -153,10 +150,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-
-/* =========================================
-   2. PAGE SPECIFIC STYLES
-   ========================================= */
 
 .squad-container {
   padding: 40px;
@@ -533,9 +526,9 @@ body {
 }
 .player-meta-drag {
   display: flex;
-  align-items: center; /* This forces vertical centering */
+  align-items: center;
   gap: 10px;
-  height: 24px; /* Fixed height prevents jumping */
+  height: 24px;
 }
 .player-jersey-drag {
   font-size: 0.8rem;
@@ -558,13 +551,11 @@ body {
   font-size: 0.75rem;
   color: var(--text-muted);
   font-weight: 600;
-
-  /* Alignment Fixes */
   display: inline-flex;
   align-items: center;
-  height: 100%; /* Fill the fixed height container */
-  white-space: nowrap; /* Prevents text wrapping */
-  margin-top: 2px; /* Micro-adjustment for visual center */
+  height: 100%;
+  white-space: nowrap;
+  margin-top: 2px;
 }
 
 /* FIELD PANEL */
@@ -599,21 +590,12 @@ body {
   font-size: 1.1rem;
 }
 
-/* =========================================
-   3. HORIZONTAL FOOTBALL FIELD (REDESIGNED)
-   ========================================= */
-
-/* =========================================
-   UPDATED: HORIZONTAL FOOTBALL FIELD FIXED
-   ========================================= */
-
-/* FIELD PANEL (The White Box) */
+/* FIELD PANEL */
 .field-panel {
   background: white;
   border-radius: 12px;
   padding: 25px;
   box-shadow: var(--shadow-md);
-  /* New properties to contain the field */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -647,20 +629,16 @@ body {
 /* THE GREEN FIELD */
 .football-field {
   position: relative;
-  /* Horizontal gradient */
   background: linear-gradient(180deg, #2d8f4c 0%, #1a5e2f 50%, #2d8f4c 100%);
   border-radius: 15px;
-
-  /* FIXED: Box Sizing prevents padding from adding to width */
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
-
   padding: 20px 30px;
-  min-height: 500px; /* Slightly reduced for better fit */
+  min-height: 500px;
 
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-  border: 4px solid white; /* Thicker border looks better */
+  border: 4px solid white;
   overflow: hidden;
   margin-bottom: 30px;
 }
@@ -701,7 +679,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   height: 60%;
-  width: 14%; /* Adjusted width */
+  width: 14%;
   border: 3px solid rgba(255, 255, 255, 0.5);
 }
 .penalty-box.left {
@@ -740,10 +718,8 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  /* SHIFT LEFT FIX */
   transform: translateX(-25px);
-  width: calc(100% + 25px); /* Ensure it doesn't shrink */
+  width: calc(100% + 25px);
 }
 
 .position-col {
@@ -751,14 +727,14 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
-  flex: 1; /* Each column takes equal space */
+  flex: 1;
   align-items: center;
 }
 
 /* Specific column adjustments */
 .goalkeeper-col {
   flex: 0.5;
-} /* GK needs less width */
+}
 .defenders-col {
   flex: 1;
 }
@@ -769,7 +745,6 @@ body {
   flex: 1;
 }
 
-/* Slot Styling Remains Same */
 .position-slot {
   position: relative;
   width: 85px;
@@ -873,120 +848,101 @@ body {
   display: flex;
 }
 
-/* =========================================
-   FIX: WRAPPING BENCH (PREVENTS OVERFLOW)
-   ========================================= */
-
-/* =========================================
-   FIX: STRICT SINGLE-LINE BENCH
-   ========================================= */
-
-/* =========================================
-   FIX: RESPONSIVE 9-MAN BENCH (NO SCROLLBAR)
-   ========================================= */
-
 .substitutes-bench {
   background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-radius: 12px; 
-  padding: 15px; 
+  border-radius: 12px;
+  padding: 15px;
   border-left: 5px solid var(--status-warn);
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-.bench-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 10px; 
+.bench-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.bench-slots { 
+.bench-slots {
   display: flex;
-  flex-wrap: nowrap; /* Force single line */
-  gap: 6px; /* Tight gap to fit 9 items */
-  justify-content: space-between; 
+  flex-wrap: nowrap;
+  gap: 6px;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  
-  /* Hides scrollbar but keeps functionality */
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-.bench-slots::-webkit-scrollbar { 
-  display: none; /* Chrome/Safari */ 
+.bench-slots::-webkit-scrollbar {
+  display: none;
 }
 
 /* THE SLOT CONTAINER */
 .bench-slot {
-  position: relative; 
-  
-  /* RESPONSIVE WIDTH LOGIC */
-  flex: 1; /* Grow to fill space */
-  min-width: 0; /* Allow shrinking to fit container */
-  max-width: 90px; /* Don't get too wide on big screens */
-  
-  height: 90px; /* Fixed height */
-  
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 90px;
+  height: 90px;
   border: 3px dashed rgba(217, 119, 6, 0.5);
-  border-radius: 10px; 
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.5);
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 4px;
   box-sizing: border-box;
 }
 
-.bench-slot.filled { 
-  border: 2px solid var(--status-warn); 
-  background: white; 
-  
-  /* Keep size identical to empty slot */
+.bench-slot.filled {
+  border: 2px solid var(--status-warn);
+  background: white;
+
   flex: 1;
   min-width: 0;
   max-width: 90px;
   height: 90px;
 }
 
-.slot-number { 
-  font-size: 1.1rem; 
-  font-weight: 800; 
-  color: rgba(217, 119, 6, 0.5); 
+.slot-number {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: rgba(217, 119, 6, 0.5);
 }
 
 /* THE PLAYER CARD INSIDE */
 .bench-player-card {
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  gap: 2px; /* Tight spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   width: 100%;
   height: 100%;
   justify-content: center;
-  overflow: hidden; /* prevents expansion */
+  overflow: hidden;
 }
 
 .bench-avatar {
-  width: 38px; /* Slightly smaller to ensure fit */
-  height: 38px; 
-  border-radius: 50%; 
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   border: 2px solid var(--status-warn);
-  object-fit: cover; 
+  object-fit: cover;
   background: var(--brand-blue);
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .bench-player-name {
-  font-size: 0.65rem; 
-  font-weight: 700; 
-  color: var(--text-main); 
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-main);
   text-align: center;
   width: 100%;
-  
+
   /* Text Truncation */
   white-space: nowrap;
   overflow: hidden;
@@ -994,20 +950,27 @@ body {
 }
 
 .bench-player-number {
-  font-size: 0.6rem; 
-  font-weight: 800; 
-  color: white; 
-  background: var(--brand-blue); 
-  padding: 1px 4px; 
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: white;
+  background: var(--brand-blue);
+  padding: 1px 4px;
   border-radius: 4px;
   line-height: 1;
 }
 
 /* RESPONSIVE MOBILE */
 @media (max-width: 768px) {
-  .bench-slot { height: 70px; }
-  .bench-avatar { width: 30px; height: 30px; }
-  .bench-player-name { font-size: 0.55rem; }
+  .bench-slot {
+    height: 70px;
+  }
+  .bench-avatar {
+    width: 30px;
+    height: 30px;
+  }
+  .bench-player-name {
+    font-size: 0.55rem;
+  }
 }
 
 /* RESPONSIVE */
@@ -1018,7 +981,10 @@ body {
     height: 80px;
     min-height: 80px;
   }
-  .bench-avatar { width: 32px; height: 32px; }
+  .bench-avatar {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 /* RESPONSIVE */
@@ -1050,32 +1016,27 @@ body {
   }
   .tactical-grid {
     flex-direction: column;
-  } /* Revert to vertical on mobile if needed */
+  }
   .position-col {
     flex-direction: row;
     width: 100%;
   }
 }
 
-
-/* =========================================
-   FIX: READ-ONLY VIEW & UNPUBLISH BUTTON
-   ========================================= */
-
 /* 1. Full Width Panel for Read-Only Mode */
 .full-width-panel {
-  grid-column: 1 / -1; /* Spans full width of grid */
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content */
+  align-items: center;
 }
 
 /* 2. Centered & Proportional Field */
 .full-width-panel .football-field {
-  max-width: 1100px; /* Limits width so it doesn't stretch too much */
-  margin: 0 auto 30px auto; /* Centers it horizontally */
-  aspect-ratio: 1.6 / 1; /* Forces a perfect football field ratio */
-  min-height: auto; /* Let aspect-ratio dictate height */
+  max-width: 1100px;
+  margin: 0 auto 30px auto;
+  aspect-ratio: 1.6 / 1;
+  min-height: auto;
 }
 
 /* 3. Centered Bench in Read-Only */
@@ -1087,7 +1048,7 @@ body {
 /* 4. Improved Unpublish Button */
 .unpublish-container-styled {
   display: flex;
-  justify-content: center; /* Centers the button */
+  justify-content: center;
   margin-bottom: 30px;
   padding-top: 10px;
   border-top: 1px solid var(--border-color);

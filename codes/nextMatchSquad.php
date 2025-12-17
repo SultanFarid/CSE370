@@ -6,7 +6,7 @@ ini_set('display_errors', 0);
 session_start();
 require_once 'dbconnect.php';
 
-// Check Login
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
     exit();
@@ -25,15 +25,14 @@ if ($user_role === 'coach') {
     }
 }
 
-// ================= API HANDLER =================
+// API HANDLER
 if (isset($_GET['action'])) {
     header('Content-Type: application/json');
 
-    // 1. GET NEXT MATCH (Scheduled OR Published)
+    // GET NEXT MATCH (Scheduled OR Published)
     if ($_GET['action'] === 'get_next_match') {
         $tournament_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 
-        // FIX: Selects match even if it is already Published so we can Unpublish it
         $query = "SELECT * FROM fixtures 
                   WHERE Match_status IN ('Scheduled', 'Published') 
                   ORDER BY Match_date ASC, Match_time ASC 
@@ -51,7 +50,7 @@ if (isset($_GET['action'])) {
         exit();
     }
 
-    // 2. GET ELIGIBLE PLAYERS
+    // GET ELIGIBLE PLAYERS
     if ($_GET['action'] === 'get_eligible_players') {
         $query = "
             SELECT u.User_ID, u.Name, p.Position, rp.Jersey_No,
@@ -79,7 +78,7 @@ if (isset($_GET['action'])) {
         exit();
     }
 
-    // 3. PUBLISH SQUAD (Simple Logic: Delete Old -> Insert New -> Update Status)
+    // PUBLISH SQUAD
     if ($_GET['action'] === 'publish_squad') {
         if (!$is_head_coach) {
             echo json_encode(['success' => false, 'message' => 'Unauthorized']);
@@ -92,22 +91,22 @@ if (isset($_GET['action'])) {
         // Connect to Tournament DB
         $tournament_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 
-        // A. Clear any existing players for this match (Clean Slate)
+        //Clear any existing players for this match
         mysqli_query($conn, "DELETE FROM plays_in WHERE Match_id = $match_id");
 
-        // B. Insert Starting XI
+        // Insert Starting XI
         foreach ($input['starting_xi'] as $pos => $pid) {
             $pid = intval($pid);
             mysqli_query($conn, "INSERT INTO plays_in (Match_id, Regular_Player_ID, Status) VALUES ($match_id, $pid, 'Started')");
         }
 
-        // C. Insert Substitutes
+        // Insert Substitutes
         foreach ($input['substitutes'] as $pid) {
             $pid = intval($pid);
             mysqli_query($conn, "INSERT INTO plays_in (Match_id, Regular_Player_ID, Status) VALUES ($match_id, $pid, 'Substituted')");
         }
 
-        // D. Update Fixture Status to 'Published'
+        // Update Fixture Status to 'Published'
         $update_status = mysqli_query($tournament_conn, "UPDATE fixtures SET Match_status = 'Published' WHERE Match_id = $match_id");
 
         if ($update_status) {
@@ -120,7 +119,7 @@ if (isset($_GET['action'])) {
         exit();
     }
 
-    // 4. UNPUBLISH SQUAD (Revert to Scheduled)
+    // UNPUBLISH SQUAD (Revert to Scheduled)
     if ($_GET['action'] === 'unpublish_squad') {
         if (!$is_head_coach) {
             echo json_encode(['success' => false, 'message' => 'Unauthorized']);
@@ -132,10 +131,10 @@ if (isset($_GET['action'])) {
 
         $tournament_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 
-        // A. Delete all players from Plays_In
+        // Delete all players from Plays_In
         mysqli_query($conn, "DELETE FROM plays_in WHERE Match_id = $match_id");
 
-        // B. Revert status to 'Scheduled'
+        // Revert status to 'Scheduled'
         $update_status = mysqli_query($tournament_conn, "UPDATE fixtures SET Match_status = 'Scheduled' WHERE Match_id = $match_id");
 
         if ($update_status) {
@@ -148,7 +147,7 @@ if (isset($_GET['action'])) {
         exit();
     }
 
-    // 5. GET PUBLISHED SQUAD VIEW
+    // GET PUBLISHED SQUAD VIEW
     if ($_GET['action'] === 'get_published_squad') {
         $match_id = intval($_GET['match_id']);
 

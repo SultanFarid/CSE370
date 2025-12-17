@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 session_start();
 require_once 'dbconnect.php';
 
-// 1. SECURITY CHECK
+// SECURITY CHECK
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'coach') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit();
@@ -22,7 +22,7 @@ if (!$coach_d || $coach_d['Coach_Type'] !== 'Head Coach') {
     exit();
 }
 
-// 2. CONNECT TO TOURNAMENT DB
+// CONNECT TO TOURNAMENT DB
 $t_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 if (!$t_conn) {
     echo json_encode(['success' => false, 'message' => 'Tournament DB Connection Failed']);
@@ -30,11 +30,6 @@ if (!$t_conn) {
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
-
-    // ======================================================
-    // PHASE A: SIMULATE THE MATCH RESULT
-    // ======================================================
-
     $q = "SELECT Match_id, Opponent, Stadium FROM fixtures WHERE Match_status = 'Published' LIMIT 1";
     $res = mysqli_query($t_conn, $q);
     $match = mysqli_fetch_assoc($res);
@@ -59,13 +54,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
 
     $score_str = "$bufc_goals-$opp_goals";
 
-    // ======================================================
-    // PHASE B: UPDATE TOURNAMENT DATA (Team Stats)
-    // ======================================================
-
     mysqli_query($t_conn, "UPDATE fixtures SET Match_status = '$status' WHERE Match_id = $match_id");
 
-    // Initial insert with TBD (Will be updated in Phase C)
+    // Initial insert with TBD
     mysqli_query($t_conn, "INSERT INTO generates (Match_id, Team_Name, Score, MVP) 
                            VALUES ($match_id, 'BUFC', '$score_str', 'TBD')
                            ON DUPLICATE KEY UPDATE Score='$score_str'");
@@ -95,11 +86,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
                                Matches_Drawn = Matches_Drawn + $opt_d, 
                                Matches_Lost = Matches_Lost + $opt_l
                            WHERE Team_Name = '$opponent'");
-
-
-    // ======================================================
-    // PHASE C: UPDATE PLAYER STATS & DETERMINE MVP
-    // ======================================================
 
     // 1. Calculate Ratings for BUFC Players
     $squad_data = [];
@@ -146,7 +132,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
         }
     }
 
-    // 3. Save Ratings & Find Best BUFC Player
+    // Save Ratings & Find Best BUFC Player
     $highest_rating = 0;
     $best_bufc_player_id = null;
 
@@ -165,11 +151,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
         }
     }
 
-    // 4. DECIDE FINAL MVP (The Logic You Requested)
+    // DECIDE FINAL MVP (The Logic is if my team wins then most rated player is the mvp if opponent wins then their captain)
     $final_mvp_name = "TBD";
 
     if ($status == 'Lost') {
-        // CASE: OPPONENT WON -> MVP is Opponent Captain
+        // OPPONENT WON -> MVP is Opponent Captain
         $cap_query = mysqli_query($t_conn, "SELECT Captain FROM league_standings WHERE Team_Name = '$opponent'");
         $cap_row = mysqli_fetch_assoc($cap_query);
         if ($cap_row) {
@@ -178,7 +164,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
             $final_mvp_name = $opponent . " Captain"; // Fallback
         }
     } else {
-        // CASE: BUFC WON OR DRAW -> MVP is Best Rated BUFC Player
+        // BUFC WON OR DRAW -> MVP is Best Rated BUFC Player
         if ($best_bufc_player_id) {
             $name_q = mysqli_query($conn, "SELECT Name FROM users WHERE User_ID = $best_bufc_player_id");
             $name_row = mysqli_fetch_assoc($name_q);
@@ -190,12 +176,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
 
     // Update MVP in Database
     mysqli_query($t_conn, "UPDATE generates SET MVP = '$final_mvp_name' WHERE Match_id = $match_id");
-
-
-    // ======================================================
-    // PHASE D: SIMULATE REST OF LEAGUE (PAIRED LOGIC)
-    // ======================================================
-
     $other_teams = [];
     $other_teams_q = mysqli_query($t_conn, "SELECT Team_Name FROM league_standings WHERE Team_Name NOT IN ('BUFC', '$opponent')");
     while ($row = mysqli_fetch_assoc($other_teams_q)) {

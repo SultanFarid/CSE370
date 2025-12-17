@@ -1,6 +1,4 @@
-// pointsTable.js
-
-// --- MODAL LOGIC ---
+// MODAL
 function openTeamModal(teamData) {
   const modal = document.getElementById("teamModal");
 
@@ -32,7 +30,7 @@ function closeModal(event) {
   document.getElementById("teamModal").classList.remove("active");
 }
 
-// --- UPDATE TABLE LOGIC ---
+// UPDATE TABLE
 async function updateLeagueGeneration() {
   const btn = document.getElementById("updateTableBtn");
 

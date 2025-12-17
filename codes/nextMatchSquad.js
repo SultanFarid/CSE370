@@ -1,7 +1,3 @@
-// ==========================================
-// NEXT MATCH SQUAD SELECTION - JavaScript
-// ==========================================
-
 let nextMatch = null;
 let allPlayers = [];
 let selectedSquad = {
@@ -9,12 +5,11 @@ let selectedSquad = {
   substitutes: [],
 };
 
-// ========== INITIALIZATION ==========
 document.addEventListener("DOMContentLoaded", function () {
   loadNextMatch();
 });
 
-// ========== LOAD NEXT MATCH ==========
+// LOAD NEXT MATCH
 async function loadNextMatch() {
   try {
     const response = await fetch("nextMatchSquad.php?action=get_next_match");
@@ -31,27 +26,25 @@ async function loadNextMatch() {
     displayMatchInfo(nextMatch);
 
     if (nextMatch.Match_status === "Published") {
-      // 1. Show Read-Only View
+      // Show Read-Only View
       loadPublishedSquad(nextMatch.Match_id);
-      
-      // 2. Hide selection area & action buttons
+
+      // Hide selection area & action buttons
       document.getElementById("selectionArea").style.display = "none";
       document.getElementById("actionButtons").style.display = "none";
 
-      // 3. Show Unpublish Button (Head Coach only) - NEW DESIGN
+      // Show Unpublish Button to Head Coach only
       if (isHeadCoach) {
         const unpubDiv = document.getElementById("unpublishContainer");
         unpubDiv.style.display = "flex";
-        unpubDiv.className = "unpublish-container-styled"; // Use new centering class
+        unpubDiv.className = "unpublish-container-styled";
         unpubDiv.innerHTML = `
             <button class="btn-danger" onclick="unpublishSquad()">
                 <span class="btn-icon">🔓</span> Unlock & Unpublish Squad
             </button>
         `;
       }
-
     } else {
-      // It is SCHEDULED
       if (isHeadCoach) {
         loadEligiblePlayers();
         document.getElementById("actionButtons").style.display = "flex";
@@ -70,7 +63,7 @@ async function loadNextMatch() {
   }
 }
 
-// ========== DISPLAY MATCH INFO ==========
+// DISPLAY MATCH INFO
 function displayMatchInfo(match) {
   const venue = match.Stadium.includes("BRAC University") ? "home" : "away";
   const date = new Date(match.Match_date + "T" + match.Match_time);
@@ -87,8 +80,12 @@ function displayMatchInfo(match) {
                  </div>
                  <div class="versus-text">VS</div>
                  <div class="team-container" style="text-align: center;">
-                    <img src="${opponentLogo}" alt="${match.Opponent}" class="team-logo-lg" onerror="this.src='images/default_team.png'">
-                    <div style="font-weight:800; margin-top:5px;">${match.Opponent}</div>
+                    <img src="${opponentLogo}" alt="${
+    match.Opponent
+  }" class="team-logo-lg" onerror="this.src='images/default_team.png'">
+                    <div style="font-weight:800; margin-top:5px;">${
+                      match.Opponent
+                    }</div>
                  </div>
             </div>
             <div class="match-badge">${match.Match_status}</div>
@@ -106,14 +103,19 @@ function displayMatchInfo(match) {
                 <span class="detail-icon">⏰</span>
                 <div class="detail-content">
                     <div class="detail-label">Time</div>
-                    <div class="detail-value">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                    <div class="detail-value">${date.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}</div>
                 </div>
             </div>
             <div class="detail-item">
                 <span class="detail-icon">📍</span>
                 <div class="detail-content">
                     <div class="detail-label">Stadium</div>
-                    <div class="detail-value">${match.Stadium} <span class="venue-badge ${venue}">${venue.toUpperCase()}</span></div>
+                    <div class="detail-value">${
+                      match.Stadium
+                    } <span class="venue-badge ${venue}">${venue.toUpperCase()}</span></div>
                 </div>
             </div>
         </div>
@@ -123,10 +125,12 @@ function displayMatchInfo(match) {
   document.getElementById("matchInfoCard").style.display = "block";
 }
 
-// ========== LOAD PLAYERS ==========
+// LOAD PLAYERS
 async function loadEligiblePlayers() {
   try {
-    const response = await fetch("nextMatchSquad.php?action=get_eligible_players");
+    const response = await fetch(
+      "nextMatchSquad.php?action=get_eligible_players"
+    );
     const data = await response.json();
 
     if (data.success) {
@@ -143,7 +147,12 @@ function renderPlayersList(players) {
   const container = document.getElementById("playersList");
   container.innerHTML = "";
 
-  const positionMap = { 'Goalkeeper': 'GK', 'Defender': 'DEF', 'Midfielder': 'MID', 'Striker': 'ST' };
+  const positionMap = {
+    Goalkeeper: "GK",
+    Defender: "DEF",
+    Midfielder: "MID",
+    Striker: "ST",
+  };
 
   players.forEach((player) => {
     const playerCard = document.createElement("div");
@@ -155,14 +164,20 @@ function renderPlayersList(players) {
     const shortPos = positionMap[player.Position] || player.Position;
 
     playerCard.innerHTML = `
-            <img src="images/players/${player.User_ID}.jpg" alt="${player.Name}" class="player-avatar-drag"
-                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(player.Name)}&background=3b82f6&color=fff&size=100&bold=true'">
+            <img src="images/players/${player.User_ID}.jpg" alt="${
+      player.Name
+    }" class="player-avatar-drag"
+                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+                   player.Name
+                 )}&background=3b82f6&color=fff&size=100&bold=true'">
             <div class="player-info-drag">
                 <span class="player-name-drag">${player.Name}</span>
                 <div class="player-meta-drag">
                     <span class="player-jersey-drag">#${player.Jersey_No}</span>
                     <span class="player-position-drag">${shortPos}</span>
-                    <span class="player-stats-drag">GS:${player.total_goals} MP:${player.total_matches}</span>
+                    <span class="player-stats-drag">GS:${
+                      player.total_goals
+                    } MP:${player.total_matches}</span>
                 </div>
             </div>
         `;
@@ -174,13 +189,18 @@ function renderPlayersList(players) {
 }
 
 function filterPlayersByPosition(position) {
-  document.querySelectorAll(".pos-tab").forEach((tab) => tab.classList.remove("active"));
+  document
+    .querySelectorAll(".pos-tab")
+    .forEach((tab) => tab.classList.remove("active"));
   event.target.classList.add("active");
-  const filtered = position === "all" ? allPlayers : allPlayers.filter((p) => p.Position === position);
+  const filtered =
+    position === "all"
+      ? allPlayers
+      : allPlayers.filter((p) => p.Position === position);
   renderPlayersList(filtered);
 }
 
-// ========== DRAG & DROP ==========
+// DRAG & DROP
 let draggedElement = null;
 
 function dragStart(e) {
@@ -238,17 +258,29 @@ function placePlayerInSlot(slot, player, slotPosition) {
 
   if (slotPosition.startsWith("SUB")) {
     slot.innerHTML = `
-            <div class="bench-player-card" data-player-id="${player.User_ID}" draggable="false" style="${style}" ${clickAction} title="Click to remove">
-                <img src="images/players/${player.User_ID}.jpg" alt="${player.Name}" class="bench-avatar" draggable="false"
-                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(player.Name)}&background=f59e0b&color=fff&size=100&bold=true'">
+            <div class="bench-player-card" data-player-id="${
+              player.User_ID
+            }" draggable="false" style="${style}" ${clickAction} title="Click to remove">
+                <img src="images/players/${player.User_ID}.jpg" alt="${
+      player.Name
+    }" class="bench-avatar" draggable="false"
+                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+                       player.Name
+                     )}&background=f59e0b&color=fff&size=100&bold=true'">
                 <div class="bench-player-name">${player.Name}</div>
                 <div class="bench-player-number">#${player.Jersey_No}</div>
             </div>`;
   } else {
     slot.innerHTML = `
-            <div class="player-card-field" data-player-id="${player.User_ID}" draggable="false" style="${style}" ${clickAction} title="Click to remove">
-                <img src="images/players/${player.User_ID}.jpg" alt="${player.Name}" class="player-avatar-field" draggable="false"
-                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(player.Name)}&background=3b82f6&color=fff&size=120&bold=true'">
+            <div class="player-card-field" data-player-id="${
+              player.User_ID
+            }" draggable="false" style="${style}" ${clickAction} title="Click to remove">
+                <img src="images/players/${player.User_ID}.jpg" alt="${
+      player.Name
+    }" class="player-avatar-field" draggable="false"
+                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+                       player.Name
+                     )}&background=3b82f6&color=fff&size=120&bold=true'">
                 <div class="player-name-field">${player.Name}</div>
                 <div class="player-number-field">#${player.Jersey_No}</div>
             </div>`;
@@ -259,7 +291,9 @@ function removePlayer(slotPosition, playerId) {
   const slot = document.querySelector(`[data-position="${slotPosition}"]`);
 
   if (slotPosition.startsWith("SUB")) {
-    selectedSquad.substitutes = selectedSquad.substitutes.filter((id) => id != playerId);
+    selectedSquad.substitutes = selectedSquad.substitutes.filter(
+      (id) => id != playerId
+    );
     const num = slotPosition.replace("SUB", "");
     slot.innerHTML = `<div class="slot-number">${num}</div>`;
   } else {
@@ -271,7 +305,9 @@ function removePlayer(slotPosition, playerId) {
   slot.classList.remove("filled");
   slot.classList.add("drop-zone");
 
-  const playerCard = document.querySelector(`.draggable-player[data-player-id="${playerId}"]`);
+  const playerCard = document.querySelector(
+    `.draggable-player[data-player-id="${playerId}"]`
+  );
   if (playerCard) playerCard.classList.remove("placed");
 
   updateSelectionCount();
@@ -294,23 +330,27 @@ function updateSelectionCount() {
 
 function resetSelection() {
   selectedSquad = { starting: {}, substitutes: [] };
-  document.querySelectorAll(".position-slot.filled, .bench-slot.filled").forEach((slot) => {
-    const slotPosition = slot.getAttribute("data-position");
-    if (slotPosition.startsWith("SUB")) {
-      const num = slotPosition.replace("SUB", "");
-      slot.innerHTML = `<div class="slot-number">${num}</div>`;
-    } else {
-      const label = slotPosition.replace(/[0-9]/g, "");
-      slot.innerHTML = `<div class="slot-label">${label}</div>`;
-    }
-    slot.classList.remove("filled");
-    slot.classList.add("drop-zone");
-  });
-  document.querySelectorAll(".draggable-player.placed").forEach((card) => card.classList.remove("placed"));
+  document
+    .querySelectorAll(".position-slot.filled, .bench-slot.filled")
+    .forEach((slot) => {
+      const slotPosition = slot.getAttribute("data-position");
+      if (slotPosition.startsWith("SUB")) {
+        const num = slotPosition.replace("SUB", "");
+        slot.innerHTML = `<div class="slot-number">${num}</div>`;
+      } else {
+        const label = slotPosition.replace(/[0-9]/g, "");
+        slot.innerHTML = `<div class="slot-label">${label}</div>`;
+      }
+      slot.classList.remove("filled");
+      slot.classList.add("drop-zone");
+    });
+  document
+    .querySelectorAll(".draggable-player.placed")
+    .forEach((card) => card.classList.remove("placed"));
   updateSelectionCount();
 }
 
-// ========== PUBLISH SQUAD ==========
+// PUBLISH SQUAD
 async function publishSquad() {
   const btn = document.getElementById("publishBtn");
   btn.disabled = true;
@@ -344,7 +384,7 @@ async function publishSquad() {
   }
 }
 
-// ========== UNPUBLISH SQUAD ==========
+// UNPUBLISH SQUAD
 async function unpublishSquad() {
   if (!confirm("Unpublish this squad?")) {
     return;
@@ -368,13 +408,19 @@ async function unpublishSquad() {
   }
 }
 
-// ========== AI AUTO-SELECT ==========
+// AI AUTO-SELECT
 async function aiAutoSelect() {
-  if (!confirm("AI will analyze player stats and select the best squad. Continue?")) return;
+  if (
+    !confirm(
+      "AI will analyze player stats and select the best squad. Continue?"
+    )
+  )
+    return;
 
   const btn = document.querySelector(".btn-ai");
   const originalText = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;"></span> Analyzing...';
+  btn.innerHTML =
+    '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;"></span> Analyzing...';
   btn.disabled = true;
 
   try {
@@ -382,7 +428,10 @@ async function aiAutoSelect() {
     const response = await fetch("api_squad_selection.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ match_id: nextMatch.Match_id, players: allPlayers }),
+      body: JSON.stringify({
+        match_id: nextMatch.Match_id,
+        players: allPlayers,
+      }),
     });
 
     const rawText = await response.text();
@@ -404,7 +453,9 @@ async function aiAutoSelect() {
           if (slot) {
             placePlayerInSlot(slot, player, pos);
             selectedSquad.starting[pos] = id;
-            const card = document.querySelector(`.draggable-player[data-player-id="${id}"]`);
+            const card = document.querySelector(
+              `.draggable-player[data-player-id="${id}"]`
+            );
             if (card) card.classList.add("placed");
           }
         }
@@ -421,14 +472,15 @@ async function aiAutoSelect() {
           if (slot) {
             placePlayerInSlot(slot, player, pos);
             selectedSquad.substitutes.push(id);
-            const card = document.querySelector(`.draggable-player[data-player-id="${id}"]`);
+            const card = document.querySelector(
+              `.draggable-player[data-player-id="${id}"]`
+            );
             if (card) card.classList.add("placed");
           }
         }
       });
     }
     updateSelectionCount();
-
   } catch (error) {
     console.error("AI Error:", error);
     alert("AI Error: " + error.message);
@@ -438,10 +490,12 @@ async function aiAutoSelect() {
   }
 }
 
-// ========== READ ONLY VIEW ==========
+// READ ONLY VIEW
 async function loadPublishedSquad(matchId) {
   try {
-    const response = await fetch(`nextMatchSquad.php?action=get_published_squad&match_id=${matchId}`);
+    const response = await fetch(
+      `nextMatchSquad.php?action=get_published_squad&match_id=${matchId}`
+    );
     const data = await response.json();
     if (data.success) {
       displayPublishedSquad(data.starting_xi, data.substitutes);
@@ -464,14 +518,16 @@ function displayPublishedSquad(startingXI, substitutes) {
   const card = (p) => `
         <div class="position-slot filled">
             <div class="player-card-field">
-                <img src="images/players/${p.User_ID}.jpg" alt="${p.Name}" class="player-avatar-field"
-                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(p.Name)}&background=3b82f6&color=fff&size=120&bold=true'">
+                <img src="images/players/${p.User_ID}.jpg" alt="${
+    p.Name
+  }" class="player-avatar-field"
+                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+                       p.Name
+                     )}&background=3b82f6&color=fff&size=120&bold=true'">
                 <div class="player-name-field">${p.Name}</div>
                 <div class="player-number-field">#${p.Jersey_No}</div>
             </div>
         </div>`;
-
-  // ADDED: "full-width-panel" class to the main div
   const html = `
         <div class="field-panel full-width-panel">
             <div class="field-header" style="width: 100%; max-width: 1100px; margin: 0 auto 20px auto;">
@@ -485,28 +541,52 @@ function displayPublishedSquad(startingXI, substitutes) {
                     <div class="penalty-box right"></div><div class="goal-box right"></div>
                 </div>
                 <div class="tactical-grid">
-                    <div class="position-col goalkeeper-col">${formation.gk ? card(formation.gk) : ""}</div>
-                    <div class="position-col defenders-col">${formation.def.map((p) => card(p)).join("")}</div>
-                    <div class="position-col midfielders-col">${formation.mid.map((p) => card(p)).join("")}</div>
-                    <div class="position-col strikers-col">${formation.fwd.map((p) => card(p)).join("")}</div>
+                    <div class="position-col goalkeeper-col">${
+                      formation.gk ? card(formation.gk) : ""
+                    }</div>
+                    <div class="position-col defenders-col">${formation.def
+                      .map((p) => card(p))
+                      .join("")}</div>
+                    <div class="position-col midfielders-col">${formation.mid
+                      .map((p) => card(p))
+                      .join("")}</div>
+                    <div class="position-col strikers-col">${formation.fwd
+                      .map((p) => card(p))
+                      .join("")}</div>
                 </div>
             </div>
             
-            ${substitutes.length > 0 ? `
+            ${
+              substitutes.length > 0
+                ? `
             <div class="substitutes-bench">
                 <div class="bench-header"><h4>🪑 Substitutes Bench</h4></div>
                 <div class="bench-slots">
-                    ${substitutes.map(player => `
+                    ${substitutes
+                      .map(
+                        (player) => `
                         <div class="bench-slot filled">
                             <div class="bench-player-card">
-                                <img src="images/players/${player.User_ID}.jpg" alt="${player.Name}" class="bench-avatar"
-                                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(player.Name)}&background=f59e0b&color=fff&size=100&bold=true'">
-                                <div class="bench-player-name">${player.Name}</div>
-                                <div class="bench-player-number">#${player.Jersey_No}</div>
+                                <img src="images/players/${
+                                  player.User_ID
+                                }.jpg" alt="${player.Name}" class="bench-avatar"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                       player.Name
+                                     )}&background=f59e0b&color=fff&size=100&bold=true'">
+                                <div class="bench-player-name">${
+                                  player.Name
+                                }</div>
+                                <div class="bench-player-number">#${
+                                  player.Jersey_No
+                                }</div>
                             </div>
-                        </div>`).join('')}
+                        </div>`
+                      )
+                      .join("")}
                 </div>
-            </div>` : ''}
+            </div>`
+                : ""
+            }
         </div>
     `;
   document.getElementById("readOnlyView").innerHTML = html;

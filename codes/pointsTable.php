@@ -2,7 +2,7 @@
 session_start();
 require_once 'dbconnect.php';
 
-// Auth Check
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
     exit();
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role'];
 
-// Check Head Coach
+// Check If Head Coach
 $is_head_coach = false;
 if ($user_role === 'coach') {
     $coach_query = mysqli_query($conn, "SELECT Coach_Type FROM coach WHERE Coach_ID = '$user_id'");

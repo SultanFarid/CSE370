@@ -1,5 +1,5 @@
 <?php
-// 1. SUPPRESS ALL WARNINGS to ensure clean JSON output
+// SUPPRESS ALL WARNINGS to ensure clean JSON output
 error_reporting(0);
 ini_set('display_errors', 0);
 
@@ -15,7 +15,7 @@ function sendError($msg, $details = null) {
     exit();
 }
 
-// Check authentication
+// GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
     sendError('Not authenticated');
 }
@@ -51,7 +51,6 @@ if (!$tournament_conn) {
     sendError('Failed to connect to tournament DB');
 }
 
-// FIXED: Using correct column 'Match_id'
 $match_query = mysqli_query($tournament_conn, "SELECT * FROM fixtures WHERE Match_id = '$match_id'");
 $match = mysqli_fetch_assoc($match_query);
 
@@ -59,9 +58,6 @@ if (!$match) {
     sendError('Match not found', 'Match ID: ' . $match_id);
 }
 
-// =========================================================
-// CRITICAL FIX: Use 'Opponent' column instead of Team1_name
-// =========================================================
 $opponent = $match['Opponent']; 
 $venue = strpos($match['Stadium'], 'BRAC University') !== false ? 'home' : 'away';
 
@@ -80,7 +76,7 @@ foreach ($players as $player) {
     ];
 }
 
-// Build Gemini prompt
+// PROMPT
 $prompt = "You are a professional football coach AI. Select the best starting XI squad from the available players.
 
 Formation: 4-3-3
@@ -103,7 +99,7 @@ JSON Format:
   \"substitutes\": [id, id, id, id, id, id, id, id, id]
 }";
 
-// Call Gemini API (Stable Version)
+// Call Gemini API
 $api_key = '#';
 $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $api_key;
 
@@ -147,7 +143,7 @@ if (isset($json['candidates'][0]['content']['parts'][0]['text'])) {
     $raw = preg_replace('/\s*```$/', '', $raw);
     $raw = trim($raw);
     
-    echo $raw; // SUCCESS!
+    echo $raw;
 } else {
     sendError('Invalid AI Response Structure', $json);
 }
