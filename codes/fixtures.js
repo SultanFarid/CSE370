@@ -1,9 +1,3 @@
-// ==========================================
-// FIXTURES.JS - 7-Line Formation Support
-// ==========================================
-// This JS handles tab switching, filtering, and squad detail toggling
-// Field layout now supports: GK, LB/RB, CB, DM, CM, LW/RW, ST
-
 // Switch between Upcoming and Previous tabs
 function switchMainTab(tabName) {
     // Update tab buttons

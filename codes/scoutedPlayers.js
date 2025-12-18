@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 1. HIGHLIGHT SIDEBAR
+  // HIGHLIGHT SIDEBAR
   const currentLocation = location.href;
   const menuItems = document.querySelectorAll(".nav-item");
   menuItems.forEach((item) => {
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     else item.classList.remove("active");
   });
 
-  // 2. FILTER LOGIC
+  // FILTER LOGIC
   const searchInput = document.getElementById("searchInput");
   const statusFilter = document.getElementById("statusFilter");
   const positionFilter = document.getElementById("positionFilter");
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (positionFilter) positionFilter.addEventListener("change", filterCards);
 });
 
-// 3. GEMINI API TRIGGER
+// GEMINI API TRIGGER
 async function generateReport(btn) {
   const card = btn.closest(".scout-card");
   const id = card.querySelector(".hidden-id").textContent;
@@ -67,29 +67,28 @@ async function generateReport(btn) {
   }
 }
 
-// 4. UPDATE STATUS
-// 4. UPDATE STATUS (Fixed to show real error)
+// UPDATE STATUS
 function updateStatus(userId, newStatus) {
-    if(confirm(`Move this player to ${newStatus} list?`)) {
-        const formData = new FormData();
-        formData.append('user_id', userId);
-        formData.append('status', newStatus);
+  if (confirm(`Move this player to ${newStatus} list?`)) {
+    const formData = new FormData();
+    formData.append("user_id", userId);
+    formData.append("status", newStatus);
 
-        fetch('update_scout_status.php', { method: 'POST', body: formData })
-        .then(res => res.text())
-        .then(data => {
-            // Trim whitespace to ensure clean comparison
-            if(data.trim() === 'success') {
-                location.reload();
-            } else {
-                // ALERT THE ACTUAL ERROR MESSAGE FROM PHP
-                alert('Update Failed: ' + data);
-            }
-        });
-    }
+    fetch("update_scout_status.php", { method: "POST", body: formData })
+      .then((res) => res.text())
+      .then((data) => {
+        // Trim whitespace to ensure clean comparison
+        if (data.trim() === "success") {
+          location.reload();
+        } else {
+          // ALERT THE ACTUAL ERROR MESSAGE FROM PHP
+          alert("Update Failed: " + data);
+        }
+      });
+  }
 }
 
-// 5. PROMOTE MODAL
+// PROMOTE MODAL
 function openPromoteModal(id, name) {
   document.getElementById("promoteModal").style.display = "block";
   document.getElementById("promoteId").value = id;

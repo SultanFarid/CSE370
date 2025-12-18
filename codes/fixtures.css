@@ -17,7 +17,8 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   height: 100vh;
   overflow: hidden;
   color: var(--text-main);
@@ -32,7 +33,7 @@ body {
   width: 100%;
 }
 
-/* ========== SIDEBAR ========== */
+/* SIDEBAR */
 .sidebar {
   width: 250px;
   background-color: var(--brand-dark);
@@ -91,7 +92,7 @@ body {
   box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
 }
 
-/* ========== HEADER ========== */
+/* HEADER */
 .main-content {
   flex-grow: 1;
   display: flex;
@@ -148,7 +149,7 @@ body {
   letter-spacing: 2px;
 }
 
-/* ========== CONTAINER ========== */
+/* CONTAINER */
 .squad-container {
   padding: 40px;
   max-width: 1400px;
@@ -171,7 +172,7 @@ body {
   }
 }
 
-/* ========== STATISTICS BAR ========== */
+/* STATISTICS BAR */
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -192,7 +193,7 @@ body {
 }
 
 .stat-box::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -212,13 +213,27 @@ body {
   transform: scaleX(1);
 }
 
-.win-stat { border-left-color: var(--status-fit); }
-.win-stat::before { background: var(--status-fit); }
-.draw-stat { border-left-color: var(--status-warn); }
-.draw-stat::before { background: var(--status-warn); }
-.loss-stat { border-left-color: var(--status-bad); }
-.loss-stat::before { background: var(--status-bad); }
-.total-stat { border-left-color: var(--brand-blue); }
+.win-stat {
+  border-left-color: var(--status-fit);
+}
+.win-stat::before {
+  background: var(--status-fit);
+}
+.draw-stat {
+  border-left-color: var(--status-warn);
+}
+.draw-stat::before {
+  background: var(--status-warn);
+}
+.loss-stat {
+  border-left-color: var(--status-bad);
+}
+.loss-stat::before {
+  background: var(--status-bad);
+}
+.total-stat {
+  border-left-color: var(--brand-blue);
+}
 
 .stat-number {
   font-size: 2.5rem;
@@ -236,7 +251,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ========== MAIN TAB SWITCHER ========== */
+/* MAIN TAB SWITCHER */
 .main-tab-switcher {
   display: flex;
   gap: 15px;
@@ -264,7 +279,7 @@ body {
 }
 
 .main-tab::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -290,7 +305,7 @@ body {
   width: 60%;
 }
 
-/* ========== TAB SECTIONS ========== */
+/* TAB SECTIONS */
 .tab-section {
   display: none;
 }
@@ -300,7 +315,7 @@ body {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* ========== FILTER TABS ========== */
+/* FILTER TABS */
 .filter-tabs {
   display: flex;
   gap: 10px;
@@ -327,7 +342,7 @@ body {
 }
 
 .filter-tab::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -358,14 +373,14 @@ body {
   box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
 }
 
-/* ========== FIXTURES LIST ========== */
+/* FIXTURES LIST */
 .fixtures-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* ========== MATCH BOX - ENHANCED DESIGN ========== */
+/* MATCH BOX */
 .match-box {
   background: white;
   border-radius: 16px;
@@ -377,7 +392,7 @@ body {
 }
 
 .match-box::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -393,16 +408,24 @@ body {
   border-color: var(--brand-blue);
 }
 
-.match-box.won::before { background: linear-gradient(180deg, var(--status-fit) 0%, #059669 100%); }
-.match-box.lost::before { background: linear-gradient(180deg, var(--status-bad) 0%, #dc2626 100%); }
-.match-box.draw::before { background: linear-gradient(180deg, var(--status-warn) 0%, #d97706 100%); }
-.match-box.upcoming::before { background: linear-gradient(180deg, var(--brand-blue) 0%, #4f46e5 100%); }
+.match-box.won::before {
+  background: linear-gradient(180deg, var(--status-fit) 0%, #059669 100%);
+}
+.match-box.lost::before {
+  background: linear-gradient(180deg, var(--status-bad) 0%, #dc2626 100%);
+}
+.match-box.draw::before {
+  background: linear-gradient(180deg, var(--status-warn) 0%, #d97706 100%);
+}
+.match-box.upcoming::before {
+  background: linear-gradient(180deg, var(--brand-blue) 0%, #4f46e5 100%);
+}
 
 .match-box.hidden {
   display: none;
 }
 
-/* ========== MATCH HEADER - REDESIGNED ========== */
+/* MATCH HEADER */
 .match-header {
   padding: 20px 30px;
   display: flex;
@@ -424,7 +447,7 @@ body {
   flex: 1;
 }
 
-/* ========== DATE BOX - COMPACT & MODERN ========== */
+/* DATE BOX */
 .match-date-box {
   display: flex;
   flex-direction: column;
@@ -440,7 +463,7 @@ body {
 }
 
 .match-date-box::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -50%;
@@ -490,7 +513,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* ========== MATCH SCORE SECTION - IMPROVED LAYOUT ========== */
+/* MATCH SCORE SECTION */
 .match-score-section {
   display: flex;
   align-items: center;
@@ -514,7 +537,7 @@ body {
 }
 
 .match-score-section.upcoming .team-name:first-child::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -531,7 +554,7 @@ body {
 }
 
 .match-score-section.upcoming .team-name:last-child::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -575,7 +598,7 @@ body {
   letter-spacing: 3px;
 }
 
-/* ========== MATCH META - RIGHT SIDE INFO ========== */
+/* MATCH META */
 .match-meta {
   display: flex;
   flex-direction: column;
@@ -595,25 +618,41 @@ body {
 }
 
 .match-status-badge.won {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15) 0%,
+    rgba(5, 150, 105, 0.1) 100%
+  );
   color: var(--status-fit);
   border: 2px solid rgba(16, 185, 129, 0.3);
 }
 
 .match-status-badge.lost {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(220, 38, 38, 0.1) 100%
+  );
   color: var(--status-bad);
   border: 2px solid rgba(239, 68, 68, 0.3);
 }
 
 .match-status-badge.draw {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(217, 119, 6, 0.1) 100%
+  );
   color: var(--status-warn);
   border: 2px solid rgba(245, 158, 11, 0.3);
 }
 
 .match-status-badge.scheduled {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(79, 70, 229, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(79, 70, 229, 0.1) 100%
+  );
   color: var(--brand-blue);
   border: 2px solid rgba(59, 130, 246, 0.3);
 }
@@ -638,13 +677,21 @@ body {
 }
 
 .venue-badge.home {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.15) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.2) 0%,
+    rgba(5, 150, 105, 0.15) 100%
+  );
   color: var(--status-fit);
   border: 2px solid rgba(16, 185, 129, 0.4);
 }
 
 .venue-badge.away {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.15) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.2) 0%,
+    rgba(220, 38, 38, 0.15) 100%
+  );
   color: var(--status-bad);
   border: 2px solid rgba(239, 68, 68, 0.4);
 }
@@ -661,7 +708,7 @@ body {
   color: var(--brand-blue);
 }
 
-/* ========== MATCH DETAILS ========== */
+/* MATCH DETAILS */
 .match-details {
   max-height: 0;
   overflow: hidden;
@@ -678,7 +725,7 @@ body {
   padding: 30px;
 }
 
-/* ========== MVP SECTION ========== */
+/* MVP SECTION */
 .mvp-section-top {
   display: flex;
   align-items: center;
@@ -693,7 +740,7 @@ body {
 }
 
 .mvp-section-top::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -20%;
@@ -710,8 +757,12 @@ body {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .mvp-label {
@@ -729,7 +780,7 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* ========== FOOTBALL FIELD ========== */
+/* FOOTBALL FIELD */
 .football-field {
   position: relative;
   background: linear-gradient(90deg, #2d8f4c 0%, #1a5e2f 50%, #2d8f4c 100%);
@@ -832,8 +883,6 @@ body {
   gap: 25px;
 }
 
-/* ========== REVISED FORMATION LAYOUT ========== */
-
 /* GK: Centered on goal line */
 .gk-slot {
   left: 6%;
@@ -860,8 +909,7 @@ body {
   left: 26%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* Remove default gap so we can control spacing precisely with transform */
-  gap: 5px; 
+  gap: 5px;
 }
 
 /* If there's only 1 CB (red card/injury), reset transform */
@@ -869,7 +917,7 @@ body {
   transform: none;
 }
 
-/* DM: Sitting in the 'hole' (center circle edge) */
+/* DM: Sitting in the 'hole' */
 .dm-slot {
   left: 55%;
   top: 50%;
@@ -883,7 +931,6 @@ body {
   transform: translate(-50%, -50%);
   gap: 200px;
 }
-
 
 /* LW: High and Wide Left */
 .lw-slot {
@@ -999,7 +1046,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* ========== SUBSTITUTES SECTION ========== */
+/* SUBSTITUTES SECTION */
 .substitutes-section {
   margin-top: 40px;
   background: white;
@@ -1126,7 +1173,7 @@ body {
   margin-top: 3px;
 }
 
-/* ========== NO DATA MESSAGE ========== */
+/* NO DATA MESSAGE */
 .no-data {
   text-align: center;
   padding: 60px 40px;
@@ -1138,7 +1185,7 @@ body {
   font-weight: 500;
 }
 
-/* ========== RESPONSIVE DESIGN ========== */
+/* RESPONSIVE DESIGN */
 @media (max-width: 1200px) {
   .football-field {
     padding: 35px 50px;
@@ -1319,21 +1366,20 @@ body {
 }
 
 .team-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .team-logo {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-/* Smaller logos for upcoming matches if needed */
 .match-score-section.upcoming .team-logo {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }

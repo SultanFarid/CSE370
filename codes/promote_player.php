@@ -18,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     mysqli_begin_transaction($conn);
     try {
-        // 1. Delete from Scouted
+        // Delete from Scouted
         mysqli_query($conn, "DELETE FROM Scouted_Player WHERE Scouted_Player_ID = '$player_id'");
-        // 2. Insert into Regular
+        // Insert into Regular
         $insert = "INSERT INTO Regular_Player (Regular_Player_ID, Jersey_No, Goals_Scored, Matches_Played) VALUES ('$player_id', '$jersey', 0, 0)";
         mysqli_query($conn, $insert);
-        // 3. Update User Role & Contract
+        // Update User Role & Contract
         $update = "UPDATE users SET Role = 'regular_player', salary = '$salary', contract_start_date = '$start', contract_end_date = '$end' WHERE User_ID = '$player_id'";
         mysqli_query($conn, $update);
-        // 4. Update Player Status
+        // Update Player Status
         mysqli_query($conn, "UPDATE Player SET Current_Injury_Status = 'Fit' WHERE Player_ID = '$player_id'");
 
         mysqli_commit($conn);
