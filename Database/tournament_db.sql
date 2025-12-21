@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2025 at 02:04 PM
+-- Generation Time: Dec 21, 2025 at 06:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,26 +81,25 @@ INSERT INTO `fixtures` (`Match_id`, `Match_date`, `Match_time`, `Stadium`, `Matc
 CREATE TABLE `generates` (
   `Match_id` int(11) NOT NULL,
   `Team_Name` varchar(100) NOT NULL,
-  `Score` varchar(50) DEFAULT NULL,
-  `MVP` varchar(100) DEFAULT NULL
+  `Score` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `generates`
 --
 
-INSERT INTO `generates` (`Match_id`, `Team_Name`, `Score`, `MVP`) VALUES
-(1, 'BUFC', '3-0', 'Rakib Hossain'),
-(2, 'BUFC', '1-4', 'Junaid Khan'),
-(3, 'BUFC', '0-4', 'Kamal Uddin'),
-(4, 'BUFC', '1-2', 'Nasir Rahman'),
-(5, 'BUFC', '1-2', 'Sabbir Ahmed'),
-(6, 'BUFC', '0-3', 'Ahmed Hassan'),
-(7, 'BUFC', '2-3', 'Arif Hossain'),
-(8, 'BUFC', '1-1', 'Sumon Reza'),
-(9, 'BUFC', '2-1', 'Mohammad Ibrahim'),
-(10, 'BUFC', '4-1', 'Mohammad Ibrahim'),
-(11, 'BUFC', '3-3', 'Shahin Alam');
+INSERT INTO `generates` (`Match_id`, `Team_Name`, `Score`) VALUES
+(1, 'BUFC', '3-0'),
+(2, 'BUFC', '1-4'),
+(3, 'BUFC', '0-4'),
+(4, 'BUFC', '1-2'),
+(5, 'BUFC', '1-2'),
+(6, 'BUFC', '0-3'),
+(7, 'BUFC', '2-3'),
+(8, 'BUFC', '1-1'),
+(9, 'BUFC', '2-1'),
+(10, 'BUFC', '4-1'),
+(11, 'BUFC', '3-3');
 
 -- --------------------------------------------------------
 
@@ -143,6 +142,34 @@ INSERT INTO `league_standings` (`Team_Name`, `Points`, `Matches_Won`, `Matches_D
 ('SUST FC', 9, 3, 0, 8, 'Rezaul Karim', 'Nafis Iqbal', 'Liton Ahmed', 'Hasan Mahmud', 'Yasir Rabbi'),
 ('UIU FC', 25, 8, 1, 2, 'Tariqul Islam', 'Soumya Khan', 'Naeem Islam', 'Tanzim Sakib', 'Tawhid Hridoy');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `match_results`
+--
+
+CREATE TABLE `match_results` (
+  `Match_id` int(11) NOT NULL,
+  `MVP` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_results`
+--
+
+INSERT INTO `match_results` (`Match_id`, `MVP`) VALUES
+(1, 'Rakib Hossain'),
+(2, 'Junaid Khan'),
+(3, 'Kamal Uddin'),
+(4, 'Nasir Rahman'),
+(5, 'Sabbir Ahmed'),
+(6, 'Ahmed Hassan'),
+(7, 'Arif Hossain'),
+(8, 'Sumon Reza'),
+(9, 'Mohammad Ibrahim'),
+(10, 'Mohammad Ibrahim'),
+(11, 'Shahin Alam');
+
 --
 -- Indexes for dumped tables
 --
@@ -167,6 +194,12 @@ ALTER TABLE `league_standings`
   ADD PRIMARY KEY (`Team_Name`);
 
 --
+-- Indexes for table `match_results`
+--
+ALTER TABLE `match_results`
+  ADD PRIMARY KEY (`Match_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -186,6 +219,12 @@ ALTER TABLE `fixtures`
 ALTER TABLE `generates`
   ADD CONSTRAINT `generates_ibfk_1` FOREIGN KEY (`Match_id`) REFERENCES `fixtures` (`Match_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `generates_ibfk_2` FOREIGN KEY (`Team_Name`) REFERENCES `league_standings` (`Team_Name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `match_results`
+--
+ALTER TABLE `match_results`
+  ADD CONSTRAINT `match_results_ibfk_1` FOREIGN KEY (`Match_id`) REFERENCES `fixtures` (`Match_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

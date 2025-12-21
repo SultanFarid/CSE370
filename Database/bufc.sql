@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2025 at 02:04 PM
+-- Generation Time: Dec 21, 2025 at 06:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,6 +55,28 @@ INSERT INTO `coach` (`Coach_ID`, `Coach_Type`, `Coach_Experience`, `Coach_Availa
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `doctors`
+--
+
+CREATE TABLE `doctors` (
+  `Doctor_Name` varchar(100) NOT NULL,
+  `Hospital` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`Doctor_Name`, `Hospital`) VALUES
+('Dr. Abu Saleh', 'Club Clinic'),
+('Dr. Ananda', 'United Hospital'),
+('Dr. Nashir Uddin', 'Apollo Dhaka'),
+('Dr. Robert Smith', 'Evercare Hospital'),
+('Dr. Sarah Khan', 'United Hospital');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `medical_record`
 --
 
@@ -77,56 +99,56 @@ INSERT INTO `medical_record` (`Prescription_ID`, `Player_ID`, `Doctor_in_charge`
 (1, 11, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Groin Pull', '2023-11-05', '2023-11-25'),
 (2, 11, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Rib Contusion', '2024-02-14', '2024-03-01'),
 (3, 11, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Wrist Sprain', '2023-05-10', '2023-05-25'),
-(4, 12, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Muscle Fatigue', '2023-08-01', '2023-08-05'),
+(4, 12, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Muscle Fatigue', '2023-08-01', '2023-08-05'),
 (5, 13, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Ankle Sprain', '2022-03-10', '2022-04-05'),
-(6, 13, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Concussion', '2023-09-15', '2023-09-25'),
-(7, 13, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Thigh Strain', '2024-01-10', '2024-01-20'),
-(8, 14, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Dislocated Finger', '2022-08-01', '2022-09-01'),
-(9, 14, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Lower Back Pain', '2023-05-10', '2023-05-20'),
+(6, 13, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Concussion', '2023-09-15', '2023-09-25'),
+(7, 13, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Thigh Strain', '2024-01-10', '2024-01-20'),
+(8, 14, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Dislocated Finger', '2022-08-01', '2022-09-01'),
+(9, 14, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Lower Back Pain', '2023-05-10', '2023-05-20'),
 (10, 14, 'Dr. Robert Smith', 'Critical', 'Evercare Hospital', 'ACL Tear', '2024-11-01', '2025-05-01'),
-(11, 15, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Ankle Sprain', '2023-11-10', '2023-12-01'),
-(12, 15, 'Dr. Local Medic', 'Healed', 'Barisal Sadar', 'Shin Bruise', '2022-06-15', '2022-06-25'),
-(13, 16, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Calf Cramps', '2023-02-10', '2023-02-15'),
+(11, 15, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Sprain', '2023-11-10', '2023-12-01'),
+(12, 15, 'Dr. Abu Saleh', 'Healed', 'Club Clinic', 'Shin Bruise', '2022-06-15', '2022-06-25'),
+(13, 16, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Calf Cramps', '2023-02-10', '2023-02-15'),
 (14, 16, 'Dr. Nashir Uddin', 'Rehabilitating', 'Apollo Dhaka', 'Hamstring Strain', '2024-10-15', '2024-12-20'),
-(15, 17, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Hamstring Tightness', '2022-12-01', '2022-12-15'),
-(16, 17, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Hamstring Strain', '2023-04-10', '2023-05-01'),
+(15, 17, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Hamstring Tightness', '2022-12-01', '2022-12-15'),
+(16, 17, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Hamstring Strain', '2023-04-10', '2023-05-01'),
 (17, 17, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Shin Splints', '2023-09-01', '2023-09-15'),
-(18, 18, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Lower Back Pain', '2024-03-10', '2024-03-20'),
-(19, 19, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Thumb Fracture', '2023-06-01', '2023-07-01'),
-(20, 20, 'Dr. Nashir Uddin', 'Healed', 'Square Hospital', 'Quad Strain', '2024-02-15', '2024-03-01'),
-(21, 20, 'Dr. Local Medic', 'Healed', 'Chittagong Medical', 'Dehydration', '2022-05-20', '2022-05-25'),
-(22, 21, 'Dr. Robert Smith', 'Healed', 'Rajshahi Clinic', 'Knee Scrape', '2023-01-10', '2023-01-20'),
+(18, 18, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Lower Back Pain', '2024-03-10', '2024-03-20'),
+(19, 19, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Thumb Fracture', '2023-06-01', '2023-07-01'),
+(20, 20, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Quad Strain', '2024-02-15', '2024-03-01'),
+(21, 20, 'Dr. Abu Saleh', 'Healed', 'Club Clinic', 'Dehydration', '2022-05-20', '2022-05-25'),
+(22, 21, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Knee Scrape', '2023-01-10', '2023-01-20'),
 (23, 21, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Knock', '2024-12-01', '2024-12-07'),
 (24, 22, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Cut on Eyebrow', '2023-12-20', '2024-01-05'),
-(25, 23, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Viral Fever', '2024-05-01', '2024-05-10'),
-(26, 24, 'Dr. Nashir Uddin', 'Healed', 'Sylhet MAG Osmani', 'Ankle Twist', '2022-11-10', '2022-11-25'),
-(27, 24, 'Dr. Nashir Uddin', 'Physiotherapy', 'Club Clinic', 'Groin Strain', '2024-11-28', '2024-12-10'),
-(28, 25, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Hamstring Tightness', '2023-10-05', '2023-10-12'),
-(29, 26, 'Dr. Robert Smith', 'Healed', 'United Hospital', 'Toe Injury', '2024-04-15', '2024-04-30'),
-(30, 26, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Mild Concussion', '2022-09-01', '2022-09-10'),
-(31, 27, 'Dr. Robert Smith', 'Healed', 'Mymensingh Medical', 'Knee Pain', '2023-01-05', '2023-01-15'),
-(32, 27, 'Dr. Robert Smith', 'Healed', 'Square Hospital', 'Calf Strain', '2024-11-25', '2024-12-15'),
-(33, 28, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Flu', '2023-06-10', '2023-06-17'),
-(34, 28, 'Dr. Sarah Khan', 'Light Training', 'Club Clinic', 'Concussion', '2024-11-10', '2024-12-05'),
-(35, 29, 'Dr. Sarah Khan', 'Healed', 'Square Hospital', 'Rib Contusion', '2023-07-20', '2023-08-10'),
-(36, 30, 'Dr. Robert Smith', 'Healed', 'Chittagong Medical', 'Ankle Sprain', '2022-12-01', '2023-01-01'),
+(25, 23, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Viral Fever', '2024-05-01', '2024-05-10'),
+(26, 24, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Ankle Twist', '2022-11-10', '2022-11-25'),
+(27, 24, 'Dr. Nashir Uddin', 'Physiotherapy', 'Apollo Dhaka', 'Groin Strain', '2024-11-28', '2024-12-10'),
+(28, 25, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Hamstring Tightness', '2023-10-05', '2023-10-12'),
+(29, 26, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Toe Injury', '2024-04-15', '2024-04-30'),
+(30, 26, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Mild Concussion', '2022-09-01', '2022-09-10'),
+(31, 27, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Knee Pain', '2023-01-05', '2023-01-15'),
+(32, 27, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Calf Strain', '2024-11-25', '2024-12-15'),
+(33, 28, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Flu', '2023-06-10', '2023-06-17'),
+(34, 28, 'Dr. Sarah Khan', 'Light Training', 'United Hospital', 'Concussion', '2024-11-10', '2024-12-05'),
+(35, 29, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Rib Contusion', '2023-07-20', '2023-08-10'),
+(36, 30, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Ankle Sprain', '2022-12-01', '2023-01-01'),
 (37, 30, 'Dr. Robert Smith', 'Post-Surgery', 'Evercare Hospital', 'Metatarsal Fracture', '2024-09-01', '2025-01-01'),
-(38, 31, 'Dr. Nashir Uddin', 'Healed', 'Dhaka Medical', 'Wrist Fracture', '2021-05-15', '2021-07-01'),
+(38, 31, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Wrist Fracture', '2021-05-15', '2021-07-01'),
 (39, 31, 'Dr. Nashir Uddin', 'Treatment', 'Apollo Dhaka', 'Shoulder Dislocation', '2024-11-20', '2025-01-15'),
-(40, 32, 'Dr. Nashir Uddin', 'Healed', 'Evercare Hospital', 'Achilles Tendonitis', '2023-02-01', '2023-03-01'),
-(41, 33, 'Dr. Robert Smith', 'Healed', 'Apollo Dhaka', 'Hip Flexor Strain', '2024-01-10', '2024-01-25'),
-(42, 34, 'Dr. Sarah Khan', 'Healed', 'Club Clinic', 'Dehydration', '2023-06-15', '2023-06-18'),
-(43, 35, 'Dr. Nashir Uddin', 'Healed', 'United Hospital', 'Sprained Finger', '2023-12-01', '2023-12-10'),
-(44, 36, 'Dr. Robert Smith', 'Healed', 'Square Hospital', 'Knee Ligament Strain', '2023-04-01', '2023-05-01'),
-(45, 37, 'Dr. Sarah Khan', 'Healed', 'Evercare Hospital', 'Concussion', '2023-09-10', '2023-09-25'),
+(40, 32, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Achilles Tendonitis', '2023-02-01', '2023-03-01'),
+(41, 33, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Hip Flexor Strain', '2024-01-10', '2024-01-25'),
+(42, 34, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Dehydration', '2023-06-15', '2023-06-18'),
+(43, 35, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Sprained Finger', '2023-12-01', '2023-12-10'),
+(44, 36, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Knee Ligament Strain', '2023-04-01', '2023-05-01'),
+(45, 37, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Concussion', '2023-09-10', '2023-09-25'),
 (46, 38, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Elbow Brusie', '2024-02-20', '2024-02-28'),
-(47, 39, 'Dr. Robert Smith', 'Healed', 'Club Clinic', 'Groin Pull', '2023-11-05', '2023-11-20'),
+(47, 39, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Groin Pull', '2023-11-05', '2023-11-20'),
 (48, 40, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Twist', '2024-01-05', '2024-01-20'),
-(49, 41, 'Dr. Local Medic', 'Healed', 'Comilla Medical', 'Meniscus Tear', '2022-01-01', '2022-06-01'),
-(50, 42, 'Dr. Local Medic', 'Healed', 'BKSP Clinic', 'Shin Splints', '2023-01-01', '2023-02-01'),
-(51, 42, 'Dr. Local Medic', 'Healed', 'BKSP Clinic', 'Ankle Twist', '2023-08-15', '2023-08-25'),
-(52, 43, 'Dr. Nashir Uddin', 'Healed', 'Dhaka Medical', 'Arm Fracture', '2023-03-10', '2023-05-10'),
-(53, 45, 'Dr. Sarah Khan', 'Healed', 'Barisal Sadar', 'Nose Fracture', '2023-11-01', '2023-11-20'),
+(49, 41, 'Dr. Abu Saleh', 'Healed', 'Club Clinic', 'Meniscus Tear', '2022-01-01', '2022-06-01'),
+(50, 42, 'Dr. Abu Saleh', 'Healed', 'Club Clinic', 'Shin Splints', '2023-01-01', '2023-02-01'),
+(51, 42, 'Dr. Abu Saleh', 'Healed', 'Club Clinic', 'Ankle Twist', '2023-08-15', '2023-08-25'),
+(52, 43, 'Dr. Nashir Uddin', 'Healed', 'Apollo Dhaka', 'Arm Fracture', '2023-03-10', '2023-05-10'),
+(53, 45, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Nose Fracture', '2023-11-01', '2023-11-20'),
 (54, 27, 'Dr. Ananda', 'Healed', 'United Hospital', 'ACL Tear', '2025-12-05', '2025-12-13');
 
 -- --------------------------------------------------------
@@ -1159,6 +1181,12 @@ INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone
 --
 ALTER TABLE `coach`
   ADD PRIMARY KEY (`Coach_ID`);
+
+--
+-- Indexes for table `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`Doctor_Name`);
 
 --
 -- Indexes for table `medical_record`
