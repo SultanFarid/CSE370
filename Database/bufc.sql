@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2025 at 05:01 PM
+-- Generation Time: Dec 21, 2025 at 02:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -98,7 +98,7 @@ INSERT INTO `medical_record` (`Prescription_ID`, `Player_ID`, `Doctor_in_charge`
 (22, 21, 'Dr. Robert Smith', 'Healed', 'Rajshahi Clinic', 'Knee Scrape', '2023-01-10', '2023-01-20'),
 (23, 21, 'Dr. Sarah Khan', 'Healed', 'United Hospital', 'Ankle Knock', '2024-12-01', '2024-12-07'),
 (24, 22, 'Dr. Robert Smith', 'Healed', 'Evercare Hospital', 'Cut on Eyebrow', '2023-12-20', '2024-01-05'),
-(25, 23, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Flu/Viral Fever', '2024-05-01', '2024-05-10'),
+(25, 23, 'Dr. Sarah Khan', 'Healed', 'Apollo Dhaka', 'Viral Fever', '2024-05-01', '2024-05-10'),
 (26, 24, 'Dr. Nashir Uddin', 'Healed', 'Sylhet MAG Osmani', 'Ankle Twist', '2022-11-10', '2022-11-25'),
 (27, 24, 'Dr. Nashir Uddin', 'Physiotherapy', 'Club Clinic', 'Groin Strain', '2024-11-28', '2024-12-10'),
 (28, 25, 'Dr. Nashir Uddin', 'Healed', 'Club Clinic', 'Hamstring Tightness', '2023-10-05', '2023-10-12'),
@@ -746,30 +746,30 @@ INSERT INTO `training_participation` (`Session_id`, `Player_ID`, `Coach_ID`, `Te
 (8, 42, 5, NULL, NULL, NULL, NULL, 'Scheduled'),
 (8, 44, 5, NULL, NULL, NULL, NULL, 'Scheduled'),
 (8, 45, 5, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 11, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 12, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 13, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 15, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 17, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 18, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 19, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 21, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 22, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 23, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 26, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 27, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 29, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 32, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 33, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 35, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 36, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 37, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 38, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 39, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 40, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 42, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 44, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
-(9, 45, 2, NULL, NULL, NULL, NULL, 'Scheduled'),
+(9, 11, 2, 7.1, 7.7, 6.7, 'High energy levels', 'Attended'),
+(9, 12, 2, 6.5, 7.8, 9.2, 'Impact player off the bench', 'Attended'),
+(9, 13, 2, 7.0, 7.8, 8.1, 'Clinical finishing today', 'Attended'),
+(9, 15, 2, 7.5, 8.9, 7.9, 'Needs to improve stamina', 'Attended'),
+(9, 17, 2, 8.0, 7.7, 8.2, 'Training efforts paying off', 'Attended'),
+(9, 18, 2, 8.3, 8.2, 7.5, 'Precise passing range', 'Attended'),
+(9, 19, 2, 8.2, 8.5, 8.3, 'Needs to be more consistent', 'Attended'),
+(9, 21, 2, 8.2, 8.6, 8.3, 'Needs focus on positioning', 'Attended'),
+(9, 22, 2, 6.3, 7.7, 9.3, 'Needs to improve stamina', 'Attended'),
+(9, 23, 2, 8.4, 9.5, 7.0, 'Needs to track back more', 'Attended'),
+(9, 26, 2, 8.1, 8.8, 7.5, 'Needs to improve stamina', 'Attended'),
+(9, 27, 2, 7.3, 8.4, 7.5, 'Tackling was timed perfectly', 'Attended'),
+(9, 29, 2, 8.2, 6.6, 7.1, 'Outworked the opposition', 'Attended'),
+(9, 32, 2, 7.2, 7.8, 9.0, 'Tactically disciplined', 'Attended'),
+(9, 33, 2, 6.7, 7.0, 9.2, 'Lacked concentration late on', 'Attended'),
+(9, 35, 2, 7.0, 8.2, 7.1, 'Great ball control', 'Attended'),
+(9, 36, 2, 9.0, 7.3, 8.3, 'Man of the match performance', 'Attended'),
+(9, 37, 2, 8.1, 7.8, 8.7, 'Quiet game today', 'Attended'),
+(9, 38, 2, 9.4, 7.0, 7.3, 'Quiet game today', 'Attended'),
+(9, 39, 2, 8.3, 6.9, 9.0, 'Tactically disciplined', 'Attended'),
+(9, 40, 2, 8.0, 7.8, 7.9, 'Needs focus on positioning', 'Attended'),
+(9, 42, 2, 8.3, 7.9, 8.2, 'Needs better communication', 'Attended'),
+(9, 44, 2, 7.5, 8.4, 7.4, 'Needs focus on positioning', 'Attended'),
+(9, 45, 2, 8.1, 7.8, 7.1, 'Good performance overall', 'Attended'),
 (10, 14, 8, NULL, NULL, NULL, NULL, 'Scheduled'),
 (10, 16, 8, NULL, NULL, NULL, NULL, 'Scheduled'),
 (10, 30, 8, NULL, NULL, NULL, NULL, 'Scheduled'),
@@ -1056,7 +1056,7 @@ INSERT INTO `training_sessions` (`Session_id`, `Session_time`, `Session_date`, `
 (6, 'Morning', '2025-12-09', 'Team Tactical Training', 'Completed'),
 (7, 'Morning', '2025-12-10', 'Fitness & Conditioning', 'Completed'),
 (8, 'Afternoon', '2025-12-11', 'Defensive Structure', 'Scheduled'),
-(9, 'Morning', '2025-12-12', 'Technical Skills', 'Scheduled'),
+(9, 'Morning', '2025-12-12', 'Technical Skills', 'Completed'),
 (10, 'Evening', '2025-12-13', 'Recovery Session', 'Scheduled'),
 (11, 'Morning', '2025-12-16', 'Team Tactical Training', 'Scheduled'),
 (12, 'Morning', '2025-12-17', 'Fitness & Conditioning', 'Scheduled'),
@@ -1102,8 +1102,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone_No`, `Date_of_Birth`, `salary`, `contract_start_date`, `contract_end_date`, `Password`, `Role`) VALUES
-(1, 'Nazmul Islam', 45, '1928374669', 'nazmul@bufc.com', 'Dhaka, Bangladesh', '01711000069', '1980-01-01', 100000.00, '2024-01-01', '2026-01-01', 'nazmul123', 'coach'),
-(2, 'Tamkin Mahmud Tan', 32, '9182736455', 'tamkin@bufc.com', 'Chittagong, Bangladesh', '01711000002', '1992-05-15', 60000.00, '2024-06-01', '2026-06-01', 'tamkin123', 'coach'),
+(1, 'Nazmul Islam', 45, '1928374669', 'nazmul@bufc.com', 'Dhaka', '01711000069', '1980-01-01', 100000.00, '2024-01-01', '2026-01-01', 'nazmul123', 'coach'),
+(2, 'Tamkin Mahmud Tan', 32, '9182736455', 'tamkin@bufc.com', 'Chittagong', '01711000002', '1992-05-15', 60000.00, '2024-06-01', '2026-06-01', 'tamkin123', 'coach'),
 (3, 'Maruful Haque', 50, '8273645192', 'maruful@bufc.com', 'Dhaka', '01711000003', '1973-01-18', 80000.00, '2023-01-01', '2025-12-31', 'maruful123', 'coach'),
 (4, 'Saiful Bari Titu', 53, '7364519283', 'saiful@bufc.com', 'Sylhet', '01711000004', '1970-06-16', 80000.00, '2023-01-01', '2025-12-31', 'saiful123', 'coach'),
 (5, 'Zulfiker Mahmud', 48, '6451928374', 'zulfiker@bufc.com', 'Khulna', '01711000005', '1975-01-26', 75000.00, '2023-01-01', '2025-12-31', 'zulfiker123', 'coach'),
@@ -1147,7 +1147,7 @@ INSERT INTO `users` (`User_ID`, `Name`, `Age`, `NID`, `Email`, `Address`, `Phone
 (43, 'Sajid Hasan', 20, '3344556677', 'sajid@gmail.com', 'Dhaka', '01811000043', '2004-11-15', NULL, NULL, NULL, 'sajid123', 'scouted_player'),
 (44, 'Tanvir Ahmed', 17, '4455667788', 'tanvir@gmail.com', 'Sylhet', '01811000044', '2007-02-28', NULL, NULL, NULL, 'tanvir123', 'scouted_player'),
 (45, 'Rafiqul Islam', 19, '5566778899', 'rafiq@gmail.com', 'Barisal', '01811000045', '2005-07-30', NULL, NULL, NULL, 'rafiqul123', 'scouted_player'),
-(48, 'Arshad Zaman Araf', 21, '6468527659', 'arshad.zaman.araf@example.com', 'Khilgaon, Dhaka', '+8801823459372', '2003-12-19', NULL, NULL, NULL, '123456', 'scouted_player'),
+(48, 'Arshad Zaman Araf', 21, '6468527659', 'arshad.zaman.araf@example.com', 'Dhaka', '+8801823459372', '2003-12-19', NULL, NULL, NULL, '123456', 'scouted_player'),
 (49, 'Amirun Nahin', 21, '1235896457', 'amirunnahin04@gmail.com', 'Dhaka', '+8801823459372', '2003-12-19', NULL, NULL, NULL, '123456', 'scouted_player');
 
 --
