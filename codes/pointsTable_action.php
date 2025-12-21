@@ -57,9 +57,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
     mysqli_query($t_conn, "UPDATE fixtures SET Match_status = '$status' WHERE Match_id = $match_id");
 
     // Initial insert with TBD
-    mysqli_query($t_conn, "INSERT INTO generates (Match_id, Team_Name, Score, MVP) 
-                           VALUES ($match_id, 'BUFC', '$score_str', 'TBD')
-                           ON DUPLICATE KEY UPDATE Score='$score_str'");
+    mysqli_query($t_conn, "INSERT INTO generates (Match_id, Team_Name, Score) 
+                       VALUES ($match_id, 'BUFC', '$score_str')
+                       ON DUPLICATE KEY UPDATE Score='$score_str'");
+
+    mysqli_query($t_conn, "INSERT INTO match_results (Match_id, MVP) 
+                       VALUES ($match_id, 'TBD')
+                       ON DUPLICATE KEY UPDATE MVP='TBD'");
 
     // Update BUFC Standings
     $pts = ($status == 'Won') ? 3 : (($status == 'Draw') ? 1 : 0);
@@ -175,7 +179,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
     }
 
     // Update MVP in Database
-    mysqli_query($t_conn, "UPDATE generates SET MVP = '$final_mvp_name' WHERE Match_id = $match_id");
+    mysqli_query($t_conn, "UPDATE match_results SET MVP = '$final_mvp_name' WHERE Match_id = $match_id");
     $other_teams = [];
     $other_teams_q = mysqli_query($t_conn, "SELECT Team_Name FROM league_standings WHERE Team_Name NOT IN ('BUFC', '$opponent')");
     while ($row = mysqli_fetch_assoc($other_teams_q)) {

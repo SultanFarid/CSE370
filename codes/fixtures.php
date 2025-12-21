@@ -28,9 +28,10 @@ while ($row = mysqli_fetch_assoc($upcoming_result)) {
 $previous_fixtures = [];
 $stats = ['wins' => 0, 'draws' => 0, 'losses' => 0, 'total' => 0];
 
-$previous_query = "SELECT f.*, g.Score, g.MVP
+$previous_query = "SELECT f.*, g.Score, mr.MVP
                    FROM fixtures f
                    LEFT JOIN generates g ON f.Match_id = g.Match_id AND g.Team_Name = 'BUFC'
+                   LEFT JOIN match_results mr ON f.Match_id = mr.Match_id
                    WHERE f.Match_status IN ('Won', 'Lost', 'Draw')
                    ORDER BY f.Match_date DESC";
 $previous_result = mysqli_query($tournament_conn, $previous_query);

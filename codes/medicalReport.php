@@ -66,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $is_physio) {
         $end_date = $_POST['end_date'];
         $status = $_POST['status'];
 
-        $insert_q = "INSERT INTO Medical_Record (Player_ID, Doctor_in_charge, Recovery_status, Hospital, Injury_Type, Injured_from, Injured_to)
-                     VALUES ('$target_player', '$doctor', '$status', '$hospital', '$injury_name', '$start_date', '$end_date')";
+        $insert_q = "INSERT INTO Medical_Record (Player_ID, Doctor_in_charge, Recovery_status, Injury_Type, Injured_from, Injured_to)
+             VALUES ('$target_player', '$doctor', '$status', '$injury_name', '$start_date', '$end_date')";
 
         if (mysqli_query($conn, $insert_q)) {
             // Update Player Status immediately
@@ -91,10 +91,20 @@ if ($is_physio) {
     }
 }
 
+
 if ($role == 'regular_player') {
-    $query = "SELECT m.*, u.Name FROM Medical_Record m JOIN users u ON m.Player_ID = u.User_ID WHERE m.Player_ID = '$user_id' ORDER BY m.Injured_from DESC";
+    $query = "SELECT m.*, u.Name, d.Hospital 
+              FROM Medical_Record m 
+              JOIN users u ON m.Player_ID = u.User_ID 
+              JOIN doctors d ON m.Doctor_in_charge = d.Doctor_Name
+              WHERE m.Player_ID = '$user_id' 
+              ORDER BY m.Injured_from DESC";
 } else {
-    $query = "SELECT m.*, u.Name FROM Medical_Record m JOIN users u ON m.Player_ID = u.User_ID ORDER BY m.Injured_from DESC";
+    $query = "SELECT m.*, u.Name, d.Hospital 
+              FROM Medical_Record m 
+              JOIN users u ON m.Player_ID = u.User_ID 
+              JOIN doctors d ON m.Doctor_in_charge = d.Doctor_Name
+              ORDER BY m.Injured_from DESC";
 }
 $result = mysqli_query($conn, $query);
 ?>
@@ -313,15 +323,18 @@ $result = mysqli_query($conn, $query);
                         </div>
                     </div>
 
-                    <div class="form-row-split">
-                        <div class="form-group">
-                            <label>Doctor</label>
-                            <input type="text" name="doctor" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Hospital</label>
-                            <input type="text" name="hospital" class="form-input" required>
-                        </div>
+                    <div class="form-group">
+                        <label>Select Doctor (3NF Reference)</label>
+                        <select name="doctor" class="form-select" required>
+                            <option value="">-- Choose Assigned Doctor --</option>
+                            <?php
+                            $doc_res = mysqli_query($conn, "SELECT Doctor_Name FROM doctors ORDER BY Doctor_Name ASC");
+                            while ($d = mysqli_fetch_assoc($doc_res)) {
+                                $name = htmlspecialchars($d['Doctor_Name']);
+                                echo "<option value='$name'>$name</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
                     <button type="submit" class="save-btn add-confirm-btn">Add Report</button>
