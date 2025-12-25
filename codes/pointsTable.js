@@ -39,7 +39,7 @@ async function updateLeagueGeneration() {
 
   if (
     !confirm(
-      "Start Match Simulation?\n\nThis will:\n1. Simulate the result for the next Published match.\n2. Simulate results for all other teams in the league.\n3. Update the table permanently."
+      "Update Points Table?\n\nThis will fetch updated points table from the league's tournament database."
     )
   ) {
     return;

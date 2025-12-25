@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nid_sql = "'$nid_input'";
     }
 
-    // --- LOGIC FOR POSITION & INJURY ---
+    // LOGIC FOR POSITION & INJURY
     $curr_q = "SELECT * FROM users u JOIN Player p ON u.User_ID = p.Player_ID WHERE u.User_ID = '$user_id'";
     $curr_res = mysqli_fetch_assoc(mysqli_query($conn, $curr_q));
 
