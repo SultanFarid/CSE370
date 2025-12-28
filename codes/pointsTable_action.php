@@ -1,15 +1,13 @@
 <?php
 // pointsTable_action.php
-error_reporting(0);
-ini_set('display_errors', 0);
 header('Content-Type: application/json');
 
 session_start();
 require_once 'dbconnect.php';
 
-// SECURITY CHECK
+// GATEKEEPER
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'coach') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+     header('Location: login.html');
     exit();
 }
 
@@ -22,7 +20,7 @@ if (!$coach_d || $coach_d['Coach_Type'] !== 'Head Coach') {
     exit();
 }
 
-// CONNECT TO TOURNAMENT DB
+// CONNECT TO tournament_db database
 $t_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 if (!$t_conn) {
     echo json_encode(['success' => false, 'message' => 'Tournament DB Connection Failed']);
@@ -127,7 +125,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'update_table') {
 
                 if (isset($squad_data[$scorer_id])) {
                     $squad_data[$scorer_id]['goals'] += 1;
-                    $squad_data[$scorer_id]['rating'] += 1.5; // Goal Boost
+                    $squad_data[$scorer_id]['rating'] += 1.5;
                     if ($squad_data[$scorer_id]['rating'] > 10)
                         $squad_data[$scorer_id]['rating'] = 10;
                 }

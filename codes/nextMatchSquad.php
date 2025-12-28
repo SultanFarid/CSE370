@@ -1,8 +1,4 @@
 <?php
-// Suppress warnings to ensure clean JSON
-error_reporting(0);
-ini_set('display_errors', 0);
-
 session_start();
 require_once 'dbconnect.php';
 
@@ -31,8 +27,10 @@ if (isset($_GET['action'])) {
 
     // GET NEXT MATCH (Scheduled OR Published)
     if ($_GET['action'] === 'get_next_match') {
+        // since we are using two databases we'll connect to the tournament_db database
         $tournament_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 
+        // taking the most recent scheduled match as the next match
         $query = "SELECT * FROM fixtures 
                   WHERE Match_status IN ('Scheduled', 'Published') 
                   ORDER BY Match_date ASC, Match_time ASC 
@@ -54,7 +52,7 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] === 'get_eligible_players') {
         $query = "
             SELECT u.User_ID, u.Name, p.Position, rp.Jersey_No,
-                COALESCE(SUM(pi.Goals_Scored), 0) AS total_goals,
+                SUM(pi.Goals_Scored) AS total_goals,
                 COUNT(DISTINCT pi.Match_id) AS total_matches,
                 ROUND((SELECT AVG((tp.Technical_score + tp.Physical_score + tp.Tactical_score) / 3)
                     FROM training_participation tp WHERE tp.Player_ID = rp.Regular_Player_ID), 1) AS avg_training_score,
@@ -158,14 +156,6 @@ if (isset($_GET['action'])) {
             JOIN player        p   ON rp.Regular_Player_ID = p.Player_ID
             JOIN users         u   ON p.Player_ID         = u.User_ID
             WHERE pi.Match_id = $match_id
-            ORDER BY 
-                CASE WHEN pi.Status = 'Started' THEN 1 ELSE 2 END,
-                CASE p.Position 
-                    WHEN 'Goalkeeper' THEN 1
-                    WHEN 'Defender'   THEN 2
-                    WHEN 'Midfielder' THEN 3
-                    WHEN 'Striker'    THEN 4
-                END
         ";
 
         $result = mysqli_query($conn, $query);

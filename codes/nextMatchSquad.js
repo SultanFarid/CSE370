@@ -560,7 +560,7 @@ function displayPublishedSquad(startingXI, substitutes) {
               substitutes.length > 0
                 ? `
             <div class="substitutes-bench">
-                <div class="bench-header"><h4>🪑 Substitutes Bench</h4></div>
+                <div class="bench-header"><h4>Substitutes Bench</h4></div>
                 <div class="bench-slots">
                     ${substitutes
                       .map(

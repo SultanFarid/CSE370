@@ -21,7 +21,7 @@ if ($user_role === 'coach') {
     }
 }
 
-// Connect to Tournament DB
+// Connect to tournament_db database
 $tournament_conn = mysqli_connect("localhost", "root", "", "tournament_db");
 
 // Fetch Standings
@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $standings[] = $row;
 }
 
-// Check Next Match Logic
+// Check Next Match
 $match_status_query = "SELECT Match_id, Match_status, Opponent FROM fixtures 
                        WHERE Match_status IN ('Scheduled', 'Published') 
                        ORDER BY Match_date ASC LIMIT 1";

@@ -1,8 +1,4 @@
 <?php
-// SUPPRESS ALL WARNINGS to ensure clean JSON output
-error_reporting(0);
-ini_set('display_errors', 0);
-
 session_start();
 require_once 'dbconnect.php';
 
@@ -35,7 +31,7 @@ if (!$coach_data || $coach_data['Coach_Type'] !== 'Head Coach') {
     sendError('Only Head Coach can use AI selection');
 }
 
-// Get input data
+// Get input data (input variable er moddhe amar json ta ache)
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($input['match_id']) || !isset($input['players'])) {
@@ -115,7 +111,7 @@ curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-// SSL FIX FOR XAMPP/LOCALHOST
+
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 

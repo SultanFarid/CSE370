@@ -55,7 +55,7 @@ async function updateLeagueGeneration() {
 
     if (data.success) {
       alert(
-        `✅ Generation Updated!\n\nResult: ${data.match_result}\n\nLeague table has been updated.`
+        `✅League table has been updated!\n\nResult: ${data.match_result}`
       );
       location.reload();
     } else {
