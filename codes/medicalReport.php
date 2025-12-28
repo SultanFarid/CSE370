@@ -324,7 +324,7 @@ $result = mysqli_query($conn, $query);
                     </div>
 
                     <div class="form-group">
-                        <label>Select Doctor (3NF Reference)</label>
+                        <label>Select Doctor</label>
                         <select name="doctor" class="form-select" required>
                             <option value="">-- Choose Assigned Doctor --</option>
                             <?php

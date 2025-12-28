@@ -136,7 +136,7 @@ document
       const result = await response.json();
 
       if (result.success) {
-        alert("✅ Training session created successfully!");
+        alert("Training session created successfully!");
         closeModal("addModal");
         location.reload();
       } else {
@@ -559,7 +559,7 @@ document
     const allPlayers = [...regularPlayers, ...scoutedPlayers];
 
     if (allPlayers.length === 0) {
-      alert("❌ Please select at least one player for the session.");
+      alert("Please select at least one player for the session.");
       return;
     }
 
@@ -577,7 +577,7 @@ document
       const result = await response.json();
 
       if (result.success) {
-        alert("✅ Training session updated successfully!");
+        alert("Training session updated successfully!");
         closeModal("editModal");
         location.reload();
       } else {
@@ -594,7 +594,7 @@ async function deleteSession(sessionId) {
   // Confirm deletion
   if (
     !confirm(
-      "⚠️ Are you sure you want to DELETE this training session?\n\nThis will remove:\n- The session\n- All player assignments\n- All recorded scores (if any)\n\nThis action cannot be undone!"
+      "Are you sure you want to DELETE this training session?"
     )
   ) {
     return;
@@ -614,7 +614,7 @@ async function deleteSession(sessionId) {
     const result = await response.json();
 
     if (result.success) {
-      alert("✅ Training session deleted successfully!");
+      alert("Training session deleted successfully!");
       location.reload();
     } else {
       alert("❌ Error: " + result.message);

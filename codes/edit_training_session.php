@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 // GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Not authenticated']);
+    header("Location: login.html");
     exit();
 }
 
@@ -14,7 +14,7 @@ $role = $_SESSION['user_role'];
 
 // CHECK if coach
 if ($role != 'coach') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    header("Location: login.html");
     exit();
 }
 

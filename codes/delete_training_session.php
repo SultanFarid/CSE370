@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 // GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Not authenticated']);
+    header("Location: login.html");
     exit();
 }
 
@@ -14,7 +14,7 @@ $role = $_SESSION['user_role'];
 
 // CHECK if coach
 if ($role != 'coach') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    header("Location: login.html");
     exit();
 }
 
@@ -37,7 +37,7 @@ if (mysqli_num_rows($check_result) == 0) {
     exit();
 }
 
-// DELETE PARTICIPATION RECORDS FIRST (foreign key constraint)
+// DELETE participation records first
 $delete_participation = "DELETE FROM training_participation WHERE Session_id = '$session_id'";
 if (!mysqli_query($conn, $delete_participation)) {
     echo json_encode(['success' => false, 'message' => 'Failed to delete participation records: ' . mysqli_error($conn)]);

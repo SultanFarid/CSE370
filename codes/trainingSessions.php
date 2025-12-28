@@ -43,6 +43,7 @@ if ($role === 'regular_player' || $role === 'scouted_player') {
 
     // Fetch player's training sessions
     if (!isset($no_access)) {
+        // training_participation table == joins table in the actual schema diagram(did this for readability)
         $query = "SELECT ts.*, 
                          tp.Technical_score, tp.Physical_score, tp.Tactical_score, 
                          tp.Coach_remarks, tp.participation_status,
@@ -57,15 +58,21 @@ if ($role === 'regular_player' || $role === 'scouted_player') {
 } else {
     // Coach view
     if ($is_head_or_assistant) {
-        $query = "SELECT ts.*, 
+        $query = "SELECT ts.*,
+                        -- the number of player training in that session
                          (SELECT COUNT(*) FROM training_participation WHERE Session_id = ts.Session_id) as player_count,
+                        -- finds the coach that was assigned in that session
+                        -- since the problem we are facing is the sub-query is returning multiple rows we are taking the first coach name
+                        -- the coach is the same for one session anyway so taking the first coach's name
                          (SELECT u.Name FROM training_participation tp 
                           JOIN users u ON tp.Coach_ID = u.User_ID 
                           WHERE tp.Session_id = ts.Session_id LIMIT 1) as assigned_coach
                   FROM training_sessions ts
                   ORDER BY ts.Session_date DESC";
     } else {
+        // Coach but not head coach or assistant coach
         $query = "SELECT DISTINCT ts.*, 
+                        -- similarly, the number of player trining in that session
                          (SELECT COUNT(*) FROM training_participation WHERE Session_id = ts.Session_id) as player_count
                   FROM training_sessions ts
                   JOIN training_participation tp ON ts.Session_id = tp.Session_id
@@ -504,7 +511,7 @@ if ($is_coach && isset($result)) {
                                         <?php if ($status == 'Scheduled' && !$is_future && $is_assigned): ?>
                                             <button class="action-btn trial-btn"
                                                 onclick="completeSession(<?php echo $session['Session_id']; ?>)">
-                                                ✓ Mark Complete
+                                                Mark Complete
                                             </button>
                                         <?php elseif ($status == 'Completed'): ?>
                                             <button class="action-btn promote-btn"
@@ -759,7 +766,7 @@ if ($is_coach && isset($result)) {
                         <div id="editRegularPlayersSection" class="player-section active">
                             <div class="players-checklist">
                                 <?php
-                                $positions = ['Goalkeeper', 'Defender', 'Midfielder', 'Striker', 'Winger'];
+                                $positions = ['Goalkeeper', 'Defender', 'Midfielder', 'Striker'];
                                 foreach ($positions as $pos) {
                                     $pos_players = array_filter($regular_player_list, fn($p) => $p['Position'] == $pos);
                                     if (count($pos_players) > 0):

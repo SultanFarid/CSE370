@@ -6,13 +6,13 @@ header('Content-Type: application/json');
 
 // GATEKEEPER
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Not authenticated']);
+    header("Location: login.html");
     exit();
 }
 
-// VALIDATE INPUT
+// VALIDATE INPUT (the session_id is provided in the url since training_sessions.js theke get_sessions_details.php?session_id hoye request ta ashtese)
 if (!isset($_GET['session_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Session ID required']);
+    header("Location: login.html");
     exit();
 }
 
@@ -29,7 +29,7 @@ if (mysqli_num_rows($session_result) == 0) {
 
 $session = mysqli_fetch_assoc($session_result);
 
-// GET PLAYERS IN THIS SESSION
+// GET PLAYERS IN THIS SESSION (Players those who participated in that training session)
 $players_query = "SELECT u.User_ID as Player_ID, u.Name, p.Position, p.Current_Injury_Status,
                   tp.Technical_score, tp.Physical_score, tp.Tactical_score, 
                   tp.Coach_remarks, tp.participation_status, tp.Coach_ID
@@ -55,7 +55,7 @@ echo json_encode([
     'success' => true,
     'session' => $session,
     'players' => $players,
-    'coach_id' => $coach_id  // ← ADD THIS LINE
+    'coach_id' => $coach_id
 ]);
 
 mysqli_close($conn);
